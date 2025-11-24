@@ -8,11 +8,10 @@
 <!-- Social Media Preview -->
 <meta property="og:title" content="🩺 Nursing Prometric Simulation Test">
 <meta property="og:description" content="500 tricky and hard Prometric-style questions with rationale.">
-<meta property="og:image" content="https://raw.githubusercontent.com/gyoutrain-lab/prometric-nursing-test-commerce2/main/icon17%20(1).jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/gyoutrain-lab/prometric-nursing-test-commerce2/main/icon17-1.jpg">
 <meta property="og:type" content="website">
 
 <style>
-/* GLOBAL RESET */
 body {
   margin: 0;
   padding: 0;
@@ -22,132 +21,36 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== ANIMATIONS ===== */
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(20px);}
-  to {opacity: 1; transform: translateY(0);}
-}
+@keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+@keyframes floatIcon { 0%{transform:translateY(0);}50%{transform:translateY(-6px);}100%{transform:translateY(0);} }
+@keyframes pulse { 0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);} }
 
-@keyframes floatIcon {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
-}
+.hero { position: relative; }
+.main-img { width: 100%; max-height: 270px; object-fit: cover; animation: fadeIn 1.2s ease-out; }
+.water { width: 100%; height: 120px; background: url("https://i.ibb.co/0CMjqmx/water-overlay.gif") repeat-x; opacity:0.35; margin-top:-40px; }
 
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
+h1 { font-size: 22px; margin:18px 10px 8px; font-weight:bold; animation: fadeIn 1.5s ease-out; }
+.subtitle, .subtitle2 { opacity:0; animation: fadeIn 2.2s ease forwards; }
+.subtitle { animation-delay:0.8s; font-size:15px; color:#444; }
+.subtitle2 { animation-delay:1.2s; margin-bottom:22px; font-size:14px; color:#666; }
 
-/* ===== HERO ===== */
-.hero {
-  position: relative;
-}
+.social-icons { display:flex; justify-content:center; gap:14px; margin:15px 0; }
+.social-icons img { width:38px; height:38px; animation:floatIcon 3s infinite ease-in-out; cursor:pointer; transition: transform .2s; }
+.social-icons img:hover { transform: scale(1.2); }
 
-.main-img {
-  width: 100%;
-  max-height: 270px;
-  object-fit: cover;
-  animation: fadeIn 1.2s ease-out;
-}
+.btn { width:80%; max-width:380px; padding:14px; margin-top:12px; border-radius:8px; font-size:18px; border:none; cursor:pointer; animation:fadeIn 2s ease-in-out; transition:0.3s; }
+.btn:hover { animation:pulse 0.5s ease; }
+.contact { background:#007bff; color:#fff; }
+.continue { background:#28a745; color:#fff; }
 
-/* Water overlay */
-.water {
-  width: 100%;
-  height: 120px;
-  background: url("https://i.ibb.co/0CMjqmx/water-overlay.gif") repeat-x;
-  opacity: 0.35;
-  margin-top: -40px;
-}
-
-/* ===== TITLE TEXT ===== */
-h1 {
-  font-size: 22px;
-  margin: 18px 10px 8px;
-  font-weight: bold;
-  animation: fadeIn 1.5s ease-out;
-}
-
-.subtitle, .subtitle2 {
-  opacity: 0;
-  animation: fadeIn 2.2s ease forwards;
-}
-
-.subtitle {
-  animation-delay: 0.8s;
-  font-size: 15px;
-  color: #444;
-}
-
-.subtitle2 {
-  animation-delay: 1.2s;
-  margin-bottom: 22px;
-  font-size: 14px;
-  color: #666;
-}
-
-/* ===== SOCIAL ICONS ===== */
-.social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  margin: 15px 0;
-}
-
-.social-icons img {
-  width: 38px;
-  height: 38px;
-  animation: floatIcon 3s infinite ease-in-out;
-  cursor: pointer;
-  transition: transform .2s;
-}
-
-.social-icons img:hover {
-  transform: scale(1.2);
-}
-
-/* ===== BUTTONS ===== */
-.btn {
-  width: 80%;
-  max-width: 380px;
-  padding: 14px;
-  margin-top: 12px;
-  border-radius: 8px;
-  font-size: 18px;
-  border: none;
-  cursor: pointer;
-  animation: fadeIn 2s ease-in-out;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  animation: pulse 0.5s ease;
-}
-
-.contact {
-  background: #007bff;
-  color: #fff;
-}
-
-.continue {
-  background: #28a745;
-  color: #fff;
-}
-
-/* FOOTER */
-footer {
-  margin-top: 30px;
-  font-size: 12px;
-  color: #777;
-}
+footer { margin-top:30px; font-size:12px; color:#777; }
 </style>
 </head>
 
 <body>
 
 <div class="hero">
-  <img class="main-img" src="https://raw.githubusercontent.com/gyoutrain-lab/prometric-nursing-test-commerce2/main/icon17%20(1).jpg">
+  <img class="main-img" src="https://raw.githubusercontent.com/gyoutrain-lab/prometric-nursing-test-commerce2/main/icon17-1.jpg" alt="Nursing Simulation">
   <div class="water"></div>
 </div>
 
@@ -156,19 +59,15 @@ footer {
 <p class="subtitle2">500 high-difficulty questions with rationale</p>
 
 <div class="social-icons">
-  <a href="tel:+6285399652487"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png"></a>
-
-  <!-- WhatsApp Auto-Message Template -->
+  <a href="tel:+6285399652487"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Call"></a>
   <a href="https://wa.me/6285399652487?text=Hello%2C%20I%20have%20completed%20the%20payment.%20Please%20unlock%20my%20access.%20My%20Name%3A%20________">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
   </a>
-
   <a href="mailto:gyoutrain@gmail.com?subject=Payment Confirmation&body=Hello,%20I%20already%20paid.%20My%20name:%20_____%20Please%20unlock%20my%20access.">
-    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png">
+    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email">
   </a>
-
-  <a href="https://web.facebook.com/gyouskill/"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png"></a>
-  <a href="https://www.instagram.com/etkyogya"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png"></a>
+  <a href="https://web.facebook.com/gyouskill/"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
+  <a href="https://www.instagram.com/etkyogya"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"></a>
 </div>
 
 <button class="btn contact" onclick="window.location.href='mailto:gyoutrain@gmail.com'">📩 Confirm Payment</button>
