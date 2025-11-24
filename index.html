@@ -5,21 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>🩺 Nursing Prometric Actual Simulation Test</title>
 
-<!-- Social Media Preview -->
 <meta property="og:title" content="🩺 Nursing Prometric Simulation Test">
 <meta property="og:description" content="500 tricky and hard Prometric-style questions with rationale.">
 <meta property="og:image" content="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg">
 <meta property="og:type" content="website">
 
 <style>
-body {
-  margin:0;
-  padding:0;
-  background:#eef2f3;
-  font-family:Arial,sans-serif;
-  text-align:center;
-  overflow-x:hidden;
-}
+body { margin:0; padding:0; background:#eef2f3; font-family:Arial,sans-serif; text-align:center; overflow-x:hidden; }
 
 /* Animations */
 @keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
@@ -27,39 +19,10 @@ body {
 @keyframes pulse { 0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);} }
 @keyframes flowBackground { 0% {background-position: 0 0;} 100% {background-position: 200px 0;} }
 
-/* Hero Image Section */
-.hero-container {
-  position: relative;
-  width: 100%;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-/* Floating background (flowing, semi-transparent) */
-.hero-background {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 800px;
-  height: 250px;
-  background: url("https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg") repeat-x;
-  opacity: 0.15;
-  z-index: 1;
-  animation: flowBackground 6s linear infinite;
-}
-
-/* Main Image */
-.hero-image {
-  width: 66%;
-  max-width:600px;
-  display: block;
-  position: relative;
-  z-index: 2;
-  animation: fadeIn 1.5s ease-out;
-}
+/* Hero Section */
+.hero-container { position: relative; width: 100%; margin-bottom: 20px; display: flex; justify-content:center; }
+.hero-background { position: absolute; top:0; left:50%; transform:translateX(-50%); width: 100%; max-width:800px; height:250px; background: url("https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg") repeat-x; opacity:0.15; z-index:1; animation: flowBackground 6s linear infinite; }
+.hero-image { width:66%; max-width:600px; display: block; position: relative; z-index: 2; animation:fadeIn 1.5s ease-out; }
 
 /* Text content */
 h1 { font-size:22px; margin:18px 10px 8px; font-weight:bold; animation:fadeIn 1.5s ease-out; color:#222; position: relative; z-index:3; }
@@ -81,6 +44,11 @@ h1 { font-size:22px; margin:18px 10px 8px; font-weight:bold; animation:fadeIn 1.
 /* Footer */
 footer { margin-top:30px; font-size:12px; color:#777; position: relative; z-index:3; }
 
+/* Unlock Form */
+#unlockForm { display:flex; flex-direction:column; align-items:flex-start; margin:20px auto 0 auto; max-width:380px; text-align:left; position: relative; z-index:3; }
+#unlockForm label { font-size:14px; color:#333; margin-top:10px; }
+#unlockForm input { width:100%; padding:10px; margin-top:4px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box; }
+#unlockForm button { margin-top:12px; width:100%; }
 </style>
 </head>
 
@@ -88,9 +56,7 @@ footer { margin-top:30px; font-size:12px; color:#777; position: relative; z-inde
 
 <!-- Hero Section -->
 <div class="hero-container">
-  <!-- Flowing transparent background -->
   <div class="hero-background"></div>
-  <!-- Main image -->
   <img class="hero-image" src="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg" alt="Nursing Simulation">
 </div>
 
@@ -114,10 +80,40 @@ footer { margin-top:30px; font-size:12px; color:#777; position: relative; z-inde
 
 <!-- Buttons -->
 <button class="btn contact" onclick="window.location.href='mailto:gyoutrain@gmail.com'">📩 Confirm Payment</button>
-<button class="btn continue" onclick="window.location.href='unlock.html'">▶ Continue Test</button>
+
+<!-- Unlock Form -->
+<form id="unlockForm">
+  <label for="name">Full Name</label>
+  <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+  <label for="wa">WhatsApp Number</label>
+  <input type="tel" id="wa" name="wa" placeholder="Enter your WhatsApp number" required>
+
+  <label for="code">Unlock Code</label>
+  <input type="text" id="code" name="code" placeholder="Enter your unlock code" required>
+
+  <button class="btn continue" type="submit">▶ Continue Test</button>
+</form>
 
 <!-- Footer -->
 <footer>© 2025 GyouTrain Lab — All Rights Reserved</footer>
+
+<script>
+// Example form submission handler
+document.getElementById('unlockForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const wa = document.getElementById('wa').value;
+  const code = document.getElementById('code').value;
+
+  if(name && wa && code){
+    // Redirect to test page (unlock.html)
+    window.location.href = 'unlock.html';
+  } else {
+    alert('Please fill in all fields.');
+  }
+});
+</script>
 
 </body>
 </html>
