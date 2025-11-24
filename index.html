@@ -1,211 +1,146 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Demo - Nursing Prometric Simulation Test</title>
-  <style>
-    body { font-family: 'Roboto', 'Segoe UI', sans-serif; background: #f5f8ff; color: #111; margin: 0; padding: 0; }
-    .container { max-width: 900px; margin: auto; padding: 24px; }
-    h2 { text-align: center; color: #003366; font-size: 3.6rem; line-height: 1.4; margin-bottom: 20px; font-weight: 700; }
-    .question-box { background: #ffffff; border-radius: 12px; padding: 18px; margin-bottom: 16px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); font-size: 2.2rem; line-height: 1.5; color: #000; min-height: 15vh; display: block; text-align: left; word-wrap: break-word; overflow-wrap: break-word; letter-spacing: 0.5px; }
-    .options-box { background: #ffffff; border-radius: 16px; padding: 28px; box-shadow: 0 4px 10px rgba(0,0,0,0.12); font-size: 2.2rem; line-height: 1.7; color: #000; display: flex; flex-direction: column; justify-content: center; gap: 20px; min-height: 60vh; }
-    .info { background: #eaf1ff; padding: 18px 20px; border-radius: 12px; margin-bottom: 18px; font-size: 2rem; text-align: center; font-weight: 700; color: #1a1a1a; }
-    .option { display: block; background: #fff; border: 2px solid #bbb; border-radius: 14px; padding: 22px; margin-top: 10px; cursor: pointer; transition: background 0.2s, transform 0.1s; font-size: 2.2rem; font-weight: 600; text-align: left; }
-    .option:hover { transform: scale(1.03); }
-    .option.correct { background: #d4ebff; border-color: #0055aa; }
-    .option.incorrect { background: #ffe0e0; border-color: #cc0000; }
-    .rationale { margin-top: 20px; background: #f1f7ff; padding: 20px; border-left: 5px solid #007bff; border-radius: 12px; font-size: 2rem; line-height: 1.8; font-weight: 500; }
-    .motivation-text { text-align: center; font-size: 1.6rem; font-weight: 600; margin-top: 10px; }
-    .next-btn { display: block; width: 100%; text-align: center; background: #007bff; color: #fff; padding: 20px; margin-top: 24px; border: none; border-radius: 12px; font-size: 2.2rem; cursor: pointer; font-weight: 700; transition: background 0.3s ease; }
-    .next-btn:hover { background: #005bb5; }
-    .reg-box { background:#ffffff; border-radius:12px; padding:14px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.06); max-width:420px; }
-    .reg-row { display:flex; gap:8px; margin-bottom:8px; align-items:center; }
-    .reg-row input { flex:1; padding:10px; font-size:1.1rem; border-radius:8px; border:1px solid #ddd; }
-    .reg-actions { display:flex; gap:8px; margin-top:8px; }
-    .reg-actions button { padding:10px 12px; font-size:1.05rem; border-radius:8px; cursor:pointer; border:none; background:#007bff; color:white; }
-    .reg-actions button[disabled] { opacity:0.45; cursor:not-allowed; }
-    .categories { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
-    .cat-btn { padding:12px 14px; background:#fff; border:1px solid #cfcfcf; border-radius:10px; cursor:pointer; font-weight:700; }
-    footer { text-align: center; margin-top: 30px; font-size: 1.2rem; color: #FF0000; font-weight: 500; }
-    @media (max-width:600px){ h2{font-size:2.6rem} .reg-box{max-width:none;} }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🩺 Nursing Prometric Test Access</title>
+
+<style>
+body {
+  background:#f4f4f4;
+  font-family:Arial, sans-serif;
+  text-align:center;
+  margin:0;
+  padding:20px;
+}
+
+.container {
+  background:white;
+  padding:20px;
+  max-width:400px;
+  margin:auto;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+input {
+  width:90%;
+  padding:10px;
+  margin:8px 0;
+  border:1px solid #ccc;
+  border-radius:5px;
+}
+
+button {
+  width:95%;
+  padding:12px;
+  margin-top:10px;
+  background:#007AFF;
+  color:white;
+  border:none;
+  border-radius:5px;
+  font-size:18px;
+  cursor:pointer;
+}
+
+button:active { background:#005FCC; }
+
+.hidden { display:none; }
+
+.success {
+  color:green;
+  font-weight:bold;
+}
+
+.error {
+  color:red;
+  font-weight:bold;
+}
+</style>
 </head>
 <body>
-  <div class="container">
-    <h2>🩺 Demo - Nursing Prometric Simulation Test<br><small>Adapted from Prometric/SMLE and NCLEX materials</small></h2>
 
-    <div class="reg-box" id="registrationBox">
-      <div style="font-weight:700; font-size:1.15rem; color:#003366; margin-bottom:8px;">Registration & Confirmation</div>
-      <div class="reg-row"><input id="regName" placeholder="Full name (as you want on record)"></div>
-      <div class="reg-row"><input id="regWA" placeholder="WhatsApp number (example: +62812...)"></div>
-      <div class="reg-row"><input id="regCode" placeholder="Enter unlock code (if you have it)"></div>
-      <div class="reg-actions">
-        <button id="btnConfirm">Confirmation</button>
-        <button id="btnVerify" disabled>Continue Next Test</button>
-      </div>
-      <div id="regMessage" style="margin-top:8px; font-size:0.95rem;"></div>
-      <div id="categoriesWrap" style="display:none; margin-top:12px;">
-        <div style="font-weight:700; color:#003366; margin-bottom:8px;">Choose Test Category:</div>
-        <div class="categories">
-          <button class="cat-btn" data-cat="cat1">Category 1</button>
-          <button class="cat-btn" data-cat="cat2">Category 2</button>
-          <button class="cat-btn" data-cat="cat3">Category 3</button>
-          <button class="cat-btn" data-cat="cat4">Category 4</button>
-          <button class="cat-btn" data-cat="cat5">Category 5</button>
-        </div>
-      </div>
-    </div>
+<h2>🩺 Nursing Prometric Access</h2>
+<p>Register once to unlock the full simulation test.</p>
 
-    <div id="quizBox"></div>
+<div class="container">
+  <input id="name" type="text" placeholder="Your Name">
+  <input id="wa" type="text" placeholder="WhatsApp Number">
+  <button id="confirmBtn">📩 Confirm Payment</button>
 
-    <footer>Prepared by: <b>Giyono Asfarrasyid, ETK Yogyakarta</b></footer>
-  </div>
+  <p id="responseMessage"></p>
 
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <button id="continueBtn" class="hidden">▶ Continue Test</button>
+</div>
 
 <script>
-/* ========== CONFIG ========== */
-const BACKEND_URL = "REPLACE_WITH_YOUR_WEBAPP_URL"; // <<-- PUT your deployed Apps Script Web App URL here
-const ADMIN_WA = "+6285399652487";
+const backendURL = "https://script.google.com/macros/s/AKfycbwBjJdl83Wrn2_1KXJBaI0IoAbwveRdDha22kRWKXjBL9z0zw6p1EUtSmveYbCCvTVI/exec";
 
-/* state */
-let questions = [], current = 0, correct = 0, incorrect = 0, selectedCategory = null;
-const start = new Date();
-
-/* device ID (persisted) */
-function getDeviceId(){
-  try {
-    let id = localStorage.getItem('deviceId_v1'); if (id) return id;
-    const raw = navigator.userAgent + '|' + navigator.platform + '|' + screen.width + 'x' + screen.height + '|' + Intl.DateTimeFormat().resolvedOptions().timeZone;
-    id = btoa(unescape(encodeURIComponent(raw))).slice(0,64); localStorage.setItem('deviceId_v1', id); return id;
-  } catch(e){ return 'dev-' + Math.random().toString(36).slice(2,12); }
+// Get unique device ID
+function getDeviceID(){
+  let id = localStorage.getItem("deviceID");
+  if(!id){
+    id = "DEV-" + Math.random().toString(36).substr(2,10);
+    localStorage.setItem("deviceID", id);
+  }
+  return id;
 }
 
-/* small helper to POST to backend */
-async function postAction(payload){
-  const res = await fetch(BACKEND_URL, {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify(payload)
+document.getElementById("confirmBtn").addEventListener("click", async () => {
+  const name = document.getElementById("name").value.trim();
+  const wa = document.getElementById("wa").value.trim();
+  const device = getDeviceID();
+  const msg = document.getElementById("responseMessage");
+
+  if(!name || !wa){
+    msg.textContent = "⚠ Please complete all fields.";
+    msg.className = "error";
+    return;
+  }
+
+  msg.textContent = "⏳ Processing...";
+  msg.className = "";
+
+  const res = await fetch(backendURL, {
+    method:"POST",
+    body: JSON.stringify({name, whatsapp:wa, device})
   });
-  return res.json();
-}
 
-/* Confirm - append to sheet */
-document.getElementById('btnConfirm').addEventListener('click', async ()=>{
-  const name = document.getElementById('regName').value.trim();
-  const phone = document.getElementById('regWA').value.trim();
-  if (!name || !phone) return alert('Please enter name and WA number.');
-  const deviceId = getDeviceId();
-  const payload = { action: 'confirmation', name, phone, deviceId };
-  try {
-    const res = await postAction(payload);
-    document.getElementById('regMessage').textContent = (res && res.message) ? res.message : 'Saved.';
-  } catch (err) {
-    document.getElementById('regMessage').textContent = 'Error: ' + err;
-  }
-  // open WhatsApp composer (user sends message) - no deviceId sent to admin
-  const text = encodeURIComponent(`Payment Confirmed — Please review request.\nName: ${name}\nWA: ${phone}\nShare Proof Dana QR IDR 50k and add Unlock Code.`);
-  window.open(`https://wa.me/${ADMIN_WA.replace(/\D/g,'')}?text=${text}`, '_blank');
+  const data = await res.json();
+  msg.textContent = data.message;
+  msg.className = "success";
 });
 
-/* Verify unlock */
-document.getElementById('btnVerify').addEventListener('click', async ()=>{
-  const name = document.getElementById('regName').value.trim();
-  const phone = document.getElementById('regWA').value.trim();
-  const code = document.getElementById('regCode').value.trim();
-  if (!name || !phone || !code) return alert('Please enter Name, WhatsApp and Unlock Code to verify.');
-  const deviceId = getDeviceId();
-  const payload = { action: 'verifyUnlock', name, phone, code, deviceId };
-  try {
-    const res = await postAction(payload);
-    if (res && res.ok) {
-      document.getElementById('regMessage').textContent = '✅ Verified! You can continue.';
-      document.getElementById('btnVerify').disabled = true;
-      document.getElementById('categoriesWrap').style.display = 'block';
-      localStorage.setItem('verifiedUser', JSON.stringify({ name, phone, deviceId, code }));
-    } else {
-      document.getElementById('regMessage').textContent = '❌ ' + (res.message || 'Verification failed');
-    }
-  } catch (err) {
-    document.getElementById('regMessage').textContent = 'Error: ' + err;
+
+async function checkAccess(){
+  const wa = document.getElementById("wa").value.trim();
+  const device = getDeviceID();
+  const msg = document.getElementById("responseMessage");
+
+  const res = await fetch(`${backendURL}?whatsapp=${wa}&device=${device}`);
+  const status = await res.text();
+
+  if(status === "ACCESS_GRANTED"){
+    msg.textContent = "🎉 Access granted!";
+    msg.className = "success";
+    document.getElementById("continueBtn").classList.remove("hidden");
+  } else if (status === "INVALID_DEVICE") {
+    msg.textContent = "❌ Access denied — unlock code tied to another device.";
+    msg.className = "error";
+  } else if (status === "WAITING_APPROVAL") {
+    msg.textContent = "⏳ Waiting admin approval.";
+    msg.className = "error";
+  } else {
+    msg.textContent = "❓ No record found.";
+    msg.className = "error";
   }
+}
+
+document.getElementById("wa").addEventListener("blur", checkAccess);
+
+document.getElementById("continueBtn").addEventListener("click", () => {
+  window.location.href = "testmenu.html";
 });
-
-/* enable verify button when code typed */
-document.getElementById('regCode').addEventListener('input', e => { document.getElementById('btnVerify').disabled = !e.target.value.trim(); });
-
-/* category buttons */
-document.querySelectorAll('.cat-btn').forEach(btn => btn.addEventListener('click', async ()=>{
-  selectedCategory = btn.dataset.cat;
-  localStorage.setItem('selectedCategory', selectedCategory);
-  document.getElementById('registrationBox').style.display = 'none';
-  try {
-    const res = await fetch(BACKEND_URL + '?questions=1');
-    const json = await res.json();
-    if (!json.ok) return alert('Error loading questions: ' + (json.error||''));
-    questions = json.questions || [];
-    current = 0; correct = 0; incorrect = 0;
-    renderQuestion();
-  } catch (err) {
-    alert('Error loading questions: ' + err);
-  }
-}) );
-
-/* Quiz functions (render, checkAnswer, next, showResult) — copy your existing quiz code here or use the version below */
-function renderQuestion(){
-  const q = questions[current];
-  if (!q) return showResult();
-  document.getElementById('quizBox').innerHTML = `
-    <div class="info">⏱ ${formatTime()} | Question ${q.number}/${questions.length} | ✅ ${correct} | ❌ ${incorrect}</div>
-    <div class="question-box"><p><b>Q${q.number}.</b> ${q.question}</p></div>
-    <div class="options-box">
-      ${['A','B','C','D'].map((l,i)=>`<div class="option" onclick="checkAnswer(this,'${l}','${q.correct}','${q.rationale}')">${l}. ${q.options[i]}</div>`).join('')}
-      <div id="rationale"></div>
-      <button class="next-btn" onclick="next()">Next</button>
-    </div>
-  `;
-}
-
-/* small internal audio & motivation (kept minimal to avoid external files) */
-const audioCtx = (typeof window.AudioContext !== 'undefined') ? new window.AudioContext() : null;
-function playTone(freq,d=0.12){ if(!audioCtx) return; const now = audioCtx.currentTime; const o = audioCtx.createOscillator(); const g = audioCtx.createGain(); o.frequency.value = freq; g.gain.setValueAtTime(0.0001,now); g.gain.exponentialRampToValueAtTime(0.08, now+0.01); g.gain.exponentialRampToValueAtTime(0.0001, now + d); o.connect(g).connect(audioCtx.destination); o.start(now); o.stop(now + d + 0.02); }
-function showMotivation(isCorrect){ let mt = document.getElementById('motivationText'); if(!mt){ const container = document.querySelector('.options-box') || document.getElementById('quizBox'); mt = document.createElement('div'); mt.id='motivationText'; mt.className='motivation-text'; if(container) container.appendChild(mt); } const list = isCorrect ? ["🌟 Excellent!","🔥 Great job!"] : ["💡 Not quite — review and try again!","🩺 Stay focused — you’ve got this!"]; mt.textContent = list[Math.floor(Math.random()*list.length)]; mt.style.color = isCorrect ? '#2e7d32' : '#b71c1c'; mt.style.display='block'; }
-
-/* checkAnswer */
-function checkAnswer(el, ans, correctAns, rationale) {
-  const opts = document.querySelectorAll('.option');
-  opts.forEach(o => o.style.pointerEvents='none');
-  const isCorrect = ans === correctAns;
-  try { if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); } catch(e){}
-  if (isCorrect) { playTone(660); confetti({ particleCount: 60, spread: 50 }); }
-  else playTone(260);
-  showMotivation(isCorrect);
-  if (isCorrect) { el.classList.add('correct'); correct++; } else { el.classList.add('incorrect'); incorrect++; opts.forEach(o=>{ if (o.textContent.trim().startsWith(correctAns)) o.classList.add('correct'); }); }
-  document.getElementById('rationale').innerHTML = `<div class="rationale"><strong>💡 Rationale:</strong> ${rationale||'No explanation.'}</div>`;
-  setTimeout(()=>{ const mt = document.getElementById('motivationText'); if(mt) mt.style.display='none'; current++; if (current < questions.length) renderQuestion(); else showResult(); }, 1000);
-}
-
-/* next */
-function next(){ const mt = document.getElementById('motivationText'); if(mt) mt.style.display='none'; current++; current < questions.length ? renderQuestion() : showResult(); }
-
-/* showResult */
-function showResult(){
-  const timeUsed = Math.floor((new Date() - start)/1000);
-  const score = Math.round((correct / (questions.length || 1)) * 100);
-  document.getElementById('quizBox').innerHTML = `<div class="question-box"><h3>✅ Test Completed</h3><p><b>Score:</b> ${score}%</p><p>✅ Correct: ${correct} | ❌ Incorrect: ${incorrect}</p></div>`;
-  // submitResult
-  const verified = JSON.parse(localStorage.getItem('verifiedUser')||'null') || {};
-  const payload = { action:'submitResult', name: verified.name||'Guest', score, correct, incorrect, timeUsed };
-  fetch(BACKEND_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) }).catch(()=>{});
-}
-
-/* timer */
-function formatTime(){ const elapsed = Math.floor((new Date() - start)/1000); const remain = 10*60 - elapsed; const m = Math.floor(remain/60); const s = remain % 60; return `${m}:${s.toString().padStart(2,'0')}`; }
-
-/* Enter on code */
-document.getElementById('regCode').addEventListener('keydown', (ev) => { if (ev.key === 'Enter') document.getElementById('btnVerify').click(); });
 </script>
 </body>
 </html>
