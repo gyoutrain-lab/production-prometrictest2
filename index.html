@@ -2,160 +2,189 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nursing Prometric Actual Simulation Test</title>
+
+<!-- Social Media Thumbnail -->
+<meta property="og:title" content="Nursing Prometric Actual Simulation Test">
+<meta property="og:description" content="Prepared based on the Prometric/SMLE and ENCLEX prometric test materials. Increase your knowledge for your smart career tracking.">
+<meta property="og:image" content="https://raw.githubusercontent.com/gyoutrain-lab/prometric-nursing-test-commerce2/main/icon17%20(1).jpg">
+
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #eef5f5 url('https://i.ibb.co/FlowingWater.png') no-repeat center top;
-    background-size: cover;
-    text-align: center;
-    min-height: 100vh;
-  }
-
-  /* Top icon image */
-  .top-icon {
-    margin-top: 40px;
-    width: 120px;
-    height: auto;
-  }
-
-  h1 {
-    color: #007b83;
-    margin-top: 20px;
-    font-size: 2em;
-  }
-
-  h3 {
-    color: #004d53;
-    margin: 5px 0;
-    font-weight: normal;
-  }
-
-  /* Social icons */
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-    gap: 15px;
-  }
-
-  .social-icons img {
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-  }
-
-  /* Floating confirmation box */
-  .floating-confirm {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 280px;
-    padding: 14px;
-    background: #ffffffcc;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    font-size: 14px;
-    z-index: 9999;
-  }
-
-  .floating-confirm input {
-    width: 100%;
-    margin: 6px 0;
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-  }
-
-  .floating-confirm button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    background: #007b83;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  .floating-confirm button:hover {
-    background: #004d53;
-  }
-
+body {
+  font-family: Arial, sans-serif;
+  margin:0;
+  padding:0;
+  background:#eef5f5;
+  color:#222;
+  text-align:center;
+}
+header {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  background: url('https://raw.githubusercontent.com/gyoutrain-lab/prometric-nursing-test-commerce2/main/water-background.png') no-repeat center/cover;
+}
+header img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 250px;
+}
+h1 {
+  margin-top: 20px;
+  font-size: 2em;
+  color:#007b83;
+}
+h2 {
+  margin: 5px 0;
+  font-size: 1.1em;
+  color:#333;
+}
+.social-icons {
+  margin: 15px 0;
+}
+.social-icons a {
+  margin: 0 10px;
+  display:inline-block;
+}
+.social-icons img {
+  width:35px;
+  height:35px;
+}
+form {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 280px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  text-align: left;
+}
+form label {
+  display:block;
+  margin-top:10px;
+  font-weight:bold;
+}
+form input {
+  width:100%;
+  padding:8px;
+  margin-top:5px;
+  border-radius:5px;
+  border:1px solid #ccc;
+}
+form button {
+  margin-top:15px;
+  width:100%;
+  padding:10px;
+  background:#007b83;
+  color:#fff;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+form button:hover {
+  background:#005f63;
+}
+.message {
+  margin-top:10px;
+  font-size:0.9em;
+  color:green;
+}
+.qr-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 280px;
+  background:#fff;
+  padding:10px;
+  border-radius:10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  text-align:center;
+}
+.qr-container img {
+  max-width:100%;
+  height:auto;
+  display:block;
+  margin:0 auto;
+}
 </style>
 </head>
 <body>
 
-  <!-- Top icon -->
-  <img src="https://github.com/gyoutrain-lab/prometric-nursing-test-commerce2/blob/main/icon17%20(1).jpg?raw=true" alt="Icon" class="top-icon">
+<header>
+  <img src="https://raw.githubusercontent.com/gyoutrain-lab/prometric-nursing-test-commerce2/main/icon17%20(1).jpg" alt="Nursing Prometric Icon">
+</header>
 
-  <!-- Titles -->
-  <h1>Nursing Prometric Actual Simulation Test</h1>
-  <h3>Prepared based on the Prometric/SMLE and ENCLEX prometric test materials</h3>
-  <h3>Increase your knowledge for your smart career tracking</h3>
+<h1>Nursing Prometric Actual Simulation Test</h1>
+<h2>Prepared based on the Prometric/SMLE and ENCLEX prometric test materials</h2>
+<h2>Increase your knowledge for your smart career tracking</h2>
 
-  <!-- Social icons -->
-  <div class="social-icons" role="navigation" aria-label="social links">
-      <a href="tel:+6285399652487" title="Telephone"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="phone"></a>
-      <a href="https://wa.me/6285399652487" target="_blank" rel="noopener" title="WhatsApp"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="whatsapp"></a>
-      <a href="mailto:gyoutrain@gmail.com" target="_blank" rel="noopener" title="Email"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="email"></a>
-      <a href="https://web.facebook.com/gyouskill/" target="_blank" rel="noopener" title="Facebook"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="facebook"></a>
-      <a href="https://www.instagram.com/etkyogya" target="_blank" rel="noopener" title="Instagram"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="instagram"></a>
-  </div>
+<div class="social-icons" role="navigation" aria-label="social links">
+  <a href="tel:+6285399652487" title="Telephone"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="phone"></a>
+  <a href="https://wa.me/6285399652487" target="_blank" rel="noopener" title="WhatsApp"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="whatsapp"></a>
+  <a href="mailto:gyoutrain@gmail.com" target="_blank" rel="noopener" title="Email"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="email"></a>
+  <a href="https://web.facebook.com/gyouskill/" target="_blank" rel="noopener" title="Facebook"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="facebook"></a>
+  <a href="https://www.instagram.com/etkyogya" target="_blank" rel="noopener" title="Instagram"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="instagram"></a>
+</div>
 
-  <!-- Floating confirmation box -->
-  <div class="floating-confirm">
-    <label for="name">Name</label>
-    <input type="text" id="name" placeholder="Your Name">
+<!-- Left-bottom form -->
+<form id="unlockForm">
+  <label for="name">Name</label>
+  <input type="text" id="name" placeholder="Your Name" required>
+  
+  <label for="whatsapp">WhatsApp Number</label>
+  <input type="text" id="whatsapp" placeholder="e.g. +628xxxxxx" required>
+  
+  <label for="code">Unlock Code</label>
+  <input type="text" id="code" placeholder="Enter code here" required>
+  
+  <button type="submit">Confirm & Continue</button>
+  <div class="message" id="message"></div>
+</form>
 
-    <label for="wa">WhatsApp Number</label>
-    <input type="text" id="wa" placeholder="e.g. +628xxxxxx">
-
-    <label for="unlock">Unlock Code</label>
-    <input type="text" id="unlock" placeholder="Enter code here">
-
-    <button onclick="submitUnlock()">Confirm & Continue</button>
-  </div>
+<!-- Right-bottom QR -->
+<div class="qr-container">
+  <img src="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/dana_qr.png" alt="QR Code">
+</div>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwoFuGgwip7joLRx_0PPcG8SMhId1LBJKU5owf9KPzRHrcGAp_JmII8--fFhutsQ5OP/exec"; // Replace with your Google Script URL
+const form = document.getElementById('unlockForm');
+const message = document.getElementById('message');
 
-function submitUnlock() {
-  const name = document.getElementById('name').value.trim();
-  const wa = document.getElementById('wa').value.trim();
-  const code = document.getElementById('unlock').value.trim();
-  const deviceId = navigator.userAgent; // simple device identifier
-
-  if(!name || !wa || !code){
-    alert("Please fill all fields.");
-    return;
-  }
-
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    body: JSON.stringify({
-      action: "verifyUnlock",
-      name, whatsapp: wa, code, deviceId
-    }),
-    headers: { "Content-Type": "application/json" }
-  })
-  .then(res => res.json())
-  .then(data => {
+form.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  
+  const payload = {
+    action:'verifyUnlock',
+    name: document.getElementById('name').value,
+    whatsapp: document.getElementById('whatsapp').value,
+    code: document.getElementById('code').value,
+    deviceId: navigator.userAgent
+  };
+  
+  message.textContent = "Verifying...";
+  
+  try {
+    const res = await fetch('https://script.google.com/macros/s/AKfycbwoFuGgwip7joLRx_0PPcG8SMhId1LBJKU5owf9KPzRHrcGAp_JmII8--fFhutsQ5OP/exec', {
+      method:'POST',
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    
     if(data.ok){
-      alert(`Welcome ${name}! Redirecting to: ${data.testGroup}`);
-      window.location.href = data.testGroupUrl;
+      message.textContent = "Verified! Redirecting...";
+      setTimeout(()=> window.location.href = data.testGroupUrl || '#', 1500);
     } else {
-      alert(data.message);
+      message.textContent = data.message;
     }
-  })
-  .catch(err => {
-    console.error(err);
-    alert("Error connecting to server. Please try again.");
-  });
-}
+  } catch(err){
+    message.textContent = "Error: " + err.message;
+  }
+});
 </script>
 
 </body>
