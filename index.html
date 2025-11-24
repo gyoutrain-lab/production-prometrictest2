@@ -199,65 +199,56 @@ form input {
 </div>
 
 <script>
-const form = document.getElementById('unlockForm');
 const btnConfirm = document.getElementById('btnConfirm');
 const btnContinue = document.getElementById('btnContinue');
 
-async function verifyUnlock(){
+async function confirmAndNotifyAdmin(){
+  const name = document.getElementById('name').value.trim();
+  const whatsapp = document.getElementById('whatsapp').value.trim();
+  const deviceId = navigator.userAgent;
+
+  if(!name || !whatsapp) {
+    alert("Please fill Name and WhatsApp Number.");
+    return;
+  }
+
   const payload = {
-    action:'verifyUnlock',
-    name: document.getElementById('name').value,
-    whatsapp: document.getElementById('whatsapp').value,
-    code: document.getElementById('code').value,
-    deviceId: navigator.userAgent
+    action: 'confirmation',
+    name: name,
+    whatsapp: whatsapp,
+    deviceId: deviceId
   };
+
   try {
     const res = await fetch('https://script.google.com/macros/s/AKfycbwoFuGgwip7joLRx_0PPcG8SMhId1LBJKU5owf9KPzRHrcGAp_JmII8--fFhutsQ5OP/exec', {
-      method:'POST',
+      method: 'POST',
       body: JSON.stringify(payload)
     });
     const data = await res.json();
     if(data.ok){
-      alert("Verified! You can now continue.");
-      return true;
+      alert(data.message); // "Confirmation received..."
+      if(data.waNotify){
+        // Open WhatsApp to notify admin
+        window.open(data.waNotify,'_blank');
+      }
     } else {
-      alert(data.message);
-      return false;
+      alert(data.message || "Error during confirmation.");
     }
   } catch(err){
-    alert("Error: "+err.message);
-    return false;
+    alert("Error: " + err.message);
   }
 }
 
-// Confirm button: only verify
-btnConfirm.addEventListener('click', async ()=>{
-  await verifyUnlock();
+// Confirm button: integrated with backend & admin notification
+btnConfirm.addEventListener('click', async (e)=>{
+  e.preventDefault();
+  await confirmAndNotifyAdmin();
 });
 
-// Continue Test button: verify then redirect to randomized test group
-btnContinue.addEventListener('click', async ()=>{
-  const ok = await verifyUnlock();
-  if(ok){
-    const testGroups = [
-      "Behavioral, Ethics and Infection Control",
-      "Emergency, Trauma, and Disaster Nursing",
-      "Leadership, Delegation, and Communication",
-      "Intensive Care & Emergency Nursing",
-      "Dialysis, Renal, and Fluid-Electrolyte Balance",
-      "Pharmacology and Drug Administration",
-      "Infection Control, Isolation, and Safety",
-      "Emergency, Disaster, and Triage",
-      "Medication Administration & Pharmacology Safety",
-      "Maternity Nursing",
-      "Pediatric Advanced/Complex",
-      "Ethics, Legal, and Professional Behavior",
-      "Leadership, Delegation, and Safety Management"
-    ];
-    const randomGroup = testGroups[Math.floor(Math.random()*testGroups.length)];
-    const urlSafeGroup = encodeURIComponent(randomGroup);
-    window.location.href = `https://your-test-page.com/test?category=${urlSafeGroup}`;
-  }
+// Continue button: untouched, still optional for verification/redirect
+btnContinue.addEventListener('click', async (e)=>{
+  e.preventDefault();
+  alert("Please complete confirmation first. Continue Test requires unlock verification.");
 });
 </script>
 
