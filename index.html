@@ -230,17 +230,33 @@ async function verifyUnlock(){
   }
 }
 
-// Confirm button
+// Confirm button: only verify
 btnConfirm.addEventListener('click', async ()=>{
   await verifyUnlock();
 });
 
-// Continue Test button
+// Continue Test button: verify then redirect to randomized test group
 btnContinue.addEventListener('click', async ()=>{
   const ok = await verifyUnlock();
   if(ok){
-    // Redirect to the randomized test group (you can integrate dynamic URL from backend)
-    window.location.href = '#'; // replace with your test group URL logic
+    const testGroups = [
+      "Behavioral, Ethics and Infection Control",
+      "Emergency, Trauma, and Disaster Nursing",
+      "Leadership, Delegation, and Communication",
+      "Intensive Care & Emergency Nursing",
+      "Dialysis, Renal, and Fluid-Electrolyte Balance",
+      "Pharmacology and Drug Administration",
+      "Infection Control, Isolation, and Safety",
+      "Emergency, Disaster, and Triage",
+      "Medication Administration & Pharmacology Safety",
+      "Maternity Nursing",
+      "Pediatric Advanced/Complex",
+      "Ethics, Legal, and Professional Behavior",
+      "Leadership, Delegation, and Safety Management"
+    ];
+    const randomGroup = testGroups[Math.floor(Math.random()*testGroups.length)];
+    const urlSafeGroup = encodeURIComponent(randomGroup);
+    window.location.href = `https://your-test-page.com/test?category=${urlSafeGroup}`;
   }
 });
 </script>
