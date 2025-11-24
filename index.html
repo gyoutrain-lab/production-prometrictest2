@@ -1,84 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Demo - Nursing Prometric Simulation Test</title>
-<style>
-  /* --- page layout (kept to your design) --- */
-  body { font-family: 'Roboto', 'Segoe UI', sans-serif; background: #f5f8ff; color: #111; margin: 0; padding: 0; }
-  .container { max-width: 900px; margin: auto; padding: 24px; }
-  h2 { text-align: center; color: #003366; font-size: 3.6rem; line-height: 1.4; margin-bottom: 20px; font-weight: 700; }
-  h2 small { font-size: 2.2rem; color: #444; display: block; margin-top: 5px; font-weight: 500; }
-
-  /* question and options */
-  .question-box { background: #ffffff; border-radius: 12px; padding: 18px; margin-bottom: 16px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); font-size: 2.2rem; line-height: 1.5; color: #000; min-height: 15vh; display: block; text-align: left; word-wrap: break-word; overflow-wrap: break-word; letter-spacing: 0.5px; }
-  .options-box { background: #ffffff; border-radius: 16px; padding: 28px; box-shadow: 0 4px 10px rgba(0,0,0,0.12); font-size: 2.2rem; line-height: 1.7; color: #000; display: flex; flex-direction: column; justify-content: center; gap: 20px; min-height: 60vh; }
-  .info { background: #eaf1ff; padding: 18px 20px; border-radius: 12px; margin-bottom: 18px; font-size: 2rem; text-align: center; font-weight: 700; color: #1a1a1a; }
-  .option { display: block; background: #fff; border: 2px solid #bbb; border-radius: 14px; padding: 22px; margin-top: 10px; cursor: pointer; transition: background 0.2s, transform 0.1s; font-size: 2.2rem; font-weight: 600; text-align: left; }
-  .option:hover { transform: scale(1.03); }
-  .option.correct { background: #d4ebff; border-color: #0055aa; }
-  .option.incorrect { background: #ffe0e0; border-color: #cc0000; }
-  .rationale { margin-top: 20px; background: #f1f7ff; padding: 20px; border-left: 5px solid #007bff; border-radius: 12px; font-size: 2rem; line-height: 1.8; font-weight: 500; }
-  .motivation-text { text-align: center; font-size: 1.6rem; font-weight: 600; margin-top: 10px; }
-
-  /* next button */
-  .next-btn { display: block; width: 100%; text-align: center; background: #007bff; color: #fff; padding: 20px; margin-top: 24px; border: none; border-radius: 12px; font-size: 2.2rem; cursor: pointer; font-weight: 700; transition: background 0.3s ease; }
-  .next-btn:hover { background: #005bb5; }
-
-  /* registration box */
-  .reg-box { background:#ffffff; border-radius:12px; padding:14px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.06); max-width:420px; }
-  .reg-row { display:flex; gap:8px; margin-bottom:8px; align-items:center; }
-  .reg-row input { flex:1; padding:10px; font-size:1.1rem; border-radius:8px; border:1px solid #ddd; }
-  .reg-actions { display:flex; gap:8px; margin-top:8px; }
-  .reg-actions button { padding:10px 12px; font-size:1.05rem; border-radius:8px; cursor:pointer; border:none; background:#007bff; color:white; }
-  .reg-actions button[disabled] { opacity:0.45; cursor:not-allowed; }
-  .categories { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
-  .cat-btn { padding:12px 14px; background:#fff; border:1px solid #cfcfcf; border-radius:10px; cursor:pointer; font-weight:700; }
-
-  footer { text-align: center; margin-top: 30px; font-size: 1.8rem; color: #FF0000; font-weight: 500; }
-
-  @media (max-width: 600px) {
-    h2 { font-size: 2.8rem; }
-    h2 small { font-size: 2rem; }
-    .info { font-size: 1.8rem; padding: 16px; }
-    .question-box { font-size: 2.2rem; padding: 22px; min-height: 28vh; }
-    .options-box { font-size: 2.2rem; padding: 22px; min-height: 62vh; }
-    .option { font-size: 2.1rem; padding: 18px; }
-    .rationale { font-size: 1.9rem; }
-    .next-btn { font-size: 2rem; padding: 18px; }
-    footer { font-size: 1.7rem; }
-    .reg-box { max-width: none; }
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Demo - Nursing Prometric Simulation Test</title>
+  <style>
+    body { font-family: 'Roboto', 'Segoe UI', sans-serif; background: #f5f8ff; color: #111; margin: 0; padding: 0; }
+    .container { max-width: 900px; margin: auto; padding: 24px; }
+    h2 { text-align: center; color: #003366; font-size: 3.6rem; line-height: 1.4; margin-bottom: 20px; font-weight: 700; }
+    .question-box { background: #ffffff; border-radius: 12px; padding: 18px; margin-bottom: 16px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); font-size: 2.2rem; line-height: 1.5; color: #000; min-height: 15vh; display: block; text-align: left; word-wrap: break-word; overflow-wrap: break-word; letter-spacing: 0.5px; }
+    .options-box { background: #ffffff; border-radius: 16px; padding: 28px; box-shadow: 0 4px 10px rgba(0,0,0,0.12); font-size: 2.2rem; line-height: 1.7; color: #000; display: flex; flex-direction: column; justify-content: center; gap: 20px; min-height: 60vh; }
+    .info { background: #eaf1ff; padding: 18px 20px; border-radius: 12px; margin-bottom: 18px; font-size: 2rem; text-align: center; font-weight: 700; color: #1a1a1a; }
+    .option { display: block; background: #fff; border: 2px solid #bbb; border-radius: 14px; padding: 22px; margin-top: 10px; cursor: pointer; transition: background 0.2s, transform 0.1s; font-size: 2.2rem; font-weight: 600; text-align: left; }
+    .option:hover { transform: scale(1.03); }
+    .option.correct { background: #d4ebff; border-color: #0055aa; }
+    .option.incorrect { background: #ffe0e0; border-color: #cc0000; }
+    .rationale { margin-top: 20px; background: #f1f7ff; padding: 20px; border-left: 5px solid #007bff; border-radius: 12px; font-size: 2rem; line-height: 1.8; font-weight: 500; }
+    .motivation-text { text-align: center; font-size: 1.6rem; font-weight: 600; margin-top: 10px; }
+    .next-btn { display: block; width: 100%; text-align: center; background: #007bff; color: #fff; padding: 20px; margin-top: 24px; border: none; border-radius: 12px; font-size: 2.2rem; cursor: pointer; font-weight: 700; transition: background 0.3s ease; }
+    .next-btn:hover { background: #005bb5; }
+    .reg-box { background:#ffffff; border-radius:12px; padding:14px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.06); max-width:420px; }
+    .reg-row { display:flex; gap:8px; margin-bottom:8px; align-items:center; }
+    .reg-row input { flex:1; padding:10px; font-size:1.1rem; border-radius:8px; border:1px solid #ddd; }
+    .reg-actions { display:flex; gap:8px; margin-top:8px; }
+    .reg-actions button { padding:10px 12px; font-size:1.05rem; border-radius:8px; cursor:pointer; border:none; background:#007bff; color:white; }
+    .reg-actions button[disabled] { opacity:0.45; cursor:not-allowed; }
+    .categories { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+    .cat-btn { padding:12px 14px; background:#fff; border:1px solid #cfcfcf; border-radius:10px; cursor:pointer; font-weight:700; }
+    footer { text-align: center; margin-top: 30px; font-size: 1.2rem; color: #FF0000; font-weight: 500; }
+    @media (max-width:600px){ h2{font-size:2.6rem} .reg-box{max-width:none;} }
+  </style>
 </head>
 <body>
   <div class="container">
     <h2>🩺 Demo - Nursing Prometric Simulation Test<br><small>Adapted from Prometric/SMLE and NCLEX materials</small></h2>
 
-    <!-- Registration box (left-side feel under title) -->
     <div class="reg-box" id="registrationBox">
       <div style="font-weight:700; font-size:1.15rem; color:#003366; margin-bottom:8px;">Registration & Confirmation</div>
-
-      <div class="reg-row">
-        <input id="regName" placeholder="Full name (as you want on record)">
-      </div>
-
-      <div class="reg-row">
-        <input id="regWA" placeholder="WhatsApp number (example: +62812...)">
-      </div>
-
-      <div class="reg-row">
-        <input id="regCode" placeholder="Enter unlock code (if you have it)" />
-      </div>
-
+      <div class="reg-row"><input id="regName" placeholder="Full name (as you want on record)"></div>
+      <div class="reg-row"><input id="regWA" placeholder="WhatsApp number (example: +62812...)"></div>
+      <div class="reg-row"><input id="regCode" placeholder="Enter unlock code (if you have it)"></div>
       <div class="reg-actions">
         <button id="btnConfirm">Confirmation</button>
         <button id="btnVerify" disabled>Continue Next Test</button>
       </div>
-
       <div id="regMessage" style="margin-top:8px; font-size:0.95rem;"></div>
-
       <div id="categoriesWrap" style="display:none; margin-top:12px;">
         <div style="font-weight:700; color:#003366; margin-bottom:8px;">Choose Test Category:</div>
         <div class="categories">
@@ -91,227 +57,107 @@
       </div>
     </div>
 
-    <!-- Quiz placeholder -->
     <div id="quizBox"></div>
 
-    <footer style="font-size:0.67rem; font-weight:normal; color:red; text-align:center; margin-top:12px; line-height:1.2;">
-      Prepared by: <b>Giyono Asfarrasyid, ETK Yogyakarta</b>
-    </footer>
+    <footer>Prepared by: <b>Giyono Asfarrasyid, ETK Yogyakarta</b></footer>
   </div>
 
-  <!-- confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
-/* ========= Configuration ========= */
-const ADMIN_WA = '+6285399652487'; // admin WA number (user will open WA composer)
-const BACKEND_URL = ''; // optional: not required when using google.script.run server functions
-/* ================================= */
+/* ========== CONFIG ========== */
+const BACKEND_URL = "REPLACE_WITH_YOUR_WEBAPP_URL"; // <<-- PUT your deployed Apps Script Web App URL here
+const ADMIN_WA = "+6285399652487";
 
-/* ===== App state ===== */
-let questions = [];
-let current = 0;
-let correct = 0;
-let incorrect = 0;
-let selectedCategory = null;
+/* state */
+let questions = [], current = 0, correct = 0, incorrect = 0, selectedCategory = null;
 const start = new Date();
 
-/* ===== Device ID (persisted) ===== */
-function getDeviceId() {
+/* device ID (persisted) */
+function getDeviceId(){
   try {
-    let id = localStorage.getItem('deviceId_v1');
-    if (id) return id;
+    let id = localStorage.getItem('deviceId_v1'); if (id) return id;
     const raw = navigator.userAgent + '|' + navigator.platform + '|' + screen.width + 'x' + screen.height + '|' + Intl.DateTimeFormat().resolvedOptions().timeZone;
-    id = btoa(unescape(encodeURIComponent(raw))).slice(0, 64);
-    localStorage.setItem('deviceId_v1', id);
-    return id;
-  } catch (e) {
-    return 'dev-' + Math.random().toString(36).slice(2,12);
-  }
+    id = btoa(unescape(encodeURIComponent(raw))).slice(0,64); localStorage.setItem('deviceId_v1', id); return id;
+  } catch(e){ return 'dev-' + Math.random().toString(36).slice(2,12); }
 }
 
-/* ===== Internal sounds via Web Audio API (no external files) ===== */
-const audioCtx = (typeof window.AudioContext !== 'undefined') ? new window.AudioContext() : null;
-
-// small helper to play a tone sequence
-function playToneSequence(sequence, when = 0) {
-  if (!audioCtx) return;
-  const now = audioCtx.currentTime + when;
-  sequence.forEach(note => {
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = note.type || 'sine';
-    osc.frequency.setValueAtTime(note.freq, now + (note.start || 0));
-    gain.gain.setValueAtTime(note.volume || 0.0001, now + (note.start || 0));
-    gain.gain.exponentialRampToValueAtTime(note.volume || 0.1, now + (note.start || 0) + (note.attack || 0.02));
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + (note.start || 0) + (note.duration || 0.18));
-    osc.connect(gain).connect(audioCtx.destination);
-    osc.start(now + (note.start || 0));
-    osc.stop(now + (note.start || 0) + (note.duration || 0) + 0.02);
+/* small helper to POST to backend */
+async function postAction(payload){
+  const res = await fetch(BACKEND_URL, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
   });
+  return res.json();
 }
 
-const correctMelodies = [
-  // simple ascending triad
-  [{freq:660,duration:0.12,attack:0.01,volume:0.12,start:0},{freq:880,duration:0.12,attack:0.01,volume:0.12,start:0.1}],
-  // pleasant two-tone
-  [{freq:880,duration:0.2,attack:0.01,volume:0.12,start:0},{freq:660,duration:0.14,attack:0.01,volume:0.1,start:0.18}],
-  // bell-like
-  [{freq:1320,duration:0.16,attack:0.01,volume:0.12,start:0},{freq:990,duration:0.16,attack:0.01,volume:0.1,start:0.12}]
-];
-
-const incorrectMelodies = [
-  [{freq:220,duration:0.18,attack:0.01,volume:0.09,start:0, type:'triangle'}],
-  [{freq:300,duration:0.22,attack:0.01,volume:0.09,start:0},{freq:180,duration:0.14,attack:0.01,volume:0.07,start:0.18, type:'sawtooth'}]
-];
-
-function playRandomCorrect() {
-  try {
-    const m = correctMelodies[Math.floor(Math.random() * correctMelodies.length)];
-    playToneSequence(m);
-  } catch (e) { /* silent */ }
-}
-function playRandomIncorrect() {
-  try {
-    const m = incorrectMelodies[Math.floor(Math.random() * incorrectMelodies.length)];
-    playToneSequence(m);
-  } catch (e) { /* silent */ }
-}
-
-/* ===== Motivation texts ===== */
-const motivationCorrect = ["🌟 Excellent! Keep going!","🔥 Great job! You're doing amazing!","👏 Brilliant answer!","🎯 Perfect! You're thinking like a nurse!","💪 Outstanding work!"];
-const motivationIncorrect = ["💡 Not quite — review and try again!","🩺 Stay focused — you’ve got this!","📌 Think critically — you’re learning!","🔍 Read carefully — you’re improving!","⏳ Don't give up — every mistake teaches!"];
-
-/* ===== Registration (Confirmation) ===== */
-document.getElementById('btnConfirm').addEventListener('click', async () => {
+/* Confirm - append to sheet */
+document.getElementById('btnConfirm').addEventListener('click', async ()=>{
   const name = document.getElementById('regName').value.trim();
   const phone = document.getElementById('regWA').value.trim();
-  if (!name || !phone) return alert('Please enter your name and WhatsApp number.');
-
+  if (!name || !phone) return alert('Please enter name and WA number.');
   const deviceId = getDeviceId();
   const payload = { action: 'confirmation', name, phone, deviceId };
-
-  // Call server-side Apps Script function handleConfirmation (server must implement it)
-  if (typeof google !== 'undefined' && google.script && google.script.run) {
-    google.script.run.withSuccessHandler(res => {
-      document.getElementById('regMessage').textContent = (res && res.message) ? res.message : 'Confirmation saved.';
-    }).handleConfirmation(payload);
-  } else {
-    // fallback: try fetch to BACKEND_URL if provided
-    if (!BACKEND_URL) {
-      document.getElementById('regMessage').textContent = 'Running outside Apps Script; confirmation not sent.';
-    } else {
-      try {
-        const r = await fetch(BACKEND_URL, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
-        const res = await r.json();
-        document.getElementById('regMessage').textContent = res.message || 'Confirmation saved.';
-      } catch (err) {
-        document.getElementById('regMessage').textContent = 'Error saving confirmation: ' + err;
-      }
-    }
+  try {
+    const res = await postAction(payload);
+    document.getElementById('regMessage').textContent = (res && res.message) ? res.message : 'Saved.';
+  } catch (err) {
+    document.getElementById('regMessage').textContent = 'Error: ' + err;
   }
-
-  // Open WhatsApp composer to admin so user can send proof (avoids third-party WA API)
-  const text = encodeURIComponent(`Payment Confirmed — Please review incoming request.\nName: ${name}\nWA: ${phone}\nDeviceId: ${deviceId}\nShare Proof Dana QR IDR 50k and add Unlock Code.`);
-  const waUrl = `https://wa.me/${ADMIN_WA.replace(/\D/g,'')}?text=${text}`;
-  window.open(waUrl, '_blank');
+  // open WhatsApp composer (user sends message) - no deviceId sent to admin
+  const text = encodeURIComponent(`Payment Confirmed — Please review request.\nName: ${name}\nWA: ${phone}\nShare Proof Dana QR IDR 50k and add Unlock Code.`);
+  window.open(`https://wa.me/${ADMIN_WA.replace(/\D/g,'')}?text=${text}`, '_blank');
 });
 
-/* ===== Verify Unlock ===== */
-document.getElementById('btnVerify').addEventListener('click', async () => {
+/* Verify unlock */
+document.getElementById('btnVerify').addEventListener('click', async ()=>{
   const name = document.getElementById('regName').value.trim();
   const phone = document.getElementById('regWA').value.trim();
   const code = document.getElementById('regCode').value.trim();
   if (!name || !phone || !code) return alert('Please enter Name, WhatsApp and Unlock Code to verify.');
-
   const deviceId = getDeviceId();
   const payload = { action: 'verifyUnlock', name, phone, code, deviceId };
-
-  // prefer google.script.run if available
-  if (typeof google !== 'undefined' && google.script && google.script.run) {
-    google.script.run.withSuccessHandler(res => {
-      if (res && res.ok) {
-        document.getElementById('regMessage').textContent = '✅ Verified! You can continue to the test.';
-        document.getElementById('btnVerify').disabled = true;
-        document.getElementById('categoriesWrap').style.display = 'block';
-        localStorage.setItem('verifiedUser', JSON.stringify({ name, phone, deviceId, code }));
-      } else {
-        document.getElementById('regMessage').textContent = '❌ Verification failed: ' + (res && res.message ? res.message : 'invalid');
-      }
-    }).verifyUnlock(payload);
-  } else {
-    // fallback to fetch if BACKEND_URL provided
-    if (!BACKEND_URL) {
-      document.getElementById('regMessage').textContent = 'Running outside Apps Script; verification unavailable.';
-    } else {
-      try {
-        const r = await fetch(BACKEND_URL, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
-        const res = await r.json();
-        if (res && res.ok) {
-          document.getElementById('regMessage').textContent = '✅ Verified! You can continue to the test.';
-          document.getElementById('btnVerify').disabled = true;
-          document.getElementById('categoriesWrap').style.display = 'block';
-          localStorage.setItem('verifiedUser', JSON.stringify({ name, phone, deviceId, code }));
-        } else {
-          document.getElementById('regMessage').textContent = '❌ Verification failed: ' + (res && res.message ? res.message : 'invalid');
-        }
-      } catch (err) {
-        document.getElementById('regMessage').textContent = 'Error verifying: ' + err;
-      }
-    }
-  }
-});
-
-/* Enable verify button when code entered */
-document.getElementById('regCode').addEventListener('input', (e) => {
-  document.getElementById('btnVerify').disabled = !e.target.value.trim();
-});
-
-/* Restore verified user (if any) */
-(function restoreVerified(){
   try {
-    const v = JSON.parse(localStorage.getItem('verifiedUser') || 'null');
-    if (v && v.name) {
-      document.getElementById('regName').value = v.name;
-      document.getElementById('regWA').value = v.phone;
-      document.getElementById('regCode').value = v.code || '';
-      document.getElementById('regMessage').textContent = 'You have a saved verification — re-enter code or press Verify.';
+    const res = await postAction(payload);
+    if (res && res.ok) {
+      document.getElementById('regMessage').textContent = '✅ Verified! You can continue.';
+      document.getElementById('btnVerify').disabled = true;
+      document.getElementById('categoriesWrap').style.display = 'block';
+      localStorage.setItem('verifiedUser', JSON.stringify({ name, phone, deviceId, code }));
+    } else {
+      document.getElementById('regMessage').textContent = '❌ ' + (res.message || 'Verification failed');
     }
-  } catch(e) {}
-})();
-
-/* ===== Category buttons: start quiz by category ===== */
-document.querySelectorAll('.cat-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    selectedCategory = btn.dataset.cat;
-    localStorage.setItem('selectedCategory', selectedCategory);
-    // hide registration
-    document.getElementById('registrationBox').style.display = 'none';
-    // load questions and start quiz (uses google.script.run.getQuestions)
-    loadQuestionsAndStart();
-  });
+  } catch (err) {
+    document.getElementById('regMessage').textContent = 'Error: ' + err;
+  }
 });
 
-/* ===== Load questions & start ===== */
-function loadQuestionsAndStart() {
-  // prefer google.script.run in Apps Script environment
-  if (typeof google !== 'undefined' && google.script && google.script.run) {
-    google.script.run.withSuccessHandler(qs => {
-      questions = qs || [];
-      current = 0; correct = 0; incorrect = 0;
-      renderQuestion();
-    }).getQuestions();
-  } else {
-    // fallback: try fetch to BACKEND_URL? but getQuestions usually available via Apps Script
-    alert('Unable to load questions: google.script.run not available in this environment.');
-  }
-}
+/* enable verify button when code typed */
+document.getElementById('regCode').addEventListener('input', e => { document.getElementById('btnVerify').disabled = !e.target.value.trim(); });
 
-/* ===== Render question & quiz flow (keeps your original layout/text) ===== */
-function renderQuestion() {
+/* category buttons */
+document.querySelectorAll('.cat-btn').forEach(btn => btn.addEventListener('click', async ()=>{
+  selectedCategory = btn.dataset.cat;
+  localStorage.setItem('selectedCategory', selectedCategory);
+  document.getElementById('registrationBox').style.display = 'none';
+  try {
+    const res = await fetch(BACKEND_URL + '?questions=1');
+    const json = await res.json();
+    if (!json.ok) return alert('Error loading questions: ' + (json.error||''));
+    questions = json.questions || [];
+    current = 0; correct = 0; incorrect = 0;
+    renderQuestion();
+  } catch (err) {
+    alert('Error loading questions: ' + err);
+  }
+}) );
+
+/* Quiz functions (render, checkAnswer, next, showResult) — copy your existing quiz code here or use the version below */
+function renderQuestion(){
   const q = questions[current];
   if (!q) return showResult();
-  const html = `
+  document.getElementById('quizBox').innerHTML = `
     <div class="info">⏱ ${formatTime()} | Question ${q.number}/${questions.length} | ✅ ${correct} | ❌ ${incorrect}</div>
     <div class="question-box"><p><b>Q${q.number}.</b> ${q.question}</p></div>
     <div class="options-box">
@@ -320,113 +166,46 @@ function renderQuestion() {
       <button class="next-btn" onclick="next()">Next</button>
     </div>
   `;
-  document.getElementById('quizBox').innerHTML = html;
 }
 
-/* ===== Answer checking ===== */
+/* small internal audio & motivation (kept minimal to avoid external files) */
+const audioCtx = (typeof window.AudioContext !== 'undefined') ? new window.AudioContext() : null;
+function playTone(freq,d=0.12){ if(!audioCtx) return; const now = audioCtx.currentTime; const o = audioCtx.createOscillator(); const g = audioCtx.createGain(); o.frequency.value = freq; g.gain.setValueAtTime(0.0001,now); g.gain.exponentialRampToValueAtTime(0.08, now+0.01); g.gain.exponentialRampToValueAtTime(0.0001, now + d); o.connect(g).connect(audioCtx.destination); o.start(now); o.stop(now + d + 0.02); }
+function showMotivation(isCorrect){ let mt = document.getElementById('motivationText'); if(!mt){ const container = document.querySelector('.options-box') || document.getElementById('quizBox'); mt = document.createElement('div'); mt.id='motivationText'; mt.className='motivation-text'; if(container) container.appendChild(mt); } const list = isCorrect ? ["🌟 Excellent!","🔥 Great job!"] : ["💡 Not quite — review and try again!","🩺 Stay focused — you’ve got this!"]; mt.textContent = list[Math.floor(Math.random()*list.length)]; mt.style.color = isCorrect ? '#2e7d32' : '#b71c1c'; mt.style.display='block'; }
+
+/* checkAnswer */
 function checkAnswer(el, ans, correctAns, rationale) {
   const opts = document.querySelectorAll('.option');
-  opts.forEach(o => o.style.pointerEvents = 'none');
-
+  opts.forEach(o => o.style.pointerEvents='none');
   const isCorrect = ans === correctAns;
-
-  // play internal sound
-  if (isCorrect) {
-    try { if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); } catch(e){}
-    playRandomCorrect();
-    confetti({ particleCount: 80, spread: 60, origin: { y: 0.5 } });
-  } else {
-    try { if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); } catch(e){}
-    playRandomIncorrect();
-  }
-
-  // show motivation text
+  try { if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); } catch(e){}
+  if (isCorrect) { playTone(660); confetti({ particleCount: 60, spread: 50 }); }
+  else playTone(260);
   showMotivation(isCorrect);
-
-  // apply styles and counts (no layout changes)
-  if (isCorrect) { el.classList.add('correct'); correct++; }
-  else {
-    el.classList.add('incorrect'); incorrect++;
-    opts.forEach(o => { if (o.textContent.trim().startsWith(correctAns)) o.classList.add('correct'); });
-  }
-
-  document.getElementById('rationale').innerHTML = `<div class="rationale"><strong>💡 Rationale:</strong> ${rationale || "No explanation available."}</div>`;
-
-  // auto next after a short delay
-  setTimeout(() => {
-    const mtBox = document.getElementById('motivationText'); if (mtBox) mtBox.style.display = 'none';
-    current++;
-    if (current < questions.length) renderQuestion(); else showResult();
-  }, 1100);
+  if (isCorrect) { el.classList.add('correct'); correct++; } else { el.classList.add('incorrect'); incorrect++; opts.forEach(o=>{ if (o.textContent.trim().startsWith(correctAns)) o.classList.add('correct'); }); }
+  document.getElementById('rationale').innerHTML = `<div class="rationale"><strong>💡 Rationale:</strong> ${rationale||'No explanation.'}</div>`;
+  setTimeout(()=>{ const mt = document.getElementById('motivationText'); if(mt) mt.style.display='none'; current++; if (current < questions.length) renderQuestion(); else showResult(); }, 1000);
 }
 
-/* ===== Motivation display ===== */
-function showMotivation(isCorrect) {
-  let mtBox = document.getElementById('motivationText');
-  if (!mtBox) {
-    const container = document.querySelector('.options-box') || document.getElementById('quizBox');
-    mtBox = document.createElement('div');
-    mtBox.id = 'motivationText';
-    mtBox.className = 'motivation-text';
-    if (container) container.appendChild(mtBox);
-  }
-  const list = isCorrect ? motivationCorrect : motivationIncorrect;
-  mtBox.textContent = list[Math.floor(Math.random() * list.length)];
-  mtBox.style.color = isCorrect ? "#2e7d32" : "#b71c1c";
-  mtBox.style.display = 'block';
-}
+/* next */
+function next(){ const mt = document.getElementById('motivationText'); if(mt) mt.style.display='none'; current++; current < questions.length ? renderQuestion() : showResult(); }
 
-/* ===== Next button (manual) ===== */
-function next() {
-  const mtBox = document.getElementById('motivationText'); if (mtBox) mtBox.style.display = 'none';
-  current++; current < questions.length ? renderQuestion() : showResult();
-}
-
-/* ===== Show result & submit ===== */
-function showResult() {
-  const timeUsed = Math.floor((new Date() - start) / 1000);
+/* showResult */
+function showResult(){
+  const timeUsed = Math.floor((new Date() - start)/1000);
   const score = Math.round((correct / (questions.length || 1)) * 100);
-
-  if (score >= 70) {
-    // light applause generated (use WebAudio bell)
-    playRandomCorrect();
-  }
-
-  document.getElementById('quizBox').innerHTML = `
-    <div class="question-box">
-      <h3>✅ Test Completed</h3>
-      <p><b>Score:</b> ${score}%</p>
-      <p>✅ Correct: ${correct} | ❌ Incorrect: ${incorrect}</p>
-    </div>
-  `;
-
-  // report to backend (server must implement submitResult)
-  if (typeof google !== 'undefined' && google.script && google.script.run) {
-    google.script.run.withSuccessHandler(()=>{}).submitResult('Guest', score, correct, incorrect, timeUsed);
-  }
+  document.getElementById('quizBox').innerHTML = `<div class="question-box"><h3>✅ Test Completed</h3><p><b>Score:</b> ${score}%</p><p>✅ Correct: ${correct} | ❌ Incorrect: ${incorrect}</p></div>`;
+  // submitResult
+  const verified = JSON.parse(localStorage.getItem('verifiedUser')||'null') || {};
+  const payload = { action:'submitResult', name: verified.name||'Guest', score, correct, incorrect, timeUsed };
+  fetch(BACKEND_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) }).catch(()=>{});
 }
 
-/* ===== Timer text (UX only) ===== */
-function formatTime() {
-  const elapsed = Math.floor((new Date() - start) / 1000);
-  const remain = 10 * 60 - elapsed;
-  const m = Math.floor(remain / 60);
-  const s = remain % 60;
-  return `${m}:${s.toString().padStart(2,'0')}`;
-}
+/* timer */
+function formatTime(){ const elapsed = Math.floor((new Date() - start)/1000); const remain = 10*60 - elapsed; const m = Math.floor(remain/60); const s = remain % 60; return `${m}:${s.toString().padStart(2,'0')}`; }
 
-/* ===== Small UX: allow Enter on code to verify ===== */
-document.getElementById('regCode').addEventListener('keydown', (ev) => {
-  if (ev.key === 'Enter') document.getElementById('btnVerify').click();
-});
-
-/* ===== Restore selectedCategory (optional) ===== */
-(function restoreCategory(){
-  try {
-    const cat = localStorage.getItem('selectedCategory');
-    if (cat) selectedCategory = cat;
-  } catch(e){}
-})();
+/* Enter on code */
+document.getElementById('regCode').addEventListener('keydown', (ev) => { if (ev.key === 'Enter') document.getElementById('btnVerify').click(); });
 </script>
 </body>
 </html>
