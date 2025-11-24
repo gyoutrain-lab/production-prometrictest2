@@ -5,54 +5,147 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nursing Prometric Actual Simulation Test</title>
 
+<!-- Social Media Thumbnail -->
 <meta property="og:title" content="Nursing Prometric Actual Simulation Test">
 <meta property="og:description" content="Prepared based on the Prometric/SMLE and ENCLEX prometric test materials. Increase your knowledge for your smart career tracking.">
 <meta property="og:image" content="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg">
 
 <style>
-body { font-family: Arial,sans-serif; margin:0; padding:0; background:#eef5f5; color:#222; text-align:center; overflow-x:hidden; }
+body {
+  font-family: Arial, sans-serif;
+  margin:0;
+  padding:0;
+  background:#eef5f5;
+  color:#222;
+  text-align:center;
+  overflow-x: hidden;
+}
 
 /* Floating water animation */
-@keyframes wave1 {0%{transform:translateX(0) translateY(0);}50%{transform:translateX(20px) translateY(-5px);}100%{transform:translateX(0) translateY(0);}}
-@keyframes wave2 {0%{transform:translateX(0) translateY(0);}50%{transform:translateX(-15px) translateY(-10px);}100%{transform:translateX(0) translateY(0);}}
+@keyframes wave1 {0% { transform: translateX(0) translateY(0); }50% { transform: translateX(20px) translateY(-5px); }100% { transform: translateX(0) translateY(0); }}
+@keyframes wave2 {0% { transform: translateX(0) translateY(0); }50% { transform: translateX(-15px) translateY(-10px); }100% { transform: translateX(0) translateY(0); }}
 
-header {position: relative; width:100%; height:50vh; overflow:hidden;}
-header::before, header::after {
-  content:""; position:absolute; top:0; left:0; width:100%; height:100%;
-  background: url('https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg') center/cover no-repeat; opacity:0.08; z-index:1;
+header {
+  position: relative;
+  width: 100%;
+  height: 50vh; /* half-page */
+  overflow: hidden;
 }
-header::before {animation:wave1 8s ease-in-out infinite;}
-header::after {animation:wave2 10s ease-in-out infinite;}
-header img {position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); max-height:250px; z-index:2;}
 
-h1{margin-top:20px; font-size:2em; color:#007b83; z-index:3;}
-h2{margin:5px 0; font-size:1.1em; color:#333;}
+/* Floating background layers */
+header::before {
+  content: "";
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: url('https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg') center/cover no-repeat;
+  opacity: 0.08;
+  animation: wave1 8s ease-in-out infinite;
+  z-index:1;
+}
+header::after {
+  content: "";
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: url('https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg') center/cover no-repeat;
+  opacity: 0.08;
+  animation: wave2 10s ease-in-out infinite;
+  z-index:1;
+}
+
+/* Foreground main icon */
+header img {
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  max-height: 250px;
+  z-index:2;
+}
+
+h1 {
+  margin-top: 20px;
+  font-size: 2em;
+  color:#007b83;
+  z-index:3;
+}
+h2 {
+  margin: 5px 0;
+  font-size: 1.1em;
+  color:#333;
+}
 
 /* Social Icons */
-.social-icons{margin:15px 0;}
-.social-icons a{margin:0 10px; display:inline-block;}
-.social-icons img{width:35px; height:35px;}
+.social-icons {
+  margin: 15px 0;
+}
+.social-icons a {
+  margin: 0 10px;
+  display:inline-block;
+}
+.social-icons img {
+  width:35px;
+  height:35px;
+}
 
 /* Buttons below social icons */
-.buttons-center{margin:15px auto 30px auto; display:flex; justify-content:center; gap:15px; z-index:5;}
-.buttons-center button{padding:10px 20px; border:none; border-radius:5px; font-size:1em; color:#fff; cursor:pointer;}
-.buttons-center button.confirm{background:#007b83;}
-.buttons-center button.continue{background:#28a745;}
-.buttons-center button:hover{opacity:0.9;}
+.buttons-center {
+  margin: 15px auto 30px auto;
+  display:flex;
+  justify-content:center;
+  gap:15px;
+}
+.buttons-center button {
+  padding:10px 20px;
+  border:none;
+  border-radius:5px;
+  font-size:1em;
+  color:#fff;
+  cursor:pointer;
+}
+.buttons-center button.confirm { background:#007b83; }
+.buttons-center button.continue { background:#28a745; }
+.buttons-center button:hover { opacity:0.9; }
 
 /* Left-bottom form */
-form{position: fixed; bottom:20px; left:20px; width:280px; background:#fff; border-radius:10px; padding:15px; box-shadow:0 2px 10px rgba(0,0,0,0.2); text-align:left;}
-form label{display:block; margin-top:10px; font-weight:bold;}
-form input{width:100%; padding:8px; margin-top:5px; border-radius:5px; border:1px solid #ccc;}
+form {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 280px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  text-align: left;
+}
+form label {
+  display:block;
+  margin-top:10px;
+  font-weight:bold;
+}
+form input {
+  width:100%;
+  padding:8px;
+  margin-top:5px;
+  border-radius:5px;
+  border:1px solid #ccc;
+}
 
 /* Right-bottom QR */
-.qr-container{position:fixed; bottom:20px; right:20px; width:140px; background:#fff; padding:8px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.2); text-align:center; z-index:10;}
-.qr-container img{max-width:100%; height:auto; display:block;}
-
-/* Test Groups container */
-#testGroups{margin:20px auto; max-width:800px; display:none; text-align:left;}
-.testGroup{background:#fff; padding:15px; margin-bottom:10px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.15);}
-.testGroup h3{margin:0 0 5px 0; color:#007b83;}
+.qr-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 140px;
+  background:#fff;
+  padding:10px;
+  border-radius:10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  text-align:center;
+}
+.qr-container img { max-width:100%; height:auto; display:block; }
 </style>
 </head>
 <body>
@@ -65,6 +158,7 @@ form input{width:100%; padding:8px; margin-top:5px; border-radius:5px; border:1p
 <h2>Prepared based on the Prometric/SMLE and ENCLEX prometric test materials</h2>
 <h2>Increase your knowledge for your smart career tracking</h2>
 
+<!-- Social icons -->
 <div class="social-icons" role="navigation" aria-label="social links">
   <a href="tel:+6285399652487" title="Telephone"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="phone"></a>
   <a href="https://wa.me/6285399652487" target="_blank" rel="noopener" title="WhatsApp"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="whatsapp"></a>
@@ -73,11 +167,13 @@ form input{width:100%; padding:8px; margin-top:5px; border-radius:5px; border:1p
   <a href="https://www.instagram.com/etkyogya" target="_blank" rel="noopener" title="Instagram"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="instagram"></a>
 </div>
 
+<!-- Centered Buttons -->
 <div class="buttons-center">
   <button class="confirm" id="btnConfirm">Confirmation</button>
   <button class="continue" id="btnContinue">Continue Test</button>
 </div>
 
+<!-- Left-bottom form -->
 <form id="unlockForm">
   <label for="name">Name</label>
   <input type="text" id="name" placeholder="Your Name" required>
@@ -86,38 +182,55 @@ form input{width:100%; padding:8px; margin-top:5px; border-radius:5px; border:1p
   <input type="text" id="whatsapp" placeholder="e.g. +628xxxxxx" required>
   
   <label for="code">Unlock Code</label>
-  <input type="text" id="code" placeholder="Enter code here" required>
+  <input type="text" id="code" placeholder="Enter code here">
 </form>
 
+<!-- Right-bottom QR -->
 <div class="qr-container">
   <img src="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/dana_qr.png" alt="QR Code">
 </div>
 
-<div id="testGroups"></div>
-
 <script>
 const btnConfirm = document.getElementById('btnConfirm');
 const btnContinue = document.getElementById('btnContinue');
-const testGroupsContainer = document.getElementById('testGroups');
-let isVerified = false;
 
-const testGroups = [
-  "Behavioral, Ethics and Infection Control",
-  "Emergency, Trauma, and Disaster Nursing",
-  "Leadership, Delegation, and Communication",
-  "Intensive Care & Emergency Nursing",
-  "Dialysis, Renal, and Fluid-Electrolyte Balance",
-  "Pharmacology and Drug Administration",
-  "Infection Control, Isolation, and Safety",
-  "Emergency, Disaster, and Triage",
-  "Medication Administration & Pharmacology Safety",
-  "Maternity Nursing",
-  "Pediatric Advanced/Complex",
-  "Ethics, Legal, and Professional Behavior",
-  "Leadership, Delegation, and Safety Management"
-];
+// CONFIRMATION: only Name + WhatsApp required
+async function confirmAndNotifyAdmin(){
+  const name = document.getElementById('name').value.trim();
+  const whatsapp = document.getElementById('whatsapp').value.trim();
+  const deviceId = navigator.userAgent;
 
-async function confirmAndVerify(){
+  if(!name || !whatsapp) {
+    alert("Please fill Name and WhatsApp Number.");
+    return;
+  }
+
+  const payload = {
+    action: 'confirmation',
+    name: name,
+    whatsapp: whatsapp,
+    deviceId: deviceId
+  };
+
+  try {
+    const res = await fetch('https://script.google.com/macros/s/AKfycbwoFuGgwip7joLRx_0PPcG8SMhId1LBJKU5owf9KPzRHrcGAp_JmII8--fFhutsQ5OP/exec', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if(data.ok){
+      alert(data.message);
+      if(data.waNotify) window.open(data.waNotify,'_blank'); // Notify admin
+    } else {
+      alert(data.message || "Error during confirmation.");
+    }
+  } catch(err){
+    alert("Error: " + err.message);
+  }
+}
+
+// CONTINUE: Unlock Code verification required
+async function verifyUnlockAndContinue(){
   const name = document.getElementById('name').value.trim();
   const whatsapp = document.getElementById('whatsapp').value.trim();
   const code = document.getElementById('code').value.trim();
@@ -128,54 +241,41 @@ async function confirmAndVerify(){
     return;
   }
 
-  const payload = { action:'verifyUnlock', name, whatsapp, code, deviceId };
+  const payload = {
+    action: 'verifyUnlock',
+    name: name,
+    whatsapp: whatsapp,
+    code: code,
+    deviceId: deviceId
+  };
 
   try {
     const res = await fetch('https://script.google.com/macros/s/AKfycbwoFuGgwip7joLRx_0PPcG8SMhId1LBJKU5owf9KPzRHrcGAp_JmII8--fFhutsQ5OP/exec', {
-      method:'POST',
+      method: 'POST',
       body: JSON.stringify(payload)
     });
     const data = await res.json();
     if(data.ok){
-      alert(data.message);
-      isVerified = true;
+      alert(data.message || "Unlocked. You can now continue the test.");
+      // TODO: redirect to test page or enable test UI
     } else {
-      alert(data.message || "Unlock verification failed.");
-      isVerified = false;
+      alert(data.message || "Unlock failed. Check your code or wait for admin approval.");
     }
   } catch(err){
     alert("Error: " + err.message);
-    isVerified = false;
   }
 }
 
-function loadTestGroups(){
-  testGroupsContainer.innerHTML = '';
-  testGroups.forEach((title, idx)=>{
-    const div = document.createElement('div');
-    div.className = 'testGroup';
-    div.innerHTML = `<h3>Group ${idx+1}: ${title}</h3><p>Click to start this test.</p>`;
-    testGroupsContainer.appendChild(div);
-  });
-  testGroupsContainer.style.display='block';
-}
-
-// Confirm button: triggers unlock verification
 btnConfirm.addEventListener('click', async (e)=>{
   e.preventDefault();
-  await confirmAndVerify();
+  await confirmAndNotifyAdmin();
 });
 
-// Continue button: only works if verified
-btnContinue.addEventListener('click', (e)=>{
+btnContinue.addEventListener('click', async (e)=>{
   e.preventDefault();
-  if(!isVerified){
-    alert("⚠ Please complete confirmation and unlock code verification first.");
-    return;
-  }
-  loadTestGroups();
-  window.scrollTo({ top: testGroupsContainer.offsetTop, behavior:'smooth' });
+  await verifyUnlockAndContinue();
 });
 </script>
+
 </body>
 </html>
