@@ -3,156 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>🩺 Nursing Prometric Actual Simulation Test</title>
-
-<meta property="og:title" content="🩺 Nursing Prometric Simulation Test">
-<meta property="og:description" content="500 tricky and hard Prometric-style questions with rationale.">
-<meta property="og:image" content="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg">
-<meta property="og:type" content="website">
-
+<title>Nursing Prometric Actual Simulation Test</title>
 <style>
-body { margin:0; padding:0; background:#eef2f3; font-family:Arial,sans-serif; text-align:center; overflow-x:hidden; }
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef5f5 url('https://i.ibb.co/FlowingWater.png') no-repeat center top;
+    background-size: cover;
+    text-align: center;
+    min-height: 100vh;
+  }
 
-/* Animations */
-@keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
-@keyframes floatIcon { 0%{transform:translateY(0);}50%{transform:translateY(-6px);}100%{transform:translateY(0);} }
-@keyframes pulse { 0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);} }
-@keyframes flowBackground { 0% {background-position: 0 0;} 100% {background-position: 200px 0;} }
+  /* Top icon image */
+  .top-icon {
+    margin-top: 40px;
+    width: 120px;
+    height: auto;
+  }
 
-/* Hero Section */
-.hero-container { position: relative; width: 100%; margin-bottom: 20px; display: flex; justify-content:center; }
-.hero-background { position: absolute; top:0; left:50%; transform:translateX(-50%); width: 100%; max-width:800px; height:250px; background: url("https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg") repeat-x; opacity:0.15; z-index:1; animation: flowBackground 6s linear infinite; }
-.hero-image { width:66%; max-width:600px; display: block; position: relative; z-index: 2; animation:fadeIn 1.5s ease-out; }
+  h1 {
+    color: #007b83;
+    margin-top: 20px;
+    font-size: 2em;
+  }
 
-/* Text content */
-h1 { font-size:22px; margin:18px 10px 8px; font-weight:bold; animation:fadeIn 1.5s ease-out; color:#222; position: relative; z-index:3; }
-.subtitle, .subtitle2 { opacity:0; animation:fadeIn 2.2s ease forwards; color:#444; position: relative; z-index:3; }
-.subtitle { animation-delay:0.8s; font-size:15px; }
-.subtitle2 { animation-delay:1.2s; margin-bottom:22px; font-size:14px; }
+  h3 {
+    color: #004d53;
+    margin: 5px 0;
+    font-weight: normal;
+  }
 
-/* Social Icons */
-.social-icons { display:flex; justify-content:center; gap:14px; margin:15px 0; position: relative; z-index:3; }
-.social-icons img { width:38px; height:38px; animation:floatIcon 3s infinite ease-in-out; cursor:pointer; transition: transform .2s; }
-.social-icons img:hover { transform: scale(1.2); }
+  /* Social icons */
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 15px;
+  }
 
-/* Buttons */
-.btn { width:80%; max-width:380px; padding:14px; margin-top:12px; border-radius:8px; font-size:18px; border:none; cursor:pointer; animation:fadeIn 2s ease-in-out; transition:0.3s; position: relative; z-index:3; }
-.btn:hover { animation:pulse 0.5s ease; }
-.contact { background:#007bff; color:#fff; }
-.continue { background:#28a745; color:#fff; }
+  .social-icons img {
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+  }
 
-/* Footer */
-footer { margin-top:30px; font-size:12px; color:#777; position: relative; z-index:3; }
+  /* Floating confirmation box */
+  .floating-confirm {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 280px;
+    padding: 14px;
+    background: #ffffffcc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    font-size: 14px;
+    z-index: 9999;
+  }
 
-/* Bottom-left Unlock Form */
-.bottom-left-form {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  max-width: 300px;
-  background: rgba(255,255,255,0.95);
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.2);
-  z-index: 3;
-}
-.bottom-left-form label { font-size:14px; color:#333; margin-top:10px; display:block; }
-.bottom-left-form input { width:100%; padding:8px; margin-top:4px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box; }
+  .floating-confirm input {
+    width: 100%;
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
 
-/* QR Modal (Bottom-right) */
-.qr-modal { display:none; position: fixed; bottom:20px; right:20px; z-index:1000; }
-.qr-content { background:#fff; padding:15px; border-radius:8px; box-shadow:0 0 12px rgba(0,0,0,0.3); max-width:250px; text-align:center; position: relative; }
-.qr-content img { width:100%; margin-top:10px; }
-.close { position:absolute; top:5px; right:8px; cursor:pointer; font-weight:bold; }
+  .floating-confirm button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    background: #007b83;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .floating-confirm button:hover {
+    background: #004d53;
+  }
 
 </style>
 </head>
-
 <body>
 
-<!-- Hero Section -->
-<div class="hero-container">
-  <div class="hero-background"></div>
-  <img class="hero-image" src="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg" alt="Nursing Simulation">
-</div>
+  <!-- Top icon -->
+  <img src="https://github.com/gyoutrain-lab/prometric-nursing-test-commerce2/blob/main/icon17%20(1).jpg?raw=true" alt="Icon" class="top-icon">
 
-<!-- Content -->
-<h1>🩺 Nursing Prometric Actual Simulation Test</h1>
-<p class="subtitle">Prepared based on Prometric/SMLE & NCLEX materials</p>
-<p class="subtitle2">500 high-difficulty questions with rationale</p>
+  <!-- Titles -->
+  <h1>Nursing Prometric Actual Simulation Test</h1>
+  <h3>Prepared based on the Prometric/SMLE and ENCLEX prometric test materials</h3>
+  <h3>Increase your knowledge for your smart career tracking</h3>
 
-<!-- Social Icons -->
-<div class="social-icons">
-  <a href="tel:+6285399652487"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Call"></a>
-  <a href="https://wa.me/6285399652487"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
-  <a href="mailto:gyoutrain@gmail.com"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email"></a>
-  <a href="https://web.facebook.com/gyouskill/"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
-  <a href="https://www.instagram.com/etkyogya"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"></a>
-</div>
+  <!-- Social icons -->
+  <div class="social-icons" role="navigation" aria-label="social links">
+      <a href="tel:+6285399652487" title="Telephone"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="phone"></a>
+      <a href="https://wa.me/6285399652487" target="_blank" rel="noopener" title="WhatsApp"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="whatsapp"></a>
+      <a href="mailto:gyoutrain@gmail.com" target="_blank" rel="noopener" title="Email"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="email"></a>
+      <a href="https://web.facebook.com/gyouskill/" target="_blank" rel="noopener" title="Facebook"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="facebook"></a>
+      <a href="https://www.instagram.com/etkyogya" target="_blank" rel="noopener" title="Instagram"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="instagram"></a>
+  </div>
 
-<!-- Confirm Payment Button -->
-<button class="btn contact">📩 Confirm Payment</button>
-
-<!-- Unlock Form (Bottom-left) -->
-<div class="bottom-left-form">
-  <form id="unlockForm">
-    <label for="name">Full Name</label>
-    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+  <!-- Floating confirmation box -->
+  <div class="floating-confirm">
+    <label for="name">Name</label>
+    <input type="text" id="name" placeholder="Your Name">
 
     <label for="wa">WhatsApp Number</label>
-    <input type="tel" id="wa" name="wa" placeholder="Enter your WhatsApp number" required>
+    <input type="text" id="wa" placeholder="e.g. +628xxxxxx">
 
-    <label for="code">Unlock Code</label>
-    <input type="text" id="code" name="code" placeholder="Enter unlock code (from admin)">
+    <label for="unlock">Unlock Code</label>
+    <input type="text" id="unlock" placeholder="Enter code here">
 
-    <button class="btn continue" type="submit">▶ Continue Test</button>
-  </form>
-</div>
-
-<!-- QR Modal (Bottom-right) -->
-<div id="qrModal" class="qr-modal">
-  <div class="qr-content">
-    <span class="close">&times;</span>
-    <h3>Payment Instruction</h3>
-    <p>Send IDR 50k using the QR below. After payment, notify admin via WhatsApp. Admin will generate an unlock code.</p>
-    <img src="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/qr-payment.jpg" alt="Payment QR">
+    <button onclick="submitUnlock()">Confirm & Continue</button>
   </div>
-</div>
-
-<!-- Footer -->
-<footer>© 2025 GyouTrain Lab — All Rights Reserved</footer>
 
 <script>
-// Show QR modal on Confirm Payment
-document.querySelector('.btn.contact').addEventListener('click', function(){
-  document.getElementById('qrModal').style.display = 'block';
-});
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwoFuGgwip7joLRx_0PPcG8SMhId1LBJKU5owf9KPzRHrcGAp_JmII8--fFhutsQ5OP/exec"; // Replace with your Google Script URL
 
-// Close QR modal
-document.querySelector('.close').addEventListener('click', function(){
-  document.getElementById('qrModal').style.display = 'none';
-});
+function submitUnlock() {
+  const name = document.getElementById('name').value.trim();
+  const wa = document.getElementById('wa').value.trim();
+  const code = document.getElementById('unlock').value.trim();
+  const deviceId = navigator.userAgent; // simple device identifier
 
-// Unlock form submit
-document.getElementById('unlockForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  const name = document.getElementById('name').value;
-  const wa = document.getElementById('wa').value;
-  const code = document.getElementById('code').value;
-
-  if(!name || !wa){
-    alert("Please fill Name and WhatsApp number.");
+  if(!name || !wa || !code){
+    alert("Please fill all fields.");
     return;
   }
 
-  if(!code){
-    alert("Please wait for admin to provide the unlock code after payment.");
-    return;
-  }
-
-  // TODO: Connect to Google Sheet or backend to verify unlock code
-  window.location.href = 'unlock.html';
-});
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "verifyUnlock",
+      name, whatsapp: wa, code, deviceId
+    }),
+    headers: { "Content-Type": "application/json" }
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.ok){
+      alert(`Welcome ${name}! Redirecting to: ${data.testGroup}`);
+      window.location.href = data.testGroupUrl;
+    } else {
+      alert(data.message);
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Error connecting to server. Please try again.");
+  });
+}
 </script>
 
 </body>
