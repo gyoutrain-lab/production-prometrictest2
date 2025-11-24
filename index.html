@@ -44,11 +44,27 @@ h1 { font-size:22px; margin:18px 10px 8px; font-weight:bold; animation:fadeIn 1.
 /* Footer */
 footer { margin-top:30px; font-size:12px; color:#777; position: relative; z-index:3; }
 
-/* Unlock Form */
-#unlockForm { display:flex; flex-direction:column; align-items:flex-start; margin:20px auto 0 auto; max-width:380px; text-align:left; position: relative; z-index:3; }
-#unlockForm label { font-size:14px; color:#333; margin-top:10px; }
-#unlockForm input { width:100%; padding:10px; margin-top:4px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box; }
-#unlockForm button { margin-top:12px; width:100%; }
+/* Bottom-left Unlock Form */
+.bottom-left-form {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  max-width: 300px;
+  background: rgba(255,255,255,0.95);
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  z-index: 3;
+}
+.bottom-left-form label { font-size:14px; color:#333; margin-top:10px; display:block; }
+.bottom-left-form input { width:100%; padding:8px; margin-top:4px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box; }
+
+/* QR Modal (Bottom-right) */
+.qr-modal { display:none; position: fixed; bottom:20px; right:20px; z-index:1000; }
+.qr-content { background:#fff; padding:15px; border-radius:8px; box-shadow:0 0 12px rgba(0,0,0,0.3); max-width:250px; text-align:center; position: relative; }
+.qr-content img { width:100%; margin-top:10px; }
+.close { position:absolute; top:5px; right:8px; cursor:pointer; font-weight:bold; }
+
 </style>
 </head>
 
@@ -68,50 +84,74 @@ footer { margin-top:30px; font-size:12px; color:#777; position: relative; z-inde
 <!-- Social Icons -->
 <div class="social-icons">
   <a href="tel:+6285399652487"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Call"></a>
-  <a href="https://wa.me/6285399652487?text=Hello%2C%20I%20have%20completed%20the%20payment.%20Please%20unlock%20my%20access.%20My%20Name%3A%20________">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
-  </a>
-  <a href="mailto:gyoutrain@gmail.com?subject=Payment Confirmation&body=Hello,%20I%20already%20paid.%20My%20name:%20_____%20Please%20unlock%20my%20access.">
-    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email">
-  </a>
+  <a href="https://wa.me/6285399652487"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+  <a href="mailto:gyoutrain@gmail.com"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email"></a>
   <a href="https://web.facebook.com/gyouskill/"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
   <a href="https://www.instagram.com/etkyogya"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"></a>
 </div>
 
-<!-- Buttons -->
-<button class="btn contact" onclick="window.location.href='mailto:gyoutrain@gmail.com'">📩 Confirm Payment</button>
+<!-- Confirm Payment Button -->
+<button class="btn contact">📩 Confirm Payment</button>
 
-<!-- Unlock Form -->
-<form id="unlockForm">
-  <label for="name">Full Name</label>
-  <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+<!-- Unlock Form (Bottom-left) -->
+<div class="bottom-left-form">
+  <form id="unlockForm">
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
 
-  <label for="wa">WhatsApp Number</label>
-  <input type="tel" id="wa" name="wa" placeholder="Enter your WhatsApp number" required>
+    <label for="wa">WhatsApp Number</label>
+    <input type="tel" id="wa" name="wa" placeholder="Enter your WhatsApp number" required>
 
-  <label for="code">Unlock Code</label>
-  <input type="text" id="code" name="code" placeholder="Enter your unlock code" required>
+    <label for="code">Unlock Code</label>
+    <input type="text" id="code" name="code" placeholder="Enter unlock code (from admin)">
 
-  <button class="btn continue" type="submit">▶ Continue Test</button>
-</form>
+    <button class="btn continue" type="submit">▶ Continue Test</button>
+  </form>
+</div>
+
+<!-- QR Modal (Bottom-right) -->
+<div id="qrModal" class="qr-modal">
+  <div class="qr-content">
+    <span class="close">&times;</span>
+    <h3>Payment Instruction</h3>
+    <p>Send IDR 50k using the QR below. After payment, notify admin via WhatsApp. Admin will generate an unlock code.</p>
+    <img src="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/qr-payment.jpg" alt="Payment QR">
+  </div>
+</div>
 
 <!-- Footer -->
 <footer>© 2025 GyouTrain Lab — All Rights Reserved</footer>
 
 <script>
-// Example form submission handler
+// Show QR modal on Confirm Payment
+document.querySelector('.btn.contact').addEventListener('click', function(){
+  document.getElementById('qrModal').style.display = 'block';
+});
+
+// Close QR modal
+document.querySelector('.close').addEventListener('click', function(){
+  document.getElementById('qrModal').style.display = 'none';
+});
+
+// Unlock form submit
 document.getElementById('unlockForm').addEventListener('submit', function(e){
   e.preventDefault();
   const name = document.getElementById('name').value;
   const wa = document.getElementById('wa').value;
   const code = document.getElementById('code').value;
 
-  if(name && wa && code){
-    // Redirect to test page (unlock.html)
-    window.location.href = 'unlock.html';
-  } else {
-    alert('Please fill in all fields.');
+  if(!name || !wa){
+    alert("Please fill Name and WhatsApp number.");
+    return;
   }
+
+  if(!code){
+    alert("Please wait for admin to provide the unlock code after payment.");
+    return;
+  }
+
+  // TODO: Connect to Google Sheet or backend to verify unlock code
+  window.location.href = 'unlock.html';
 });
 </script>
 
