@@ -22,13 +22,21 @@ body {
 }
 
 /* Floating water animation */
-@keyframes wave1 {0% { transform: translateX(0) translateY(0); }50% { transform: translateX(20px) translateY(-5px); }100% { transform: translateX(0) translateY(0); }}
-@keyframes wave2 {0% { transform: translateX(0) translateY(0); }50% { transform: translateX(-15px) translateY(-10px); }100% { transform: translateX(0) translateY(0); }}
+@keyframes wave1 {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(20px) translateY(-5px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+@keyframes wave2 {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-15px) translateY(-10px); }
+  100% { transform: translateX(0) translateY(0); }
+}
 
 header {
   position: relative;
   width: 100%;
-  height: 50vh;
+  height: 50vh; /* half-page */
   overflow: hidden;
 }
 
@@ -182,7 +190,7 @@ form input {
   <input type="text" id="whatsapp" placeholder="e.g. +628xxxxxx" required>
   
   <label for="code">Unlock Code</label>
-  <input type="text" id="code" placeholder="Enter code here">
+  <input type="text" id="code" placeholder="Enter code here" required>
 </form>
 
 <!-- Right-bottom QR -->
@@ -191,57 +199,49 @@ form input {
 </div>
 
 <script>
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbwAJz-H_1VA5PNBBwjn3mFYNmQnF-VvtSbnsbXuRFnCEJ4q5fHH6zsvgjQDN2vxwx3M/exec";
+const form = document.getElementById('unlockForm');
+const btnConfirm = document.getElementById('btnConfirm');
+const btnContinue = document.getElementById('btnContinue');
 
-// Get or generate device ID
-async function getDeviceId() {
-  let id = localStorage.getItem("deviceId");
-  if (!id) { id = crypto.randomUUID(); localStorage.setItem("deviceId", id); }
-  return id;
-}
-
-// CONFIRMATION
-document.getElementById('btnConfirm').addEventListener('click', async (e)=>{
-  e.preventDefault();
-  const name = document.getElementById('name').value.trim();
-  const whatsapp = document.getElementById('whatsapp').value.trim();
-  const deviceId = await getDeviceId();
-  if(!name || !whatsapp){ alert("Please fill Name and WhatsApp Number."); return; }
-
-  try{
-    const res = await fetch(SHEET_URL, {
+async function verifyUnlock(){
+  const payload = {
+    action:'verifyUnlock',
+    name: document.getElementById('name').value,
+    whatsapp: document.getElementById('whatsapp').value,
+    code: document.getElementById('code').value,
+    deviceId: navigator.userAgent
+  };
+  try {
+    const res = await fetch('https://script.google.com/macros/s/AKfycbwoFuGgwip7joLRx_0PPcG8SMhId1LBJKU5owf9KPzRHrcGAp_JmII8--fFhutsQ5OP/exec', {
       method:'POST',
-      body: JSON.stringify({ action:'confirmation', name, whatsapp, deviceId })
-    });
-    const data = await res.json();
-    if(data.ok){ alert(data.message); if(data.waNotify) window.open(data.waNotify,'_blank'); }
-    else alert(data.message||"Error during confirmation.");
-  }catch(err){ alert("Error: "+err.message); }
-});
-
-// CONTINUE & VERIFY UNLOCK
-document.getElementById('btnContinue').addEventListener('click', async (e)=>{
-  e.preventDefault();
-  const name = document.getElementById('name').value.trim();
-  const whatsapp = document.getElementById('whatsapp').value.trim();
-  const code = document.getElementById('code').value.trim();
-  const deviceId = await getDeviceId();
-  if(!name || !whatsapp || !code){ alert("Please fill Name, WhatsApp, and Unlock Code."); return; }
-
-  try{
-    const res = await fetch(SHEET_URL, {
-      method:'POST',
-      body: JSON.stringify({ action:'verifyUnlock', name, whatsapp, code, deviceId })
+      body: JSON.stringify(payload)
     });
     const data = await res.json();
     if(data.ok){
-      alert(data.message || "Unlocked. Redirecting to test.");
-      localStorage.setItem("name", name);
-      localStorage.setItem("wa", whatsapp);
-      localStorage.setItem("unlockCode", code);
-      window.location.href = data.testGroupUrl || "quiz.html";
-    } else alert(data.message || "Unlock failed. Check your code or wait for admin approval.");
-  }catch(err){ alert("Error: "+err.message); }
+      alert("Verified! You can now continue.");
+      return true;
+    } else {
+      alert(data.message);
+      return false;
+    }
+  } catch(err){
+    alert("Error: "+err.message);
+    return false;
+  }
+}
+
+// Confirm button
+btnConfirm.addEventListener('click', async ()=>{
+  await verifyUnlock();
+});
+
+// Continue Test button
+btnContinue.addEventListener('click', async ()=>{
+  const ok = await verifyUnlock();
+  if(ok){
+    // Redirect to the randomized test group (you can integrate dynamic URL from backend)
+    window.location.href = '#'; // replace with your test group URL logic
+  }
 });
 </script>
 
