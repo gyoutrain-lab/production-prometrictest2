@@ -5,111 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nursing Prometric Actual Simulation Test</title>
 
-<!-- Social Media Thumbnail -->
 <meta property="og:title" content="Nursing Prometric Actual Simulation Test">
 <meta property="og:description" content="Prepared based on the Prometric/SMLE and ENCLEX prometric test materials. Increase your knowledge for your smart career tracking.">
 <meta property="og:image" content="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg">
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  margin:0; padding:0;
-  background:#eef5f5;
-  color:#222;
-  text-align:center;
-  overflow-x: hidden;
-}
-
-header {
-  position: relative;
-  width: 100%;
-  height: 50vh;
-  overflow: hidden;
-}
-header::before, header::after {
-  content:"";
-  position:absolute;
-  top:0; left:0; width:100%; height:100%;
-  background: url('https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg') center/cover no-repeat;
-  opacity:0.08; z-index:1;
-  will-change: transform;
-}
+body { font-family: Arial, sans-serif; margin:0; padding:0; background:#eef5f5; color:#222; text-align:center; overflow-x: hidden; }
+header { position: relative; width: 100%; height: 50vh; overflow: hidden; }
+header::before, header::after { content:""; position:absolute; top:0; left:0; width:100%; height:100%; background: url('https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg') center/cover no-repeat; opacity:0.08; z-index:1; will-change: transform; }
 header::before { animation: wave1 8s ease-in-out infinite; }
 header::after  { animation: wave2 10s ease-in-out infinite; }
 header img { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); max-height:250px; z-index:2; }
-
 h1 { margin-top:20px; font-size:2em; color:#007b83; z-index:3; }
 h2 { margin:5px 0; font-size:1.1em; color:#333; }
-
-.social-icons {
-  margin:15px 0;
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-}
+.social-icons { margin:15px 0; display:flex; justify-content:center; flex-wrap:wrap; }
 .social-icons a { margin:0 10px; display:inline-block; }
 .social-icons img { width:35px; height:35px; }
-
-.buttons-center {
-  margin:15px auto 30px auto;
-  display:flex;
-  justify-content:center;
-  gap:15px;
-}
-.buttons-center button {
-  padding:10px 20px;
-  border:none;
-  border-radius:5px;
-  font-size:1em;
-  color:#fff;
-  cursor:pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
+.buttons-center { margin:15px auto 30px auto; display:flex; justify-content:center; gap:15px; }
+.buttons-center button { padding:10px 20px; border:none; border-radius:5px; font-size:1em; color:#fff; cursor:pointer; transition: transform 0.2s ease, opacity 0.2s ease; }
 .buttons-center button.confirm { background:#007b83; }
 .buttons-center button.continue { background:#28a745; }
 .buttons-center button:hover { opacity:0.9; transform:scale(1.05); }
-
-form {
-  position:fixed; bottom:20px; left:20px;
-  width:280px;
-  background:#fff; border-radius:10px;
-  padding:15px;
-  box-shadow:0 2px 10px rgba(0,0,0,0.2);
-  text-align:left;
-}
+form { position:fixed; bottom:20px; left:20px; width:280px; background:#fff; border-radius:10px; padding:15px; box-shadow:0 2px 10px rgba(0,0,0,0.2); text-align:left; }
 form label { display:block; margin-top:10px; font-weight:bold; }
-form input {
-  width:100%; padding:8px; margin-top:5px; border-radius:5px; border:1px solid #ccc;
-}
-form input:focus {
-  outline:none;
-  border:2px solid #007b83;
-  box-shadow:0 0 5px rgba(0,123,131,0.5);
-}
-
-.qr-container {
-  position:fixed; bottom:20px; right:20px;
-  width:140px; background:#fff;
-  padding:10px; border-radius:10px;
-  box-shadow:0 2px 10px rgba(0,0,0,0.2);
-  text-align:center;
-}
+form input { width:100%; padding:8px; margin-top:5px; border-radius:5px; border:1px solid #ccc; }
+form input:focus { outline:none; border:2px solid #007b83; box-shadow:0 0 5px rgba(0,123,131,0.5); }
+.qr-container { position:fixed; bottom:20px; right:20px; width:140px; background:#fff; padding:10px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.2); text-align:center; }
 .qr-container img { max-width:100%; height:auto; display:block; }
-
-.notification {
-  position:fixed;
-  top:10px; right:10px;
-  background:#28a745; color:#fff;
-  padding:10px; border-radius:5px;
-  display:none;
-  z-index:999;
-}
-
-@media screen and (max-width:480px){
-  form, .qr-container { position:static; width:90%; margin:10px auto; }
-  .buttons-center { flex-direction:column; gap:10px; }
-}
-
+.notification { position:fixed; top:10px; right:10px; background:#28a745; color:#fff; padding:10px; border-radius:5px; display:none; z-index:999; }
+@media screen and (max-width:480px){ form, .qr-container { position:static; width:90%; margin:10px auto; } .buttons-center { flex-direction:column; gap:10px; } }
 @keyframes wave1 { 0%{transform:translateX(0) translateY(0);}50%{transform:translateX(20px) translateY(-5px);}100%{transform:translateX(0) translateY(0);} }
 @keyframes wave2 { 0%{transform:translateX(0) translateY(0);}50%{transform:translateX(-15px) translateY(-10px);}100%{transform:translateX(0) translateY(0);} }
 </style>
@@ -155,7 +79,7 @@ form input:focus {
 <div class="notification" id="notification"></div>
 
 <script>
-const DEPLOY_URL = "https://script.google.com/macros/s/AKfycbw1Zo9-H5CW-PvUhygQCIayRl7qA7KL4Z1t_s4NgFm-63yGOLs1TlAXHwP8g0zRW1DW/exec"; // replace with your GAS URL
+const DEPLOY_URL = "https://script.google.com/macros/s/YOUR_GAS_DEPLOY_ID/exec"; // single GAS URL for both POST and polling
 const btnConfirm = document.getElementById('btnConfirm');
 const btnContinue = document.getElementById('btnContinue');
 const inputCode = document.getElementById('code');
@@ -174,6 +98,9 @@ async function sendConfirmation(){
   const whatsapp = document.getElementById('whatsapp').value.trim();
   if(!name || !whatsapp){ showNotification("Please fill Name and WhatsApp."); return; }
 
+  btnConfirm.disabled = true;
+  btnConfirm.innerText = "Submitting...";
+
   try{
     const res = await fetch(DEPLOY_URL, {
       method:'POST',
@@ -188,13 +115,19 @@ async function sendConfirmation(){
       }
     } else {
       showNotification(data.message || "Error submitting confirmation.");
+      btnConfirm.disabled = false;
+      btnConfirm.innerText = "Confirmation";
     }
-  }catch(err){ showNotification("Error: "+err.message); }
+  }catch(err){
+    showNotification("Error: "+err.message);
+    btnConfirm.disabled = false;
+    btnConfirm.innerText = "Confirmation";
+  }
 }
 
 async function pollStatus(name, whatsapp){
   try{
-    const res = await fetch(`${https://script.google.com/macros/s/AKfycbweO3pKm0wgTO8M_G-hXoKE4tsDAXtCkgyHf66Zg4SI_zc9whEiLwIv1lZ1TJmv8tyf/exec}?checkStatus=1`,{
+    const res = await fetch(DEPLOY_URL + "?checkStatus=1", {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({name, whatsapp})
@@ -205,8 +138,12 @@ async function pollStatus(name, whatsapp){
       clearInterval(pollingInterval);
       pollingInterval = null;
       showNotification("Payment verified! Unlock Code is now available.");
+      btnConfirm.disabled = false;
+      btnConfirm.innerText = "Confirmation";
     }
-  }catch(err){ console.log("Polling error: "+err.message); }
+  }catch(err){
+    console.log("Polling error: "+err.message);
+  }
 }
 
 btnConfirm.addEventListener('click', sendConfirmation);
