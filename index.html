@@ -1,80 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nursing Prometric Actual Simulation Test</title>
-<link rel="stylesheet" href="styles.css">
+
+<!-- Social Media Thumbnail -->
+<meta property="og:title" content="Nursing Prometric Actual Simulation Test">
+<meta property="og:description" content="Prepared based on the Prometric/SMLE and ENCLEX prometric test materials. Increase your knowledge for your smart career tracking.">
+<meta property="og:image" content="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin:0;
+  padding:0;
+  background:#eef5f5;
+  color:#222;
+  text-align:center;
+  overflow-x: hidden;
+}
+
+/* Floating water animation */
+@keyframes wave1 {0% { transform: translateX(0) translateY(0); }50% { transform: translateX(20px) translateY(-5px); }100% { transform: translateX(0) translateY(0); }}
+@keyframes wave2 {0% { transform: translateX(0) translateY(0); }50% { transform: translateX(-15px) translateY(-10px); }100% { transform: translateX(0) translateY(0); }}
+
+header {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  overflow: hidden;
+}
+
+/* Floating background layers */
+header::before {
+  content: "";
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: url('https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg') center/cover no-repeat;
+  opacity: 0.08;
+  animation: wave1 8s ease-in-out infinite;
+  z-index:1;
+}
+header::after {
+  content: "";
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: url('https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg') center/cover no-repeat;
+  opacity: 0.08;
+  animation: wave2 10s ease-in-out infinite;
+  z-index:1;
+}
+
+/* Foreground main icon */
+header img {
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  max-height: 250px;
+  z-index:2;
+}
+
+h1 {
+  margin-top: 20px;
+  font-size: 2em;
+  color:#007b83;
+  z-index:3;
+}
+h2 {
+  margin: 5px 0;
+  font-size: 1.1em;
+  color:#333;
+}
+
+/* Social Icons */
+.social-icons {
+  margin: 15px 0;
+}
+.social-icons a {
+  margin: 0 10px;
+  display:inline-block;
+}
+.social-icons img {
+  width:35px;
+  height:35px;
+}
+
+/* Buttons below social icons */
+.buttons-center {
+  margin: 15px auto 30px auto;
+  display:flex;
+  justify-content:center;
+  gap:15px;
+}
+.buttons-center button {
+  padding:10px 20px;
+  border:none;
+  border-radius:5px;
+  font-size:1em;
+  color:#fff;
+  cursor:pointer;
+}
+.buttons-center button.confirm { background:#007b83; }
+.buttons-center button.continue { background:#28a745; }
+.buttons-center button:hover { opacity:0.9; }
+
+/* Left-bottom form */
+form {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 280px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  text-align: left;
+}
+form label {
+  display:block;
+  margin-top:10px;
+  font-weight:bold;
+}
+form input {
+  width:100%;
+  padding:8px;
+  margin-top:5px;
+  border-radius:5px;
+  border:1px solid #ccc;
+}
+
+/* Right-bottom QR */
+.qr-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 140px;
+  background:#fff;
+  padding:10px;
+  border-radius:10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  text-align:center;
+}
+.qr-container img { max-width:100%; height:auto; display:block; }
+</style>
 </head>
 <body>
 
-<div class="container">
-  <div class="card header">
-    <div>
-      <div class="title">🩺 Nursing Prometric Actual Simulation Test</div>
-      <div class="subtitle">500 tricky & hard items — Prometric / SMLE / NCLEX based</div>
-    </div>
-    <div>
-      <button class="btn btn-ghost" onclick="location.href='admin.html'">Admin</button>
-    </div>
-  </div>
+<header>
+  <img src="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg" alt="Nursing Prometric Icon">
+</header>
 
-  <img src="https://images.unsplash.com/photo-1587502536263-43f2b7d5b6b1?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=9f7b9b9a1f8c3b3f0f7dd4b6e4e5b0f8" class="hero card">
+<h1>Nursing Prometric Actual Simulation Test</h1>
+<h2>Prepared based on the Prometric/SMLE and ENCLEX prometric test materials</h2>
+<h2>Increase your knowledge for your smart career tracking</h2>
 
-  <div style="margin-top:18px" class="card">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-      <div>
-        <div style="font-weight:800;font-size:18px;color:#083d58">Start practicing and master your exam.</div>
-        <div style="color:#6b7280;margin-top:6px;font-size:14px">Demo available — Full test unlock after confirmation & admin approval.</div>
-      </div>
-      <div style="text-align:right">
-        <button class="btn btn-primary" onclick="location.href='quiz.html?demo=true'">🚀 Start Demo Test</button>
-        <div style="height:8px"></div>
-        <button class="btn" id="unlockBtn">🔐 Continue Full Test</button>
-      </div>
-    </div>
-  </div>
+<!-- Social icons -->
+<div class="social-icons" role="navigation" aria-label="social links">
+  <a href="tel:+6285399652487" title="Telephone"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="phone"></a>
+  <a href="https://wa.me/6285399652487" target="_blank" rel="noopener" title="WhatsApp"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="whatsapp"></a>
+  <a href="mailto:gyoutrain@gmail.com" target="_blank" rel="noopener" title="Email"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="email"></a>
+  <a href="https://web.facebook.com/gyouskill/" target="_blank" rel="noopener" title="Facebook"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="facebook"></a>
+  <a href="https://www.instagram.com/etkyogya" target="_blank" rel="noopener" title="Instagram"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="instagram"></a>
+</div>
 
-  <div style="margin-top:18px" class="card grid">
-    <div>
-      <div style="font-weight:700;color:#083d58">How it works</div>
-      <ol style="color:#6b7280;margin-top:8px;padding-left:18px">
-        <li>Click Continue Full Test → register your Name & WhatsApp</li>
-        <li>Send proof to admin (WhatsApp) and wait approval</li>
-        <li>Admin approves sheet → system unlocks automatically</li>
-      </ol>
-    </div>
+<!-- Centered Buttons -->
+<div class="buttons-center">
+  <button class="confirm" id="btnConfirm">Confirmation</button>
+  <button class="continue" id="btnContinue">Continue Test</button>
+</div>
 
-    <div>
-      <div style="font-weight:700;color:#083d58">Support</div>
-      <p style="color:#6b7280;margin-top:8px">
-        Contact admin via WhatsApp:
-        <a href="https://wa.me/6285399652487" target="_blank">+62 853-9965-2487</a>
-      </p>
-    </div>
-  </div>
+<!-- Left-bottom form -->
+<form id="unlockForm">
+  <label for="name">Name</label>
+  <input type="text" id="name" placeholder="Your Name" required>
+  
+  <label for="whatsapp">WhatsApp Number</label>
+  <input type="text" id="whatsapp" placeholder="e.g. +628xxxxxx" required>
+  
+  <label for="code">Unlock Code</label>
+  <input type="text" id="code" placeholder="Enter code here">
+</form>
 
-  <div id="registerBox" class="card" style="display:none; margin-top:18px;">
-    <h3>🔐 Unlock Full Access</h3>
-    <p>Fill and send confirmation.</p>
-
-    <input id="name" placeholder="Your Name">
-    <input id="wa" placeholder="WhatsApp Number">
-
-    <button class="btn btn-primary" id="confirmBtn">📩 Confirm Payment</button>
-  </div>
-
-  <div class="footer" style="text-align:center;margin-top:18px">
-    Prepared by <strong>Giyono Asfarrasyid — ETK Yogyakarta</strong>
-  </div>
+<!-- Right-bottom QR -->
+<div class="qr-container">
+  <img src="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/dana_qr.png" alt="QR Code">
 </div>
 
 <script>
-// ====== CONFIG ======
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbz7sGiwozuqKkcN9QKn3LauEq8Q7LvR_hdDKsEgfcuJ0ywyL8bxMpwP_UIS7FUlD88j/exec";
-const adminWA = "6285399652487";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyl8X-x7dy_ZrLesvCgZ97IV4HP2s5lSS76s-Rif_F0OyfhwtqECBSRhsFP9BxQlvcb/exec";
 
-// Device ID
+const btnConfirm = document.getElementById('btnConfirm');
+const btnContinue = document.getElementById('btnContinue');
+
 async function getDeviceId() {
   let id = localStorage.getItem("deviceId");
   if (!id) {
@@ -84,41 +205,89 @@ async function getDeviceId() {
   return id;
 }
 
-// Show register form on click
-document.getElementById("unlockBtn").addEventListener("click", () => {
-  document.getElementById("registerBox").style.display = "block";
-});
-
-// Confirm Payment
-document.getElementById("confirmBtn").addEventListener("click", async () => {
-  const name = document.getElementById("name").value.trim();
-  const wa = document.getElementById("wa").value.trim();
+// CONFIRMATION
+async function confirmAndNotifyAdmin(){
+  const name = document.getElementById('name').value.trim();
+  const whatsapp = document.getElementById('whatsapp').value.trim();
   const deviceId = await getDeviceId();
 
-  if (!name || !wa) {
-    alert("⚠ Please enter your Name and WhatsApp number.");
+  if(!name || !whatsapp) {
+    alert("Please fill Name and WhatsApp Number.");
     return;
   }
 
-  const payload = { action:"confirmation", name, whatsapp:wa, deviceId };
+  const payload = {
+    action: 'confirmation',
+    name: name,
+    whatsapp: whatsapp,
+    deviceId: deviceId
+  };
 
-  fetch(SHEET_URL, { method:"POST", body:JSON.stringify(payload) })
-    .then(res => res.json())
-    .then(data => {
-      if(data.ok) {
-        alert("📩 Confirmation sent. Admin will verify.");
-        // Save to localStorage for quiz.html
-        localStorage.setItem("name", name);
-        localStorage.setItem("wa", wa);
-        localStorage.setItem("unlockCode", "000000"); // placeholder, updated after admin approves
-        // Open WhatsApp to notify admin
-        const msg = encodeURIComponent(`Payment Confirmed.\n\nName: ${name}\nWhatsApp: ${wa}\nDevice ID: ${deviceId}\n\nPlease verify & send unlock code.`);
-        window.open(`https://wa.me/${adminWA}?text=${msg}`, "_blank");
-      } else {
-        alert(data.message || "Error during confirmation.");
-      }
-    })
-    .catch(err => alert("Error: " + err.message));
+  try {
+    const res = await fetch(SHEET_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if(data.ok){
+      alert(data.message);
+      if(data.waNotify) window.open(data.waNotify,'_blank'); 
+    } else {
+      alert(data.message || "Error during confirmation.");
+    }
+  } catch(err){
+    alert("Error: " + err.message);
+  }
+}
+
+// CONTINUE
+async function verifyUnlockAndContinue(){
+  const name = document.getElementById('name').value.trim();
+  const whatsapp = document.getElementById('whatsapp').value.trim();
+  const code = document.getElementById('code').value.trim();
+  const deviceId = await getDeviceId();
+
+  if(!name || !whatsapp || !code){
+    alert("Please fill Name, WhatsApp Number, and Unlock Code.");
+    return;
+  }
+
+  const payload = {
+    action: 'verifyUnlock',
+    name: name,
+    whatsapp: whatsapp,
+    code: code,
+    deviceId: deviceId
+  };
+
+  try {
+    const res = await fetch(SHEET_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if(data.ok){
+      alert(data.message || "Unlocked. You can now continue the test.");
+      localStorage.setItem("name", name);
+      localStorage.setItem("wa", whatsapp);
+      localStorage.setItem("unlockCode", code);
+      window.location.href = "quiz.html";
+    } else {
+      alert(data.message || "Unlock failed. Check your code or wait for admin approval.");
+    }
+  } catch(err){
+    alert("Error: " + err.message);
+  }
+}
+
+btnConfirm.addEventListener('click', async (e)=>{
+  e.preventDefault();
+  await confirmAndNotifyAdmin();
+});
+
+btnContinue.addEventListener('click', async (e)=>{
+  e.preventDefault();
+  await verifyUnlockAndContinue();
 });
 </script>
 
