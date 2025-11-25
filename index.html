@@ -13,24 +13,11 @@
 <style>
 body {
   font-family: Arial, sans-serif;
-  margin:0;
-  padding:0;
+  margin:0; padding:0;
   background:#eef5f5;
   color:#222;
   text-align:center;
   overflow-x: hidden;
-}
-
-/* Floating water animation */
-@keyframes wave1 {
-  0% { transform: translateX(0) translateY(0); }
-  50% { transform: translateX(20px) translateY(-5px); }
-  100% { transform: translateX(0) translateY(0); }
-}
-@keyframes wave2 {
-  0% { transform: translateX(0) translateY(0); }
-  50% { transform: translateX(-15px) translateY(-10px); }
-  100% { transform: translateX(0) translateY(0); }
 }
 
 header {
@@ -39,65 +26,32 @@ header {
   height: 50vh;
   overflow: hidden;
 }
-
-header::before {
-  content: "";
-  position: absolute;
-  top:0; left:0;
-  width:100%; height:100%;
+header::before, header::after {
+  content:"";
+  position:absolute;
+  top:0; left:0; width:100%; height:100%;
   background: url('https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg') center/cover no-repeat;
-  opacity: 0.08;
-  animation: wave1 8s ease-in-out infinite;
-  z-index:1;
+  opacity:0.08; z-index:1;
+  will-change: transform;
 }
-header::after {
-  content: "";
-  position: absolute;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: url('https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg') center/cover no-repeat;
-  opacity: 0.08;
-  animation: wave2 10s ease-in-out infinite;
-  z-index:1;
-}
+header::before { animation: wave1 8s ease-in-out infinite; }
+header::after  { animation: wave2 10s ease-in-out infinite; }
+header img { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); max-height:250px; z-index:2; }
 
-header img {
-  position: absolute;
-  top:50%;
-  left:50%;
-  transform: translate(-50%, -50%);
-  max-height: 250px;
-  z-index:2;
-}
+h1 { margin-top:20px; font-size:2em; color:#007b83; z-index:3; }
+h2 { margin:5px 0; font-size:1.1em; color:#333; }
 
-h1 {
-  margin-top: 20px;
-  font-size: 2em;
-  color:#007b83;
-  z-index:3;
-}
-h2 {
-  margin: 5px 0;
-  font-size: 1.1em;
-  color:#333;
-}
-
-/* Social Icons */
 .social-icons {
-  margin: 15px 0;
+  margin:15px 0;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
 }
-.social-icons a {
-  margin: 0 10px;
-  display:inline-block;
-}
-.social-icons img {
-  width:35px;
-  height:35px;
-}
+.social-icons a { margin:0 10px; display:inline-block; }
+.social-icons img { width:35px; height:35px; }
 
-/* Buttons below social icons */
 .buttons-center {
-  margin: 15px auto 30px auto;
+  margin:15px auto 30px auto;
   display:flex;
   justify-content:center;
   gap:15px;
@@ -109,49 +63,55 @@ h2 {
   font-size:1em;
   color:#fff;
   cursor:pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 .buttons-center button.confirm { background:#007b83; }
 .buttons-center button.continue { background:#28a745; }
-.buttons-center button:hover { opacity:0.9; }
+.buttons-center button:hover { opacity:0.9; transform:scale(1.05); }
 
-/* Left-bottom form */
 form {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  width: 280px;
-  background: #fff;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  text-align: left;
+  position:fixed; bottom:20px; left:20px;
+  width:280px;
+  background:#fff; border-radius:10px;
+  padding:15px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.2);
+  text-align:left;
 }
-form label {
-  display:block;
-  margin-top:10px;
-  font-weight:bold;
-}
+form label { display:block; margin-top:10px; font-weight:bold; }
 form input {
-  width:100%;
-  padding:8px;
-  margin-top:5px;
-  border-radius:5px;
-  border:1px solid #ccc;
+  width:100%; padding:8px; margin-top:5px; border-radius:5px; border:1px solid #ccc;
+}
+form input:focus {
+  outline:none;
+  border:2px solid #007b83;
+  box-shadow:0 0 5px rgba(0,123,131,0.5);
 }
 
-/* Right-bottom QR */
 .qr-container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 140px;
-  background:#fff;
-  padding:10px;
-  border-radius:10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  position:fixed; bottom:20px; right:20px;
+  width:140px; background:#fff;
+  padding:10px; border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.2);
   text-align:center;
 }
 .qr-container img { max-width:100%; height:auto; display:block; }
+
+.notification {
+  position:fixed;
+  top:10px; right:10px;
+  background:#28a745; color:#fff;
+  padding:10px; border-radius:5px;
+  display:none;
+  z-index:999;
+}
+
+@media screen and (max-width:480px){
+  form, .qr-container { position:static; width:90%; margin:10px auto; }
+  .buttons-center { flex-direction:column; gap:10px; }
+}
+
+@keyframes wave1 { 0%{transform:translateX(0) translateY(0);}50%{transform:translateX(20px) translateY(-5px);}100%{transform:translateX(0) translateY(0);} }
+@keyframes wave2 { 0%{transform:translateX(0) translateY(0);}50%{transform:translateX(-15px) translateY(-10px);}100%{transform:translateX(0) translateY(0);} }
 </style>
 </head>
 <body>
@@ -164,8 +124,7 @@ form input {
 <h2>Prepared based on the Prometric/SMLE and ENCLEX prometric test materials</h2>
 <h2>Increase your knowledge for your smart career tracking</h2>
 
-<!-- Social icons -->
-<div class="social-icons" role="navigation" aria-label="social links">
+<div class="social-icons">
   <a href="tel:+6285399652487" title="Telephone"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="phone"></a>
   <a href="https://wa.me/6285399652487" target="_blank" rel="noopener" title="WhatsApp"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="whatsapp"></a>
   <a href="mailto:gyoutrain@gmail.com" target="_blank" rel="noopener" title="Email"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="email"></a>
@@ -173,13 +132,11 @@ form input {
   <a href="https://www.instagram.com/etkyogya" target="_blank" rel="noopener" title="Instagram"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="instagram"></a>
 </div>
 
-<!-- Centered Buttons -->
 <div class="buttons-center">
   <button class="confirm" id="btnConfirm">Confirmation</button>
   <button class="continue" id="btnContinue">Continue Test</button>
 </div>
 
-<!-- Left-bottom form -->
 <form id="unlockForm">
   <label for="name">Name</label>
   <input type="text" id="name" placeholder="Your Name" required>
@@ -188,72 +145,77 @@ form input {
   <input type="text" id="whatsapp" placeholder="e.g. +628xxxxxx" required>
   
   <label for="code">Unlock Code</label>
-  <input type="text" id="code" placeholder="Enter code here" required>
+  <input type="text" id="code" placeholder="Unlock code will appear here" readonly>
 </form>
 
-<!-- Right-bottom QR -->
 <div class="qr-container">
   <img src="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/dana_qr.png" alt="QR Code">
 </div>
 
+<div class="notification" id="notification"></div>
+
 <script>
-const form = document.getElementById('unlockForm');
+const DEPLOY_URL = "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec"; // replace with your GAS URL
 const btnConfirm = document.getElementById('btnConfirm');
 const btnContinue = document.getElementById('btnContinue');
+const inputCode = document.getElementById('code');
+const notification = document.getElementById('notification');
 
-let unlocked = false; // Track verified state
+let pollingInterval = null;
 
-async function verifyUnlock(){
+function showNotification(msg){
+  notification.innerText = msg;
+  notification.style.display = 'block';
+  setTimeout(()=> notification.style.display='none', 4000);
+}
+
+async function sendConfirmation(){
   const name = document.getElementById('name').value.trim();
   const whatsapp = document.getElementById('whatsapp').value.trim();
-  const code = document.getElementById('code').value.trim();
+  if(!name || !whatsapp){ showNotification("Please fill Name and WhatsApp."); return; }
 
-  if(!name || !whatsapp || !code){
-    alert("Please fill Name, WhatsApp Number, and Unlock Code.");
-    return false;
-  }
-
-  const payload = {
-    action:'verifyUnlock',
-    name,
-    whatsapp,
-    code,
-    deviceId: navigator.userAgent
-  };
-
-  try {
-    const res = await fetch('https://script.google.com/macros/s/AKfycbyD8rwwsZAfIGoVmghXMMnYRDZOB_SKoi6g2bzm_Otrvvtd8Air4MRijvn2HUV9hjY/exec', {
+  try{
+    const res = await fetch(DEPLOY_URL, {
       method:'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name, whatsapp, deviceId: navigator.userAgent})
     });
     const data = await res.json();
     if(data.ok){
-      unlocked = true;
-      alert("Verified! You can now continue.");
-      return true;
+      showNotification("Confirmation submitted! Waiting for admin verification...");
+      if(!pollingInterval){
+        pollingInterval = setInterval(()=> pollStatus(name, whatsapp), 5000);
+      }
     } else {
-      alert(data.message);
-      return false;
+      showNotification(data.message || "Error submitting confirmation.");
     }
-  } catch(err){
-    alert("Error: "+err.message);
-    return false;
-  }
+  }catch(err){ showNotification("Error: "+err.message); }
 }
 
-// Confirm button
-btnConfirm.addEventListener('click', async ()=>{
-  await verifyUnlock();
-});
+async function pollStatus(name, whatsapp){
+  try{
+    const res = await fetch(`${https://script.google.com/macros/s/AKfycbweO3pKm0wgTO8M_G-hXoKE4tsDAXtCkgyHf66Zg4SI_zc9whEiLwIv1lZ1TJmv8tyf/exec}?checkStatus=1`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name, whatsapp})
+    });
+    const data = await res.json();
+    if(data.ok && data.status === "Verified"){
+      inputCode.value = data.unlockCode || "Unlock Code Available";
+      clearInterval(pollingInterval);
+      pollingInterval = null;
+      showNotification("Payment verified! Unlock Code is now available.");
+    }
+  }catch(err){ console.log("Polling error: "+err.message); }
+}
 
-// Continue Test button
-btnContinue.addEventListener('click', async ()=>{
-  if(unlocked){
-    window.location.href = 'quiz.html'; // Replace with your quiz page URL
+btnConfirm.addEventListener('click', sendConfirmation);
+
+btnContinue.addEventListener('click', ()=>{
+  if(inputCode.value && inputCode.value.trim() !== ""){
+    window.location.href = "quiz.html"; // replace with your quiz page
   } else {
-    const ok = await verifyUnlock();
-    if(ok) window.location.href = 'quiz.html';
+    showNotification("Unlock Code not available yet. Please wait for admin verification.");
   }
 });
 </script>
