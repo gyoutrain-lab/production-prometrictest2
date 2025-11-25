@@ -193,101 +193,55 @@ form input {
 <script>
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbwFa-VWM01BqcIzPw_FkxnYxmDGijGLG5uXJEQUO4dbg47iHF2wAetiyh4irBUf4idM/exec";
 
-const btnConfirm = document.getElementById('btnConfirm');
-const btnContinue = document.getElementById('btnContinue');
-
+// Get or generate device ID
 async function getDeviceId() {
   let id = localStorage.getItem("deviceId");
-  if (!id) {
-    id = crypto.randomUUID();
-    localStorage.setItem("deviceId", id);
-  }
+  if (!id) { id = crypto.randomUUID(); localStorage.setItem("deviceId", id); }
   return id;
 }
 
 // CONFIRMATION
-async function confirmAndNotifyAdmin(){
+document.getElementById('btnConfirm').addEventListener('click', async (e)=>{
+  e.preventDefault();
   const name = document.getElementById('name').value.trim();
   const whatsapp = document.getElementById('whatsapp').value.trim();
   const deviceId = await getDeviceId();
+  if(!name || !whatsapp){ alert("Please fill Name and WhatsApp Number."); return; }
 
-  if(!name || !whatsapp) {
-    alert("Please fill Name and WhatsApp Number.");
-    return;
-  }
-
-  const payload = {
-    action: 'confirmation',
-    name: name,
-    whatsapp: whatsapp,
-    deviceId: deviceId
-  };
-
-  try {
+  try{
     const res = await fetch(SHEET_URL, {
-      method: 'POST',
-      body: JSON.stringify(payload)
+      method:'POST',
+      body: JSON.stringify({ action:'confirmation', name, whatsapp, deviceId })
     });
     const data = await res.json();
-    if(data.ok){
-      alert(data.message);
-      if(data.waNotify) window.open(data.waNotify,'_blank'); 
-    } else {
-      alert(data.message || "Error during confirmation.");
-    }
-  } catch(err){
-    alert("Error: " + err.message);
-  }
-}
+    if(data.ok){ alert(data.message); if(data.waNotify) window.open(data.waNotify,'_blank'); }
+    else alert(data.message||"Error during confirmation.");
+  }catch(err){ alert("Error: "+err.message); }
+});
 
-// CONTINUE
-async function verifyUnlockAndContinue(){
+// CONTINUE & VERIFY UNLOCK
+document.getElementById('btnContinue').addEventListener('click', async (e)=>{
+  e.preventDefault();
   const name = document.getElementById('name').value.trim();
   const whatsapp = document.getElementById('whatsapp').value.trim();
   const code = document.getElementById('code').value.trim();
   const deviceId = await getDeviceId();
+  if(!name || !whatsapp || !code){ alert("Please fill Name, WhatsApp, and Unlock Code."); return; }
 
-  if(!name || !whatsapp || !code){
-    alert("Please fill Name, WhatsApp Number, and Unlock Code.");
-    return;
-  }
-
-  const payload = {
-    action: 'verifyUnlock',
-    name: name,
-    whatsapp: whatsapp,
-    code: code,
-    deviceId: deviceId
-  };
-
-  try {
+  try{
     const res = await fetch(SHEET_URL, {
-      method: 'POST',
-      body: JSON.stringify(payload)
+      method:'POST',
+      body: JSON.stringify({ action:'verifyUnlock', name, whatsapp, code, deviceId })
     });
     const data = await res.json();
     if(data.ok){
-      alert(data.message || "Unlocked. You can now continue the test.");
+      alert(data.message || "Unlocked. Redirecting to test.");
       localStorage.setItem("name", name);
       localStorage.setItem("wa", whatsapp);
       localStorage.setItem("unlockCode", code);
       window.location.href = data.testGroupUrl || "quiz.html";
-    } else {
-      alert(data.message || "Unlock failed. Check your code or wait for admin approval.");
-    }
-  } catch(err){
-    alert("Error: " + err.message);
-  }
-}
-
-btnConfirm.addEventListener('click', async (e)=>{
-  e.preventDefault();
-  await confirmAndNotifyAdmin();
-});
-
-btnContinue.addEventListener('click', async (e)=>{
-  e.preventDefault();
-  await verifyUnlockAndContinue();
+    } else alert(data.message || "Unlock failed. Check your code or wait for admin approval.");
+  }catch(err){ alert("Error: "+err.message); }
 });
 </script>
 
