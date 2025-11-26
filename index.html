@@ -3,211 +3,262 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CBT — Practice Dashboard</title>
-  <meta name="description" content="Prometric-style CBT landing page mock for embedding an external test script." />
+  <title>SMLE — Candidate Dashboard (Mock)</title>
+  <meta name="description" content="SCFHS / SMLE style CBT landing page (C2 modern green-white). Embed your external test script here." />
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--muted:#94a3b8;--accent:#0ea5a4;--glass:rgba(255,255,255,0.03)}
+    /* SMLE C2-inspired styling (green + white, rounded cards) */
+    :root{
+      --green-900:#053017; --green-700:#0b6b3a; --green-500:#197a3f; --muted:#6b7280; --panel:#ffffff; --bg:#f6f8f9;
+      --shadow: 0 8px 24px rgba(2,6,23,0.06);
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial; background:linear-gradient(180deg,#071029 0%, #071833 100%);color:#e6eef6}
-    .container{max-width:1100px;margin:32px auto;padding:20px}
-    .header{display:flex;align-items:center;gap:16px}
-    .logo{width:68px;height:68px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#2dd4bf);display:flex;align-items:center;justify-content:center;font-weight:700;color:#042027}
-    h1{margin:0;font-size:20px}
-    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
-    .grid{display:grid;grid-template-columns:1fr 380px;gap:18px;margin-top:20px}
+    html,body{height:100%;margin:0;background:var(--bg);color:#0b1220}
+    .site{max-width:1100px;margin:28px auto;padding:18px}
 
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
-    .card h2{margin:0 0 8px;font-size:16px}
-    .info-row{display:flex;justify-content:space-between;align-items:center;margin:8px 0;padding:8px;background:var(--glass);border-radius:8px}
+    /* Header */
+    .topbar{background:linear-gradient(90deg,var(--green-700),var(--green-500));padding:18px;border-radius:10px;color:#fff;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:8px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-weight:700}
+    .brand h1{margin:0;font-size:20px;letter-spacing:0.2px}
+    .timer{font-weight:700;font-size:20px;opacity:0.95}
+
+    /* Main layout */
+    .layout{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
+    @media(max-width:920px){.layout{grid-template-columns:1fr}}
+
+    /* Cards */
+    .card{background:var(--panel);border-radius:12px;box-shadow:var(--shadow);padding:18px}
     .muted{color:var(--muted);font-size:13px}
+    h2{margin:0 0 8px;font-size:16px}
 
+    /* Preview frame area */
+    .preview-wrap{border-radius:10px;border:1px solid rgba(11,17,32,0.06);overflow:hidden;height:560px;background:#fafafa}
+    .preview-empty{height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;color:var(--muted)}
+    .preview-empty .ico{font-size:48px;opacity:0.08;margin-bottom:6px}
+
+    /* Controls */
     .controls{display:flex;gap:10px;margin-top:12px}
-    .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
-    .btn.primary{background:linear-gradient(90deg,var(--accent),#06b6d4);color:#012;}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .btn{padding:10px 14px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
+    .btn.primary{background:linear-gradient(180deg,var(--green-700),var(--green-500));color:#fff}
+    .btn.ghost{background:transparent;border:1px solid rgba(11,17,32,0.06);color:var(--green-900)}
 
-    .meta-list{display:flex;flex-direction:column;gap:8px}
-    .meta-item{display:flex;justify-content:space-between;font-size:14px}
+    /* Sidebar meta */
+    .meta{display:flex;flex-direction:column;gap:12px}
+    .meta-row{display:flex;justify-content:space-between;align-items:center}
+    .meta .title{font-size:13px;color:var(--muted)}
+    .status-bubble{padding:6px 10px;border-radius:999px;font-weight:700;background:rgba(15,46,24,0.07);color:var(--green-900)}
 
-    .iframe-wrap{height:520px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
-    iframe{width:100%;height:100%;border:0;background:#fff}
-
-    .notice{margin-top:10px;color:var(--muted);font-size:13px}
-
-    .center{display:flex;align-items:center;justify-content:center}
-
-    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center}
-
-    @media (max-width:900px){.grid{grid-template-columns:1fr;}.iframe-wrap{height:420px}}
+    /* Footer note */
+    .note{margin-top:12px;font-size:13px;color:var(--muted)}
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div class="logo">CBT</div>
-      <div>
-        <h1>Computer-Based Test — Candidate Dashboard</h1>
-        <p class="lead">Mock landing page styled like a Prometric/CBT portal. Use this as your GitHub landing page.</p>
+  <div class="site">
+    <div class="topbar" role="banner">
+      <div class="brand">
+        <div class="logo">SCF</div>
+        <div>
+          <h1>Computer-Based Test — SMLE (Mock)</h1>
+          <div class="muted">Saudi Commission for Health Specialties — Candidate Portal</div>
+        </div>
       </div>
+
+      <div class="timer" id="topTimer">60:00</div>
     </div>
 
-    <div class="grid">
-      <!-- LEFT: Main content / embed -->
+    <div class="layout" role="main">
+      <!-- Left: Preview -->
       <div>
         <div class="card">
-          <h2>Test Preview / Embedded Candidate Window</h2>
-          <div class="muted">Below is the embedded test runner. If your remote script blocks embedding, use the "Open Test" button to open in a new tab.</div>
+          <h2>Test Preview</h2>
+          <div class="muted">This area shows the live test runner. If embedding is blocked by the test server, use the "Open in new tab" button.</div>
 
-          <div class="iframe-wrap" id="embedArea" style="margin-top:12px">
-            <!-- iframe will be injected here by script -->
-            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);">
-              <div style="text-align:center;color:var(--muted)">
-                <div style="font-size:46px;opacity:0.12;margin-bottom:6px">🖥️</div>
-                <div><strong>Test preview</strong></div>
-                <div class="muted">(external test iframe will appear here)</div>
-              </div>
+          <div class="preview-wrap" id="previewWrap" style="margin-top:14px">
+            <div id="embedArea" class="preview-empty">
+              <div class="ico">🖥️</div>
+              <div style="font-weight:700">Test preview will appear here</div>
+              <div class="muted" style="margin-top:6px">Click <strong>Start Test</strong> to load the external test</div>
             </div>
           </div>
 
           <div class="controls">
-            <button id="startBtn" class="btn primary">Start Test (Open Embedded)</button>
-            <button id="openNew" class="btn ghost">Open Test in New Tab</button>
-            <button id="fullscreen" class="btn ghost">Open in Fullscreen</button>
+            <button id="startBtn" class="btn primary">Start Test</button>
+            <button id="pauseBtn" class="btn ghost">Pause (Demo)</button>
+            <button id="openNew" class="btn ghost">Open in New Tab</button>
+            <button id="fullscreen" class="btn ghost">Fullscreen</button>
           </div>
 
-          <div class="notice">Tip: if the embedded view stays blank, your remote script may set security headers (X-Frame-Options or CSP) — use "Open Test in New Tab".</div>
+          <div class="note">Note: For real exam security, the external test may prevent embedding. If you see a blank preview, use "Open in New Tab". This mock preserves that behavior.</div>
         </div>
 
-        <div class="card" style="margin-top:12px">
-          <h2>Quick Instructions</h2>
+        <div class="card" style="margin-top:14px">
+          <h2>Instructions</h2>
           <ol style="padding-left:18px;color:var(--muted)">
-            <li>Confirm your Candidate Name and Test Type on the right panel.</li>
-            <li>Click <strong>Start Test</strong> to load the test runner below. If blocked, use <strong>Open Test in New Tab</strong>.</li>
-            <li>When finished, use the test runner's own navigation to submit your answers.</li>
+            <li>Check candidate details on the right panel.</li>
+            <li>Click <strong>Start Test</strong> to load the test preview. If blocked, use <strong>Open in New Tab</strong>.</li>
+            <li>When finished, follow the test runner's submit flow.</li>
           </ol>
         </div>
       </div>
 
-      <!-- RIGHT: Sidebar -->
+      <!-- Right: Sidebar -->
       <aside>
-        <div class="card">
-          <h2>Candidate / Test Info</h2>
-          <div class="meta-list">
-            <div class="meta-item"><span class="muted">Candidate:</span><strong>Guest Candidate</strong></div>
-            <div class="meta-item"><span class="muted">Test:</span><strong>SMLE / Practice</strong></div>
-            <div class="meta-item"><span class="muted">Duration:</span><strong>60 minutes</strong></div>
-            <div class="meta-item"><span class="muted">Questions:</span><strong>50</strong></div>
-            <div class="meta-item"><span class="muted">Status:</span><strong id="status">Not started</strong></div>
+        <div class="card meta">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="title">Candidate</div>
+              <div style="font-weight:700">Guest Candidate</div>
+            </div>
+            <div class="status-bubble" id="status">Not started</div>
           </div>
 
-          <div style="margin-top:12px">
-            <div class="info-row">
-              <div>
-                <div class="muted">Progress</div>
-                <div style="font-weight:700">0 / 50</div>
-              </div>
-              <div style="text-align:right">
-                <div class="muted">Time left</div>
-                <div id="timer">60:00</div>
-              </div>
+          <div>
+            <div class="title">Test</div>
+            <div style="font-weight:700">SMLE — Practice</div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="title">Duration</div>
+              <div style="font-weight:700">60 minutes</div>
+            </div>
+            <div style="text-align:right">
+              <div class="title">Questions</div>
+              <div style="font-weight:700">50</div>
             </div>
           </div>
 
-          <div style="margin-top:12px" class="center">
-            <button id="resumeBtn" class="btn primary" style="width:100%">Resume / Continue</button>
+          <div style="margin-top:8px;border-radius:8px;padding:8px;background:linear-gradient(180deg,rgba(11,17,32,0.02),transparent)">
+            <div class="title">Progress</div>
+            <div style="font-weight:700">0 / 50</div>
           </div>
-        </div>
 
-        <div class="card" style="margin-top:12px">
-          <h2>Support</h2>
-          <div class="muted">If you face loading issues, copy the link below and open in a new tab.</div>
-          <div style="margin-top:8px;word-break:break-all;background:rgba(0,0,0,0.25);padding:8px;border-radius:8px;font-size:13px">https://script.google.com/macros/s/AKfycby8o5Ei4aZog1y301nuD73V2XRjwLovY5GpkOjDsYKDrKsQOZLRY9qpU5w3MEcMPcEv/exec</div>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button id="resumeBtn" class="btn primary" style="flex:1">Resume</button>
+            <button id="endBtn" class="btn ghost" style="width:110px">End</button>
+          </div>
+
+          <div class="muted" style="margin-top:10px">Support: If embedding fails, open the external test link in a new tab.</div>
+
+          <div style="margin-top:8px;word-break:break-all;background:#f3f6f4;padding:8px;border-radius:8px;font-size:13px">https://script.google.com/macros/s/AKfycby8o5Ei4aZog1y301nuD73V2XRjwLovY5GpkOjDsYKDrKsQOZLRY9qpU5w3MEcMPcEv/exec</div>
         </div>
       </aside>
     </div>
 
-    <footer>Made to mimic a Prometric-style CBT landing/dashboard. Use responsibly.</footer>
+    <div style="text-align:center;margin-top:14px;color:var(--muted);font-size:13px">This mock is for practice only. Do not use real exam content or share confidential material.</div>
   </div>
 
   <script>
-    // External test URL (provided)
+    // CONFIG — external test URL
     const TEST_URL = 'https://script.google.com/macros/s/AKfycby8o5Ei4aZog1y301nuD73V2XRjwLovY5GpkOjDsYKDrKsQOZLRY9qpU5w3MEcMPcEv/exec';
 
+    // DOM
     const embedArea = document.getElementById('embedArea');
     const startBtn = document.getElementById('startBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
     const openNew = document.getElementById('openNew');
     const fullscreen = document.getElementById('fullscreen');
-    const status = document.getElementById('status');
-    const timerEl = document.getElementById('timer');
+    const statusEl = document.getElementById('status');
     const resumeBtn = document.getElementById('resumeBtn');
+    const endBtn = document.getElementById('endBtn');
+    const topTimer = document.getElementById('topTimer');
 
     let iframeEl = null;
+    let totalSeconds = 60 * 60; // 60 minutes
+    let timerInterval = null;
 
-    function createIframe(){
-      if(iframeEl) return iframeEl;
+    function startTimer(){
+      clearInterval(timerInterval);
+      timerInterval = setInterval(()=>{
+        if(totalSeconds>0) totalSeconds--;
+        const mm = String(Math.floor(totalSeconds/60)).padStart(2,'0');
+        const ss = String(totalSeconds%60).padStart(2,'0');
+        topTimer.textContent = mm + ':' + ss;
+      },1000);
+    }
+
+    function stopTimer(){ clearInterval(timerInterval); }
+
+    function createIframe(forceReload=false){
+      // if there is already an iframe and no forceReload, focus it
+      if(iframeEl && !forceReload) return iframeEl;
+
+      // Create iframe and try to embed
       iframeEl = document.createElement('iframe');
       iframeEl.src = TEST_URL;
-      iframeEl.title = 'Embedded test runner';
+      iframeEl.title = 'SMLE Test Runner';
+      iframeEl.style.width = '100%';
+      iframeEl.style.height = '100%';
+      iframeEl.style.border = '0';
       iframeEl.loading = 'lazy';
-      // basic sandbox attributes removed to allow the external script to run if allowed by server
-      iframeEl.style.background = '#fff';
+
+      // attach load and error handlers
+      iframeEl.onload = function(){
+        statusEl.textContent = 'In progress';
+        statusEl.style.background = 'rgba(11,120,60,0.08)';
+        startTimer();
+      };
+
+      // Replace embed area content
       embedArea.innerHTML = '';
       embedArea.appendChild(iframeEl);
-      status.textContent = 'Loaded (embedded)';
+
+      // Small probe: if after short delay the iframe has no visible content, we keep the fallback visible
+      setTimeout(()=>{
+        try{
+          // try to read a property — if cross-origin blocked this will throw when accessing contentWindow.document
+          const doc = iframeEl.contentDocument || iframeEl.contentWindow.document;
+          // if we can read title or body length it's loaded; just ignore otherwise
+        }catch(e){
+          // Likely blocked by X-Frame-Options/CSP — keep the iframe but inform user
+          statusEl.textContent = 'Embedding blocked — open in new tab';
+        }
+      },1000);
+
       return iframeEl;
     }
 
     startBtn.addEventListener('click', ()=>{
-      try{
-        createIframe();
-      }catch(e){
-        console.warn('embedding failed',e);
-        status.textContent = 'Embedding failed — use Open Test in New Tab';
-      }
+      createIframe(true);
+      statusEl.textContent = 'Starting...';
+      statusEl.style.background = 'rgba(11,120,60,0.08)';
+    });
+
+    resumeBtn.addEventListener('click', ()=>{
+      createIframe();
+      statusEl.textContent = 'Resumed';
+    });
+
+    pauseBtn.addEventListener('click', ()=>{
+      stopTimer();
+      statusEl.textContent = 'Paused';
+    });
+
+    endBtn.addEventListener('click', ()=>{
+      stopTimer();
+      statusEl.textContent = 'Ended';
+      // Optionally remove iframe to simulate end
+      //embedArea.innerHTML = '<div class="preview-empty"><div style="font-weight:700">Test ended</div></div>';
     });
 
     openNew.addEventListener('click', ()=>{
       window.open(TEST_URL, '_blank');
-      status.textContent = 'Opened in new tab';
+      statusEl.textContent = 'Opened in new tab';
     });
 
     fullscreen.addEventListener('click', ()=>{
-      // attempt to open iframe fullscreen if present, otherwise open new tab
-      if(iframeEl){
-        if(iframeEl.requestFullscreen) iframeEl.requestFullscreen();
-        else window.open(TEST_URL, '_blank');
+      if(iframeEl && iframeEl.requestFullscreen){
+        iframeEl.requestFullscreen();
       } else {
-        window.open(TEST_URL, '_blank');
+        window.open(TEST_URL,'_blank');
       }
     });
 
-    // Resume button behaviour (same as start)
-    resumeBtn.addEventListener('click', ()=>{
-      startBtn.click();
-      status.textContent = 'In progress';
+    // Auto-embed on load (try to mimic SMLE behavior)
+    window.addEventListener('DOMContentLoaded', ()=>{
+      createIframe();
     });
-
-    // Simple countdown timer (for demo only)
-    let totalSeconds = 60*60; // 60 minutes demo
-    function tick(){
-      if(totalSeconds<=0) return;
-      totalSeconds--;
-      const mm = String(Math.floor(totalSeconds/60)).padStart(2,'0');
-      const ss = String(totalSeconds%60).padStart(2,'0');
-      timerEl.textContent = mm+':'+ss;
-    }
-    setInterval(tick,1000);
-
-    // Attempt to detect framing restrictions: do a silent iframe creation then check if it loads
-    (function probeEmbed(){
-      const probe = document.createElement('iframe');
-      probe.style.width='0';probe.style.height='0';probe.style.border='0';probe.style.position='absolute';probe.style.left='-9999px';
-      probe.src = TEST_URL;
-      document.body.appendChild(probe);
-      // if the iframe fails due to X-Frame-Options, browsers normally block the response content but do not throw JS errors.
-      // we provide a clear fallback button so the user can open in a new tab.
-      setTimeout(()=>{ try{ document.body.removeChild(probe);}catch(e){} }, 1500);
-    })();
   </script>
 </body>
 </html>
