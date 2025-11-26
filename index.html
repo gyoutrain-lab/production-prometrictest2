@@ -22,35 +22,67 @@
   </div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz-bsR_TTqusJPsopnDmBnnssF8dd564hkry-9quTsYUBdnW0hMHnz1ZAGzLmY3ILU/exec"; // <-- put Apps Script exec URL here
+const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzZdFX8DVZFkVfuFIdI8z7k7A4aifKBL1eCK0_rMYiVludR7iVpFlviJabE_H_KfiSk/exec";  // <-- Replace with Deployment URL
+const QUIZ_URL = "https://script.google.com/macros/s/AKfycby8o5Ei4aZog1y301nuD73V2XRjwLovY5GpkOjDsYKDrKsQOZLRY9qpU5w3MEcMPcEv/exec";
 
-document.getElementById("continueBtn").addEventListener("click", async ()=>{
+document.getElementById("continueBtn").addEventListener("click", function () {
   const name = document.getElementById("name").value.trim();
-  const wa = document.getElementById("wa").value.trim();
-  if(!name || !wa){ alert("Please enter name and WhatsApp number"); return; }
+  const wa   = document.getElementById("wa").value.trim();
 
-  // Send registration to Apps Script
-  try {
-    const resp = await fetch(WEB_APP_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "register", name, wa })
-    });
-    const data = await resp.json();
-    if (data.status === "ok") {
-      // open admin WA link (optional). This will open on the candidate's device — if you prefer admin opens via sheet, skip this.
-      // window.open(data.adminLink, "_blank");
+  if (!name || !wa) {
+    alert("Please fill name and WA number");
+    return;
+  }
 
-      // Redirect to test preview page with candidate info in query string
-      const params = new URLSearchParams({ name: name, wa: wa });
-      window.location.href = "test.html?" + params.toString();
+  const payload = {
+    action: "register",
+    name: name,
+    wa: wa
+  };
+
+  // Register user
+  fetch(WEBAPP_URL, {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: { "Content-Type": "application/json" }
+  })
+  .then(r => r.json())
+  .then(res => {
+    if (res.status === "ok") {
+      alert("Registration stored. Contact admin for Unlock Code.");
+
+      // Show Unlock Code section
+      document.getElementById("unlockSection").style.display = "block";
     } else {
-      alert("Error: " + (data.message || "unknown"));
+      alert("Error: " + res.message);
     }
-  } catch (err) {
-    alert("Network error: " + err.message);
+  })
+  .catch(err => alert("Network error: " + err));
+});
+
+
+document.getElementById("unlockCode").addEventListener("input", function () {
+  const code = this.value.trim();
+  if (code.length === 6) {
+    fetch(WEBAPP_URL + "?action=validate&code=" + code)
+      .then(r => r.json())
+      .then(res => {
+        if (res.valid) {
+          document.getElementById("startTestBtn").disabled = false;
+          document.getElementById("startTestBtn").style.background = "green";
+        } else {
+          document.getElementById("startTestBtn").disabled = true;
+          document.getElementById("startTestBtn").style.background = "#555";
+        }
+      });
   }
 });
+
+
+document.getElementById("startTestBtn").addEventListener("click", function () {
+  window.location.href = QUIZ_URL;
+});
 </script>
+
 </body>
 </html>
