@@ -121,7 +121,7 @@ html,body{margin:0;background:var(--bg);color:#0b1220}
 <script>
 // Your external test URL
 const TEST_URL =
- "https://script.google.com/macros/s/AKfycby8o5Ei4aZog1y301nuD73V2XRjwLovY5GpkOjDsYKDrKsQOZLRY9qpU5w3MEcMPcEv/exec";
+ "https://script.google.com/macros/s/AKfycbyORnfo5RqV3_cbHR-mSmg6pwFAj2reU8C5R-lLhzlyJD9ADBUfPAffRwV2qtAIkzva/exec";
 
 // DOM
 const modal=document.getElementById("loginModal");
@@ -163,6 +163,27 @@ function verifyUnlock(){
       alert("Invalid unlock code!");
     }
   }).validateUnlock(code);
+}
+function submitInfo() {
+  const name = document.getElementById("candidateName").value.trim();
+  const wa = document.getElementById("candidateWA").value.trim();
+
+  if (!name || !wa) {
+    alert("Please fill all fields.");
+    return;
+  }
+
+  google.script.run
+    .withSuccessHandler(function (res) {
+      if (res.success) {
+        // Redirect to test preview
+        window.location.href = "test.html?name=" + encodeURIComponent(name) + "&wa=" + encodeURIComponent(wa);
+      } else {
+        alert("Error saving data.");
+      }
+    })
+    .withFailureHandler(err => alert("ERROR: " + err.message))
+    .submitCandidateInfo({name, wa});
 }
 
 // ========== START TEST ==========
