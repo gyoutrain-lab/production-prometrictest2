@@ -1,157 +1,213 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nursing Prometric Actual Simulation Test</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CBT — Practice Dashboard</title>
+  <meta name="description" content="Prometric-style CBT landing page mock for embedding an external test script." />
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--muted:#94a3b8;--accent:#0ea5a4;--glass:rgba(255,255,255,0.03)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial; background:linear-gradient(180deg,#071029 0%, #071833 100%);color:#e6eef6}
+    .container{max-width:1100px;margin:32px auto;padding:20px}
+    .header{display:flex;align-items:center;gap:16px}
+    .logo{width:68px;height:68px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#2dd4bf);display:flex;align-items:center;justify-content:center;font-weight:700;color:#042027}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
+    .grid{display:grid;grid-template-columns:1fr 380px;gap:18px;margin-top:20px}
 
-<meta property="og:title" content="Nursing Prometric Actual Simulation Test">
-<meta property="og:description" content="Prepared based on the Prometric/SMLE and ENCLEX prometric test materials. Increase your knowledge for your smart career tracking.">
-<meta property="og:image" content="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg">
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+    .card h2{margin:0 0 8px;font-size:16px}
+    .info-row{display:flex;justify-content:space-between;align-items:center;margin:8px 0;padding:8px;background:var(--glass);border-radius:8px}
+    .muted{color:var(--muted);font-size:13px}
 
-<style>
-body { font-family: Arial, sans-serif; margin:0; padding:0; background:#eef5f5; color:#222; text-align:center; overflow-x: hidden; }
-header { position: relative; width: 100%; height: 50vh; overflow: hidden; }
-header::before, header::after { content:""; position:absolute; top:0; left:0; width:100%; height:100%; background: url('https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg') center/cover no-repeat; opacity:0.08; z-index:1; }
-header::before { animation: wave1 8s ease-in-out infinite; }
-header::after  { animation: wave2 10s ease-in-out infinite; }
-header img { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); max-height:250px; z-index:2; }
+    .controls{display:flex;gap:10px;margin-top:12px}
+    .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#06b6d4);color:#012;}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
 
-h1 { margin-top:20px; font-size:2em; color:#007b83; }
-h2 { margin:5px 0; font-size:1.1em; color:#333; }
+    .meta-list{display:flex;flex-direction:column;gap:8px}
+    .meta-item{display:flex;justify-content:space-between;font-size:14px}
 
-form { position:fixed; bottom:20px; left:20px; width:280px; background:#fff; border-radius:10px; padding:15px; box-shadow:0 2px 10px rgba(0,0,0,0.2); text-align:left; }
-form label { display:block; margin-top:10px; font-weight:bold; }
-form input { width:100%; padding:8px; margin-top:5px; border-radius:5px; border:1px solid #ccc; }
+    .iframe-wrap{height:520px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
+    iframe{width:100%;height:100%;border:0;background:#fff}
 
-.qr-container { position:fixed; bottom:20px; right:20px; width:150px; background:#fff; padding:10px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.2); text-align:center; }
+    .notice{margin-top:10px;color:var(--muted);font-size:13px}
 
-.buttons-center { margin:20px auto; display:flex; justify-content:center; gap:15px; }
-.buttons-center button { padding:10px 20px; border:none; border-radius:5px; font-size:1em; color:#fff; cursor:pointer; }
-.buttons-center button.confirm { background:#007b83; }
-.buttons-center button.continue { background:#28a745; }
+    .center{display:flex;align-items:center;justify-content:center}
 
-.notification { position:fixed; top:10px; right:10px; background:#28a745; color:#fff; padding:10px; border-radius:5px; display:none; z-index:999; }
+    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center}
 
-@media screen and (max-width:480px){
-  form, .qr-container { position:static; width:90%; margin:10px auto; }
-  .buttons-center { flex-direction:column; }
-}
-</style>
+    @media (max-width:900px){.grid{grid-template-columns:1fr;}.iframe-wrap{height:420px}}
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">CBT</div>
+      <div>
+        <h1>Computer-Based Test — Candidate Dashboard</h1>
+        <p class="lead">Mock landing page styled like a Prometric/CBT portal. Use this as your GitHub landing page.</p>
+      </div>
+    </div>
 
-<header>
-  <img src="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/icon17%20(7).jpg">
-</header>
+    <div class="grid">
+      <!-- LEFT: Main content / embed -->
+      <div>
+        <div class="card">
+          <h2>Test Preview / Embedded Candidate Window</h2>
+          <div class="muted">Below is the embedded test runner. If your remote script blocks embedding, use the "Open Test" button to open in a new tab.</div>
 
-<h1>Nursing Prometric Actual Simulation Test</h1>
-<h2>Prepared based on the Prometric/SMLE and ENCLEX prometric test materials</h2>
-<h2>Increase your knowledge for your smart career tracking</h2>
+          <div class="iframe-wrap" id="embedArea" style="margin-top:12px">
+            <!-- iframe will be injected here by script -->
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);">
+              <div style="text-align:center;color:var(--muted)">
+                <div style="font-size:46px;opacity:0.12;margin-bottom:6px">🖥️</div>
+                <div><strong>Test preview</strong></div>
+                <div class="muted">(external test iframe will appear here)</div>
+              </div>
+            </div>
+          </div>
 
-<div class="buttons-center">
-  <button class="confirm" id="btnConfirm">Confirmation</button>
-  <button class="continue" id="btnContinue">Continue Test</button>
-</div>
+          <div class="controls">
+            <button id="startBtn" class="btn primary">Start Test (Open Embedded)</button>
+            <button id="openNew" class="btn ghost">Open Test in New Tab</button>
+            <button id="fullscreen" class="btn ghost">Open in Fullscreen</button>
+          </div>
 
-<form id="unlockForm">
-  <label>Name</label>
-  <input type="text" id="name">
+          <div class="notice">Tip: if the embedded view stays blank, your remote script may set security headers (X-Frame-Options or CSP) — use "Open Test in New Tab".</div>
+        </div>
 
-  <label>WhatsApp Number</label>
-  <input type="text" id="whatsapp">
+        <div class="card" style="margin-top:12px">
+          <h2>Quick Instructions</h2>
+          <ol style="padding-left:18px;color:var(--muted)">
+            <li>Confirm your Candidate Name and Test Type on the right panel.</li>
+            <li>Click <strong>Start Test</strong> to load the test runner below. If blocked, use <strong>Open Test in New Tab</strong>.</li>
+            <li>When finished, use the test runner's own navigation to submit your answers.</li>
+          </ol>
+        </div>
+      </div>
 
-  <label>Unlock Code</label>
-  <input type="text" id="code" readonly>
-</form>
+      <!-- RIGHT: Sidebar -->
+      <aside>
+        <div class="card">
+          <h2>Candidate / Test Info</h2>
+          <div class="meta-list">
+            <div class="meta-item"><span class="muted">Candidate:</span><strong>Guest Candidate</strong></div>
+            <div class="meta-item"><span class="muted">Test:</span><strong>SMLE / Practice</strong></div>
+            <div class="meta-item"><span class="muted">Duration:</span><strong>60 minutes</strong></div>
+            <div class="meta-item"><span class="muted">Questions:</span><strong>50</strong></div>
+            <div class="meta-item"><span class="muted">Status:</span><strong id="status">Not started</strong></div>
+          </div>
 
-<div class="qr-container">
-  <img src="https://raw.githubusercontent.com/gyoutrain-lab/production-prometrictest2/main/assets/dana_qr.png">
-</div>
+          <div style="margin-top:12px">
+            <div class="info-row">
+              <div>
+                <div class="muted">Progress</div>
+                <div style="font-weight:700">0 / 50</div>
+              </div>
+              <div style="text-align:right">
+                <div class="muted">Time left</div>
+                <div id="timer">60:00</div>
+              </div>
+            </div>
+          </div>
 
-<div class="notification" id="notification"></div>
+          <div style="margin-top:12px" class="center">
+            <button id="resumeBtn" class="btn primary" style="width:100%">Resume / Continue</button>
+          </div>
+        </div>
 
-<script>
-const DEPLOY_URL = "https://script.google.com/macros/s/AKfycbyFqt33asiq8SYZ5gxOSlmIwggwRqF_RMuuqalWEXGCWx_w4GVMGnuukY2W6KUFDU-z/exec"; // <-- replace after I give you backend
+        <div class="card" style="margin-top:12px">
+          <h2>Support</h2>
+          <div class="muted">If you face loading issues, copy the link below and open in a new tab.</div>
+          <div style="margin-top:8px;word-break:break-all;background:rgba(0,0,0,0.25);padding:8px;border-radius:8px;font-size:13px">https://script.google.com/macros/s/AKfycby8o5Ei4aZog1y301nuD73V2XRjwLovY5GpkOjDsYKDrKsQOZLRY9qpU5w3MEcMPcEv/exec</div>
+        </div>
+      </aside>
+    </div>
 
-const btnConfirm = document.getElementById('btnConfirm');
-const btnContinue = document.getElementById('btnContinue');
-const codeInput = document.getElementById('code');
-const notif = document.getElementById('notification');
+    <footer>Made to mimic a Prometric-style CBT landing/dashboard. Use responsibly.</footer>
+  </div>
 
-let polling = null;
+  <script>
+    // External test URL (provided)
+    const TEST_URL = 'https://script.google.com/macros/s/AKfycby8o5Ei4aZog1y301nuD73V2XRjwLovY5GpkOjDsYKDrKsQOZLRY9qpU5w3MEcMPcEv/exec';
 
-function notify(msg){
-  notif.innerText = msg;
-  notif.style.display = "block";
-  setTimeout(()=> notif.style.display="none", 3500);
-}
+    const embedArea = document.getElementById('embedArea');
+    const startBtn = document.getElementById('startBtn');
+    const openNew = document.getElementById('openNew');
+    const fullscreen = document.getElementById('fullscreen');
+    const status = document.getElementById('status');
+    const timerEl = document.getElementById('timer');
+    const resumeBtn = document.getElementById('resumeBtn');
 
-async function sendConfirmation(){
-  const name = document.getElementById("name").value.trim();
-  const whatsapp = document.getElementById("whatsapp").value.trim();
+    let iframeEl = null;
 
-  if(!name || !whatsapp){ return notify("Please fill Name and WhatsApp."); }
+    function createIframe(){
+      if(iframeEl) return iframeEl;
+      iframeEl = document.createElement('iframe');
+      iframeEl.src = TEST_URL;
+      iframeEl.title = 'Embedded test runner';
+      iframeEl.loading = 'lazy';
+      // basic sandbox attributes removed to allow the external script to run if allowed by server
+      iframeEl.style.background = '#fff';
+      embedArea.innerHTML = '';
+      embedArea.appendChild(iframeEl);
+      status.textContent = 'Loaded (embedded)';
+      return iframeEl;
+    }
 
-  btnConfirm.disabled = true;
-  btnConfirm.innerText = "Submitting...";
-
-  try{
-    const res = await fetch(DEPLOY_URL, {
-      method:"POST",
-      body: JSON.stringify({ action:"confirm", name, whatsapp, deviceId:navigator.userAgent })
-    });
-
-    const data = await res.json();
-
-    if(data.ok){
-      notify("Confirmation submitted!");
-      if(!polling){
-        polling = setInterval(()=> checkStatus(name, whatsapp), 5000);
+    startBtn.addEventListener('click', ()=>{
+      try{
+        createIframe();
+      }catch(e){
+        console.warn('embedding failed',e);
+        status.textContent = 'Embedding failed — use Open Test in New Tab';
       }
-    } else {
-      notify(data.message || "Error.");
-    }
-
-  } catch(e){
-    notify("Network error.");
-  }
-
-  btnConfirm.disabled = false;
-  btnConfirm.innerText = "Confirmation";
-}
-
-async function checkStatus(name, whatsapp){
-  try{
-    const res = await fetch(DEPLOY_URL, {
-      method:"POST",
-      body: JSON.stringify({ action:"checkStatus", name, whatsapp })
     });
 
-    const data = await res.json();
+    openNew.addEventListener('click', ()=>{
+      window.open(TEST_URL, '_blank');
+      status.textContent = 'Opened in new tab';
+    });
 
-    if(data.ok && data.status === "Verified"){
-      codeInput.value = data.unlockCode;
-      notify("Payment verified!");
-      clearInterval(polling);
-      polling = null;
+    fullscreen.addEventListener('click', ()=>{
+      // attempt to open iframe fullscreen if present, otherwise open new tab
+      if(iframeEl){
+        if(iframeEl.requestFullscreen) iframeEl.requestFullscreen();
+        else window.open(TEST_URL, '_blank');
+      } else {
+        window.open(TEST_URL, '_blank');
+      }
+    });
+
+    // Resume button behaviour (same as start)
+    resumeBtn.addEventListener('click', ()=>{
+      startBtn.click();
+      status.textContent = 'In progress';
+    });
+
+    // Simple countdown timer (for demo only)
+    let totalSeconds = 60*60; // 60 minutes demo
+    function tick(){
+      if(totalSeconds<=0) return;
+      totalSeconds--;
+      const mm = String(Math.floor(totalSeconds/60)).padStart(2,'0');
+      const ss = String(totalSeconds%60).padStart(2,'0');
+      timerEl.textContent = mm+':'+ss;
     }
-  } catch(e){
-    console.log("Polling error:", e);
-  }
-}
+    setInterval(tick,1000);
 
-btnConfirm.onclick = sendConfirmation;
-
-btnContinue.onclick = () => {
-  if(codeInput.value.trim() !== ""){
-    window.location.href = "quiz.html";
-  } else {
-    notify("Unlock Code not available yet.");
-  }
-};
-</script>
-
+    // Attempt to detect framing restrictions: do a silent iframe creation then check if it loads
+    (function probeEmbed(){
+      const probe = document.createElement('iframe');
+      probe.style.width='0';probe.style.height='0';probe.style.border='0';probe.style.position='absolute';probe.style.left='-9999px';
+      probe.src = TEST_URL;
+      document.body.appendChild(probe);
+      // if the iframe fails due to X-Frame-Options, browsers normally block the response content but do not throw JS errors.
+      // we provide a clear fallback button so the user can open in a new tab.
+      setTimeout(()=>{ try{ document.body.removeChild(probe);}catch(e){} }, 1500);
+    })();
+  </script>
 </body>
 </html>
