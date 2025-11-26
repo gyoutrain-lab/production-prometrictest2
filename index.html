@@ -1,203 +1,56 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SMLE — Candidate Dashboard (Mock)</title>
-
-<style>
-/* Original design stays same */
-:root{
-  --green-900:#053017; --green-700:#0b6b3a; --green-500:#197a3f; --muted:#6b7280; --panel:#ffffff; --bg:#f6f8f9;
-  --shadow: 0 8px 24px rgba(2,6,23,0.06);
-  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-}
-html,body{margin:0;background:var(--bg);color:#0b1220}
-
-/* ===== LOGIN MODAL ===== */
-.modal-bg {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.4);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 9999;
-}
-.modal {
-  width: 92%; max-width: 380px; background: #fff;
-  border-radius: 12px; padding: 20px;
-  box-shadow: var(--shadow);
-}
-.modal h2 {
-  margin: 0 0 12px; color: var(--green-700); font-size: 20px; text-align:center;
-}
-.modal input {
-  width:100%; padding:12px; margin-top:8px;
-  border-radius:8px; border:1px solid #ccc; font-size:15px;
-}
-.modal button {
-  width:100%; margin-top:12px; padding:12px;
-  background:var(--green-700); color:#fff;
-  border:0; border-radius:8px; font-weight:700; cursor:pointer;
-}
-.modal small {display:block;margin-top:6px;color:var(--muted);font-size:12px;text-align:center}
-
-/* Original dashboard styles below */
-.site{max-width:1100px;margin:28px auto;padding:18px}
-.topbar{background:linear-gradient(90deg,var(--green-700),var(--green-500));padding:18px;border-radius:10px;color:#fff;display:flex;align-items:center;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{width:56px;height:56px;border-radius:8px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-weight:700}
-.brand h1{margin:0;font-size:20px}
-.timer{font-weight:700;font-size:20px}
-.layout{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
-.card{background:var(--panel);border-radius:12px;box-shadow:var(--shadow);padding:18px}
-.preview-wrap{border-radius:10px;border:1px solid rgba(11,17,32,0.06);overflow:hidden;height:560px;background:#fafafa}
-.preview-empty{height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;color:var(--muted)}
-.controls{display:flex;gap:10px;margin-top:12px}
-.btn{padding:10px 14px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
-.btn.primary{background:linear-gradient(180deg,var(--green-700),var(--green-500));color:#fff}
-.btn.ghost{background:transparent;border:1px solid rgba(11,17,32,0.06);color:var(--green-900)}
-.status-bubble{padding:6px 10px;border-radius:999px;font-weight:700;background:rgba(15,46,24,0.07);color:var(--green-900)}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SMLE — Candidate Login</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#f6f8f9;margin:0}
+    .box{max-width:420px;margin:60px auto;background:#fff;padding:22px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.06)}
+    input,button{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ddd;font-size:15px}
+    button.primary{background:#197a3f;color:#fff;border:0;font-weight:700}
+    .muted{color:#6b7280;font-size:13px;margin-top:8px}
+  </style>
 </head>
-
 <body>
-
-<!-- ========== LOGIN MODAL FIRST ========= -->
-<div class="modal-bg" id="loginModal">
-  <div class="modal">
-    <h2>Candidate Login</h2>
-
-    <input id="nameInput" placeholder="Full Name">
-    <input id="waInput" placeholder="WhatsApp Number">
-    <button onclick="registerCandidate()">Continue</button>
-
-    <hr style="margin:16px 0;border:0;border-top:1px solid #eee">
-
-    <input id="unlockInput" placeholder="Enter Unlock Code" disabled>
-    <button onclick="verifyUnlock()">Verify Unlock</button>
-    <small>Admin WA: +6285399652487</small>
+  <div class="box">
+    <h2>Register / Confirm</h2>
+    <input id="name" placeholder="Full Name">
+    <input id="wa" placeholder="WhatsApp number (with country code, e.g. 62812...)">
+    <button id="continueBtn" class="primary">Continue (Confirm & Notify Admin)</button>
+    <div id="info" class="muted">After you confirm, admin will receive a WhatsApp message to verify the payment and send the Unlock Code.</div>
   </div>
-</div>
-
-<!-- ========== ORIGINAL DASHBOARD BELOW ========== -->
-<div class="site">
-  <div class="topbar">
-    <div class="brand">
-      <div class="logo">SCF</div>
-      <div>
-        <h1>Computer-Based Test — SMLE (Mock)</h1>
-        <div class="muted">Saudi Commission for Health Specialties — Candidate Portal</div>
-      </div>
-    </div>
-    <div class="timer" id="topTimer">60:00</div>
-  </div>
-
-  <div class="layout">
-    <div>
-      <div class="card">
-        <h2>Test Preview</h2>
-        <div class="preview-wrap" id="previewWrap">
-          <div id="embedArea" class="preview-empty">
-            <div class="ico">🖥️</div>
-            <div style="font-weight:700">Test preview will appear here</div>
-          </div>
-        </div>
-
-        <div class="controls">
-          <button id="startBtn" class="btn primary" disabled>Start Test</button>
-          <button id="openNew" class="btn ghost" disabled>Open in New Tab</button>
-          <button id="fullscreen" class="btn ghost" disabled>Fullscreen</button>
-        </div>
-      </div>
-    </div>
-
-    <aside>
-      <div class="card">
-        <div class="status-bubble" id="status">Locked</div>
-      </div>
-    </aside>
-
-  </div>
-</div>
 
 <script>
-// Your external test URL
-const TEST_URL =
- "https://script.google.com/macros/s/AKfycbyORnfo5RqV3_cbHR-mSmg6pwFAj2reU8C5R-lLhzlyJD9ADBUfPAffRwV2qtAIkzva/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxiTzTndOxaMU899cOqxs8EvfiRKDessGS9RkPRWIcti4cWVXlpswLz8sXGwe1jBdQi/exec"; // <-- put Apps Script exec URL here
 
-// DOM
-const modal=document.getElementById("loginModal");
-const startBtn=document.getElementById("startBtn");
-const openNew=document.getElementById("openNew");
-const fullscreen=document.getElementById("fullscreen");
-const statusBubble=document.getElementById("status");
+document.getElementById("continueBtn").addEventListener("click", async ()=>{
+  const name = document.getElementById("name").value.trim();
+  const wa = document.getElementById("wa").value.trim();
+  if(!name || !wa){ alert("Please enter name and WhatsApp number"); return; }
 
-// ========== REGISTER ==========
-function registerCandidate(){
-  const n=document.getElementById("nameInput").value.trim();
-  const w=document.getElementById("waInput").value.trim();
-  if(!n||!w){alert("Fill name & WhatsApp");return;}
+  // Send registration to Apps Script
+  try {
+    const resp = await fetch(WEB_APP_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "register", name, wa })
+    });
+    const data = await resp.json();
+    if (data.status === "ok") {
+      // open admin WA link (optional). This will open on the candidate's device — if you prefer admin opens via sheet, skip this.
+      // window.open(data.adminLink, "_blank");
 
-  google.script.run.withSuccessHandler(res=>{
-    alert("Registered! Admin will send unlock code.");
-    document.getElementById("unlockInput").disabled=false;
-  }).saveCandidate(n,w);
-}
-
-// ========== VERIFY UNLOCK ==========
-function verifyUnlock(){
-  const code=document.getElementById("unlockInput").value.trim();
-  google.script.run.withSuccessHandler(res=>{
-    if(res.valid){
-      alert("Unlock confirmed!");
-
-      // Close login modal
-      modal.style.display="none";
-
-      // Enable test buttons
-      startBtn.disabled=false;
-      openNew.disabled=false;
-      fullscreen.disabled=false;
-
-      statusBubble.textContent="Unlocked";
-      statusBubble.style.background="rgba(11,120,60,0.15)";
+      // Redirect to test preview page with candidate info in query string
+      const params = new URLSearchParams({ name: name, wa: wa });
+      window.location.href = "test.html?" + params.toString();
     } else {
-      alert("Invalid unlock code!");
+      alert("Error: " + (data.message || "unknown"));
     }
-  }).validateUnlock(code);
-}
-function submitInfo() {
-  const name = document.getElementById("candidateName").value.trim();
-  const wa = document.getElementById("candidateWA").value.trim();
-
-  if (!name || !wa) {
-    alert("Please fill all fields.");
-    return;
+  } catch (err) {
+    alert("Network error: " + err.message);
   }
-
-  google.script.run
-    .withSuccessHandler(function (res) {
-      if (res.success) {
-        // Redirect to test preview
-        window.location.href = "test.html?name=" + encodeURIComponent(name) + "&wa=" + encodeURIComponent(wa);
-      } else {
-        alert("Error saving data.");
-      }
-    })
-    .withFailureHandler(err => alert("ERROR: " + err.message))
-    .submitCandidateInfo({name, wa});
-}
-
-// ========== START TEST ==========
-startBtn.onclick=()=>{
-  const area=document.getElementById("embedArea");
-  area.innerHTML=`<iframe src="${TEST_URL}" style="width:100%;height:100%;border:0"></iframe>`;
-};
-
-// ========== NEW TAB ==========
-openNew.onclick=()=>window.open(TEST_URL,"_blank");
-
-// ========== FULLSCREEN ==========
-fullscreen.onclick=()=>window.open(TEST_URL,"_blank");
+});
 </script>
-
 </body>
 </html>
