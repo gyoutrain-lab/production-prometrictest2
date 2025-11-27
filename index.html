@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SMLE CBT - Saudi Council</title>
 <style>
-/* Global */
 body { margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f2f2f2;}
 button { cursor:pointer; border:none; border-radius:4px; }
 
@@ -109,7 +108,7 @@ input[type=radio] { margin-right:8px; }
 </div>
 
 <script>
-const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwtQGPGIlAJQMIuPDD4BMMjMmodcK13wRIkVAadPWYd97nYDcaoMMkKyjP9XhBrBuC5/exec"; // replace with your GAS backend URL
+const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwtQGPGIlAJQMIuPDD4BMMjMmodcK13wRIkVAadPWYd97nYDcaoMMkKyjP9XhBrBuC5/exec"; // Must be your existing GAS URL
 
 let user={}, questions=[], answers={}, reviewMarks={}, currentQ=0, timerInterval;
 
@@ -122,7 +121,7 @@ function verifyUser(){
     .then(res=>res.json()).then(data=>{
       if(data.status==="success"){user={name,whatsapp,unlockCode}; document.getElementById('login').style.display='none'; document.getElementById('dashboard').style.display='block'; document.getElementById('cand-name').textContent=name;}
       else{alert(data.message||"Verification failed!");}
-    });
+    }).catch(err=>{alert("Cannot connect to backend. Check GAS URL and deployment."); console.error(err);});
 }
 
 function startQuiz(){
@@ -131,7 +130,7 @@ function startQuiz(){
   fetch(BACKEND_URL+"?action=getQuestions").then(res=>res.json()).then(data=>{
     if(data.status==="success"){questions=data.questions; generateSidebar(); renderQuestion(); startTimer(60*30);}
     else{alert("Failed to fetch questions!");}
-  });
+  }).catch(err=>{alert("Cannot fetch questions from backend."); console.error(err);});
 }
 
 function generateSidebar(){
@@ -154,7 +153,7 @@ function saveAnswer(){ const sel=document.querySelector(`input[name="q${currentQ
 function toggleReview(){ reviewMarks[currentQ]=!reviewMarks[currentQ]; updateReviewButton(); updateSidebar(); }
 function updateReviewButton(){ document.getElementById('review-btn').textContent = reviewMarks[currentQ]?"Marked for Review":"Mark for Review"; }
 
-function submitAnswers(){ saveAnswer(); fetch(BACKEND_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"submitAnswers",user,answers,reviewMarks})}).then(res=>res.json()).then(data=>{if(data.status==="success"){alert("Test submitted successfully!"); location.reload();} else{alert(data.message||"Submission failed!");}});}
+function submitAnswers(){ saveAnswer(); fetch(BACKEND_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"submitAnswers",user,answers,reviewMarks})}).then(res=>res.json()).then(data=>{if(data.status==="success"){alert("Test submitted successfully!"); location.reload();} else{alert(data.message||"Submission failed!");}}).catch(err=>{alert("Cannot submit answers."); console.error(err);});}
 
 /* Timer */
 function startTimer(duration){let timer=duration,min,sec; const display=document.getElementById('timer'); timerInterval=setInterval(()=>{min=Math.floor(timer/60); sec=timer%60; display.textContent=`${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`; if(--timer<0){clearInterval(timerInterval); alert("Time is up! Submitting your answers..."); submitAnswers();}},1000);}
