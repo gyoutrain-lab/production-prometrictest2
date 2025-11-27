@@ -1,302 +1,179 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SMLE — Candidate Dashboard (Mock)</title>
-  <meta name="description" content="SCFHS / SMLE style CBT landing page (C2 modern green-white). Embed your external test script here." />
-  <style>
-    /* SMLE C2-inspired styling (green + white, rounded cards) */
-    :root{
-      --green-900:#053017; --green-700:#0b6b3a; --green-500:#197a3f; --muted:#6b7280; --panel:#ffffff; --bg:#f6f8f9;
-      --shadow: 0 8px 24px rgba(2,6,23,0.06);
-      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:var(--bg);color:#0b1220}
-    .site{max-width:1100px;margin:28px auto;padding:18px}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMLE CBT - Saudi Council</title>
+<style>
+/* Global */
+body { margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f2f2f2;}
+button { cursor:pointer; border:none; border-radius:4px; }
 
-    /* Header */
-    .topbar{background:linear-gradient(90deg,var(--green-700),var(--green-500));padding:18px;border-radius:10px;color:#fff;display:flex;align-items:center;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:56px;height:56px;border-radius:8px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-weight:700}
-    .brand h1{margin:0;font-size:20px;letter-spacing:0.2px}
-    .timer{font-weight:700;font-size:20px;opacity:0.95}
+/* Header */
+#header { background:#007b83; color:#fff; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100;}
+#header h1 { font-size:18px; margin:0;}
+#candidate-info { font-size:14px;}
 
-    /* Main layout */
-    .layout{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
-    @media(max-width:920px){.layout{grid-template-columns:1fr}}
+/* Login/Dashboard */
+#login, #dashboard { max-width:500px; margin:50px auto; padding:25px; background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+input { padding:10px; margin:8px 0; width:100%; border-radius:4px; border:1px solid #ccc; font-size:14px; }
+#login button, #dashboard button { width:100%; padding:12px; background:#007b83; color:#fff; font-size:15px; margin-top:10px; }
 
-    /* Cards */
-    .card{background:var(--panel);border-radius:12px;box-shadow:var(--shadow);padding:18px}
-    .muted{color:var(--muted);font-size:13px}
-    h2{margin:0 0 8px;font-size:16px}
+/* Quiz Container */
+#quiz-container { display:none; height:calc(100vh - 60px); display:flex; flex-direction:row; }
+#sidebar { width:180px; background:#e9ecef; padding:10px; overflow-y:auto; border-right:1px solid #ccc; }
+.qnum { width:35px; height:35px; margin:5px; text-align:center; line-height:35px; border-radius:50%; cursor:pointer; display:inline-block; background:#ccc; font-weight:bold; color:#000; font-size:14px; }
+.answered { background:#28a745; color:#fff; }
+.review { background:#ffc107; color:#000; }
+#main { flex:1; padding:20px; background:#fff; overflow-y:auto; position:relative; display:flex; flex-direction:column; }
 
-    /* Preview frame area */
-    .preview-wrap{border-radius:10px;border:1px solid rgba(11,17,32,0.06);overflow:hidden;height:560px;background:#fafafa}
-    .preview-empty{height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;color:var(--muted)}
-    .preview-empty .ico{font-size:48px;opacity:0.08;margin-bottom:6px}
+/* Timer & Info */
+#timer { position:fixed; top:70px; right:20px; background:#007b83; color:#fff; padding:10px 15px; border-radius:4px; font-weight:bold; z-index:100; font-size:14px; }
+#question-header { margin-bottom:15px; display:flex; justify-content:space-between; align-items:center; }
+#question-header h2 { font-size:16px; margin:0; }
+#question-header span { font-size:14px; color:#555; }
 
-    /* Controls */
-    .controls{display:flex;gap:10px;margin-top:12px}
-    .btn{padding:10px 14px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
-    .btn.primary{background:linear-gradient(180deg,var(--green-700),var(--green-500));color:#fff}
-    .btn.ghost{background:transparent;border:1px solid rgba(11,17,32,0.06);color:var(--green-900)}
+/* Question Panel */
+.question { margin-bottom:20px; font-size:15px; }
+.option { display:block; margin:10px 0; cursor:pointer; padding:8px; border-radius:4px; border:1px solid #ccc; transition:0.2s; }
+.option:hover { background:#f1f1f1; }
+input[type=radio] { margin-right:8px; }
 
-    /* Sidebar meta */
-    .meta{display:flex;flex-direction:column;gap:12px}
-    .meta-row{display:flex;justify-content:space-between;align-items:center}
-    .meta .title{font-size:13px;color:var(--muted)}
-    .status-bubble{padding:6px 10px;border-radius:999px;font-weight:700;background:rgba(15,46,24,0.07);color:var(--green-900)}
+/* Navigation */
+#navigation { display:flex; justify-content:space-between; margin-top:20px; }
+#navigation button { padding:10px 15px; background:#007b83; color:#fff; font-size:14px; }
+#review-btn { background:#ffc107; color:#000; border:none; padding:10px 15px; border-radius:4px; font-size:14px; cursor:pointer; }
+#review-all-btn { margin-top:15px; background:#17a2b8; color:#fff; padding:10px 12px; border-radius:4px; font-size:14px; }
 
-    /* Footer note */
-    .note{margin-top:12px;font-size:13px;color:var(--muted)}
-  </style>
+/* Submit */
+#submit-btn { margin-top:25px; padding:12px; background:#28a745; color:#fff; font-size:16px; border-radius:5px; }
+
+/* Review Modal */
+#review-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:200; justify-content:center; align-items:center; }
+#review-modal-content { background:#fff; padding:20px; border-radius:8px; max-width:500px; width:90%; max-height:80%; overflow-y:auto; }
+#review-list div { width:40px; height:40px; margin:5px; display:flex; align-items:center; justify-content:center; border-radius:50%; cursor:pointer; font-weight:bold; border:1px solid #ccc; color:#000; }
+</style>
 </head>
 <body>
-  <div class="site">
-    <div class="topbar" role="banner">
-      <div class="brand">
-        <div class="logo">SCF</div>
-        <div>
-          <h1>Computer-Based Test — SMLE (Mock)</h1>
-          <div class="muted">Saudi Commission for Health Specialties — Candidate Portal</div>
-        </div>
-      </div>
 
-      <div class="timer" id="topTimer">60:00</div>
-    </div>
-
-    <div class="layout" role="main">
-      <!-- Left: Preview -->
-      <div>
-        <div class="card">
-          <h2>Test Preview</h2>
-          <div class="muted">This area shows the live test runner. If embedding is blocked by the test server, use the "Open in new tab" button.</div>
-
-          <div class="preview-wrap" id="previewWrap" style="margin-top:14px">
-            <div id="embedArea" class="preview-empty">
-              <div class="ico">🖥️</div>
-              <div style="font-weight:700">Test preview will appear here</div>
-              <div class="muted" style="margin-top:6px">Click <strong>Start Test</strong> to load the external test</div>
-            </div>
-          </div>
-
-          <div class="controls">
-            <button id="startBtn" class="btn primary">Start Test</button>
-            <button id="pauseBtn" class="btn ghost">Pause (Demo)</button>
-            <button id="openNew" class="btn ghost">Open in New Tab</button>
-            <button id="fullscreen" class="btn ghost">Fullscreen</button>
-          </div>
-
-          <div class="note">Note: For real exam security, the external test may prevent embedding. If you see a blank preview, use "Open in New Tab". This mock preserves that behavior.</div>
-        </div>
-
-        <div class="card" style="margin-top:14px">
-          <h2>Instructions</h2>
-          <ol style="padding-left:18px;color:var(--muted)">
-            <li>Check candidate details on the right panel.</li>
-            <li>Click <strong>Start Test</strong> to load the test preview. If blocked, use <strong>Open in New Tab</strong>.</li>
-            <li>When finished, follow the test runner's submit flow.</li>
-          </ol>
-        </div>
-      </div>
-
-      <!-- Right: Sidebar -->
-      <aside>
-        <div class="card meta">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <div class="title">Candidate</div>
-              <div style="font-weight:700">Guest Candidate</div>
-            </div>
-            <div class="status-bubble" id="status">Not started</div>
-          </div>
-
-          <div>
-            <div class="title">Test</div>
-            <div style="font-weight:700">SMLE — Practice</div>
-          </div>
-
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <div class="title">Duration</div>
-              <div style="font-weight:700">60 minutes</div>
-            </div>
-            <div style="text-align:right">
-              <div class="title">Questions</div>
-              <div style="font-weight:700">50</div>
-            </div>
-          </div>
-
-          <div style="margin-top:8px;border-radius:8px;padding:8px;background:linear-gradient(180deg,rgba(11,17,32,0.02),transparent)">
-            <div class="title">Progress</div>
-            <div style="font-weight:700">0 / 50</div>
-          </div>
-
-          <div style="margin-top:10px;display:flex;gap:8px">
-            <button id="resumeBtn" class="btn primary" style="flex:1">Resume</button>
-            <button id="endBtn" class="btn ghost" style="width:110px">End</button>
-          </div>
-
-          <div class="muted" style="margin-top:10px">Support: If embedding fails, open the external test link in a new tab.</div>
-
-          <div style="margin-top:8px;word-break:break-all;background:#f3f6f4;padding:8px;border-radius:8px;font-size:13px">https://script.google.com/macros/s/AKfycby8o5Ei4aZog1y301nuD73V2XRjwLovY5GpkOjDsYKDrKsQOZLRY9qpU5w3MEcMPcEv/exec</div>
-        </div>
-      </aside>
-    </div>
-
-    <div style="text-align:center;margin-top:14px;color:var(--muted);font-size:13px">This mock is for practice only. Do not use real exam content or share confidential material.</div>
-  </div>
-<div class="card" style="margin-top:20px;">
-  <h2>Candidate Verification</h2>
-
-  <label>Name</label>
-  <input id="candName" class="field" placeholder="Your full name">
-
-  <label>WhatsApp Number</label>
-  <input id="candWA" class="field" placeholder="e.g. +62xxx">
-
-  <button id="submitInfo" class="btn primary" style="margin-top:10px;">
-    Preview Test / Submit Info
-  </button>
-
-  <div id="infoMsg" class="muted" style="margin-top:8px;"></div>
-
-  <hr style="margin:18px 0; border-color:rgba(255,255,255,0.06)">
-
-  <label>Enter Unlock Code (given by Admin)</label>
-  <input id="unlockInput" class="field" placeholder="Unlock code" disabled>
-
-  <button id="verifyUnlock" class="btn ghost" disabled style="margin-top:10px;">
-    Verify Unlock Code
-  </button>
-
-  <div id="unlockMsg" class="muted" style="margin-top:8px;"></div>
-
-  <button id="continueRealTest" class="btn primary" disabled style="margin-top:16px;width:100%;font-size:16px;">
-    Continue Test
-  </button>
+<!-- Header -->
+<div id="header">
+  <h1>SMLE CBT - Saudi Council</h1>
+  <div id="candidate-info">Candidate: <span id="cand-name"></span></div>
 </div>
 
-<style>
-  .field{
-    width:100%;padding:10px;margin:6px 0 12px;
-    border-radius:8px;border:1px solid rgba(255,255,255,0.08);
-    background:rgba(255,255,255,0.05);color:#fff;
-  }
-</style>
+<!-- Login -->
+<div id="login">
+  <h2>Enter Your Details</h2>
+  <input type="text" id="name" placeholder="Full Name" />
+  <input type="text" id="whatsapp" placeholder="WhatsApp Number" />
+  <input type="text" id="unlockCode" placeholder="Unlock Code" />
+  <button onclick="verifyUser()">Start Test</button>
+</div>
 
-  <script>
-    // CONFIG — external test URL
-    const TEST_URL = 'https://script.google.com/macros/s/AKfycbyZwfgqKBG3a1Oj0s4e_gI8hToW-Ud9smn7Ytqux8OyGyV9KqC1Q0ZyVAV_2jVu30BN/exec';
+<!-- Dashboard -->
+<div id="dashboard">
+  <h2>Welcome to Your CBT Test</h2>
+  <button onclick="startQuiz()">Begin Quiz</button>
+</div>
 
-    // DOM
-    const embedArea = document.getElementById('embedArea');
-    const startBtn = document.getElementById('startBtn');
-    const pauseBtn = document.getElementById('pauseBtn');
-    const openNew = document.getElementById('openNew');
-    const fullscreen = document.getElementById('fullscreen');
-    const statusEl = document.getElementById('status');
-    const resumeBtn = document.getElementById('resumeBtn');
-    const endBtn = document.getElementById('endBtn');
-    const topTimer = document.getElementById('topTimer');
+<!-- Quiz Container -->
+<div id="quiz-container">
+  <div id="sidebar"></div>
+  <div id="main">
+    <div id="question-header">
+      <h2 id="q-number">Question 1</h2>
+      <span id="timer">30:00</span>
+    </div>
+    <div id="questions"></div>
+    <div id="navigation">
+      <button onclick="prevQuestion()">Previous</button>
+      <button id="review-btn" onclick="toggleReview()">Mark for Review</button>
+      <button onclick="nextQuestion()">Next</button>
+    </div>
+    <button id="review-all-btn" onclick="openReviewModal()">Review All Questions</button>
+    <button id="submit-btn" onclick="submitAnswers()">Submit Test</button>
+  </div>
+</div>
 
-    let iframeEl = null;
-    let totalSeconds = 60 * 60; // 60 minutes
-    let timerInterval = null;
+<!-- Review Modal -->
+<div id="review-modal">
+  <div id="review-modal-content">
+    <h3>Review All Questions</h3>
+    <div id="review-list" style="display:flex; flex-wrap:wrap; margin-top:10px;"></div>
+    <div style="margin-top:15px; display:flex; justify-content:space-between;">
+      <button onclick="closeReviewModal()" style="background:#6c757d; color:#fff;">Close</button>
+      <button onclick="submitAnswers()" style="background:#28a745; color:#fff;">Submit All</button>
+    </div>
+  </div>
+</div>
 
-    function startTimer(){
-      clearInterval(timerInterval);
-      timerInterval = setInterval(()=>{
-        if(totalSeconds>0) totalSeconds--;
-        const mm = String(Math.floor(totalSeconds/60)).padStart(2,'0');
-        const ss = String(totalSeconds%60).padStart(2,'0');
-        topTimer.textContent = mm + ':' + ss;
-      },1000);
-    }
+<script>
+const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwtQGPGIlAJQMIuPDD4BMMjMmodcK13wRIkVAadPWYd97nYDcaoMMkKyjP9XhBrBuC5/exec"; // replace with your GAS backend URL
 
-    function stopTimer(){ clearInterval(timerInterval); }
+let user={}, questions=[], answers={}, reviewMarks={}, currentQ=0, timerInterval;
 
-    function createIframe(forceReload=false){
-      // if there is already an iframe and no forceReload, focus it
-      if(iframeEl && !forceReload) return iframeEl;
-
-      // Create iframe and try to embed
-      iframeEl = document.createElement('iframe');
-      iframeEl.src = TEST_URL;
-      iframeEl.title = 'SMLE Test Runner';
-      iframeEl.style.width = '100%';
-      iframeEl.style.height = '100%';
-      iframeEl.style.border = '0';
-      iframeEl.loading = 'lazy';
-
-      // attach load and error handlers
-      iframeEl.onload = function(){
-        statusEl.textContent = 'In progress';
-        statusEl.style.background = 'rgba(11,120,60,0.08)';
-        startTimer();
-      };
-
-      // Replace embed area content
-      embedArea.innerHTML = '';
-      embedArea.appendChild(iframeEl);
-
-      // Small probe: if after short delay the iframe has no visible content, we keep the fallback visible
-      setTimeout(()=>{
-        try{
-          // try to read a property — if cross-origin blocked this will throw when accessing contentWindow.document
-          const doc = iframeEl.contentDocument || iframeEl.contentWindow.document;
-          // if we can read title or body length it's loaded; just ignore otherwise
-        }catch(e){
-          // Likely blocked by X-Frame-Options/CSP — keep the iframe but inform user
-          statusEl.textContent = 'Embedding blocked — open in new tab';
-        }
-      },1000);
-
-      return iframeEl;
-    }
-
-    startBtn.addEventListener('click', ()=>{
-      createIframe(true);
-      statusEl.textContent = 'Starting...';
-      statusEl.style.background = 'rgba(11,120,60,0.08)';
+function verifyUser(){
+  const name=document.getElementById('name').value.trim();
+  const whatsapp=document.getElementById('whatsapp').value.trim();
+  const unlockCode=document.getElementById('unlockCode').value.trim();
+  if(!name||!whatsapp||!unlockCode){alert("Please fill all fields!"); return;}
+  fetch(BACKEND_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"verify",name,whatsapp,unlockCode})})
+    .then(res=>res.json()).then(data=>{
+      if(data.status==="success"){user={name,whatsapp,unlockCode}; document.getElementById('login').style.display='none'; document.getElementById('dashboard').style.display='block'; document.getElementById('cand-name').textContent=name;}
+      else{alert(data.message||"Verification failed!");}
     });
+}
 
-    resumeBtn.addEventListener('click', ()=>{
-      createIframe();
-      statusEl.textContent = 'Resumed';
-    });
+function startQuiz(){
+  document.getElementById('dashboard').style.display='none';
+  document.getElementById('quiz-container').style.display='flex';
+  fetch(BACKEND_URL+"?action=getQuestions").then(res=>res.json()).then(data=>{
+    if(data.status==="success"){questions=data.questions; generateSidebar(); renderQuestion(); startTimer(60*30);}
+    else{alert("Failed to fetch questions!");}
+  });
+}
 
-    pauseBtn.addEventListener('click', ()=>{
-      stopTimer();
-      statusEl.textContent = 'Paused';
-    });
+function generateSidebar(){
+  const sidebar=document.getElementById('sidebar'); sidebar.innerHTML="";
+  questions.forEach((q,i)=>{const btn=document.createElement('div'); btn.className="qnum"; btn.textContent=i+1; btn.onclick=()=>{saveAnswer(); currentQ=i; renderQuestion();}; sidebar.appendChild(btn);});
+  updateSidebar();
+}
 
-    endBtn.addEventListener('click', ()=>{
-      stopTimer();
-      statusEl.textContent = 'Ended';
-      // Optionally remove iframe to simulate end
-      //embedArea.innerHTML = '<div class="preview-empty"><div style="font-weight:700">Test ended</div></div>';
-    });
+function updateSidebar(){questions.forEach((_,i)=>{const btn=document.getElementById('sidebar').children[i]; btn.className="qnum"; if(answers[i]!=null)btn.classList.add("answered"); if(reviewMarks[i])btn.classList.add("review");});}
 
-    openNew.addEventListener('click', ()=>{
-      window.open(TEST_URL, '_blank');
-      statusEl.textContent = 'Opened in new tab';
-    });
+function renderQuestion(){
+  const q=questions[currentQ]; document.getElementById('q-number').textContent=`Question ${currentQ+1}`;
+  const container=document.getElementById('questions'); container.innerHTML=`<div class="question">${q.question}</div>`+q.options.map((opt,idx)=>`<label class="option"><input type="radio" name="q${currentQ}" value="${idx}" ${answers[currentQ]==idx?'checked':''}> ${opt}</label>`).join('');
+  updateSidebar(); updateReviewButton();
+}
 
-    fullscreen.addEventListener('click', ()=>{
-      if(iframeEl && iframeEl.requestFullscreen){
-        iframeEl.requestFullscreen();
-      } else {
-        window.open(TEST_URL,'_blank');
-      }
-    });
+function nextQuestion(){ saveAnswer(); if(currentQ<questions.length-1){currentQ++; renderQuestion();} }
+function prevQuestion(){ saveAnswer(); if(currentQ>0){currentQ--; renderQuestion();} }
+function saveAnswer(){ const sel=document.querySelector(`input[name="q${currentQ}"]:checked`); answers[currentQ]=sel?sel.value:null; updateSidebar(); }
+function toggleReview(){ reviewMarks[currentQ]=!reviewMarks[currentQ]; updateReviewButton(); updateSidebar(); }
+function updateReviewButton(){ document.getElementById('review-btn').textContent = reviewMarks[currentQ]?"Marked for Review":"Mark for Review"; }
 
-    // Auto-embed on load (try to mimic SMLE behavior)
-    window.addEventListener('DOMContentLoaded', ()=>{
-      createIframe();
-    });
-  </script>
+function submitAnswers(){ saveAnswer(); fetch(BACKEND_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"submitAnswers",user,answers,reviewMarks})}).then(res=>res.json()).then(data=>{if(data.status==="success"){alert("Test submitted successfully!"); location.reload();} else{alert(data.message||"Submission failed!");}});}
+
+/* Timer */
+function startTimer(duration){let timer=duration,min,sec; const display=document.getElementById('timer'); timerInterval=setInterval(()=>{min=Math.floor(timer/60); sec=timer%60; display.textContent=`${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`; if(--timer<0){clearInterval(timerInterval); alert("Time is up! Submitting your answers..."); submitAnswers();}},1000);}
+
+/* Review All Modal */
+function openReviewModal(){
+  const modal=document.getElementById('review-modal');
+  const list=document.getElementById('review-list'); list.innerHTML="";
+  questions.forEach((_,i)=>{
+    const btn=document.createElement('div'); btn.textContent=i+1;
+    if(reviewMarks[i]) btn.style.background="#ffc107";
+    else if(answers[i]!=null) btn.style.background="#28a745";
+    else btn.style.background="#ccc";
+    btn.onclick=()=>{ currentQ=i; renderQuestion(); closeReviewModal(); };
+    list.appendChild(btn);
+  });
+  modal.style.display="flex";
+}
+function closeReviewModal(){ document.getElementById('review-modal').style.display="none"; }
+</script>
 </body>
 </html>
