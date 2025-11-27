@@ -55,13 +55,11 @@ input[type=radio] { margin-right:8px; }
 </head>
 <body>
 
-<!-- Header -->
 <div id="header">
   <h1>SMLE CBT - Saudi Council</h1>
   <div id="candidate-info">Candidate: <span id="cand-name"></span></div>
 </div>
 
-<!-- Login -->
 <div id="login">
   <h2>Enter Your Details</h2>
   <input type="text" id="name" placeholder="Full Name" />
@@ -70,13 +68,11 @@ input[type=radio] { margin-right:8px; }
   <button onclick="verifyUser()">Start Test</button>
 </div>
 
-<!-- Dashboard -->
 <div id="dashboard">
   <h2>Welcome to Your CBT Test</h2>
   <button onclick="startQuiz()">Begin Quiz</button>
 </div>
 
-<!-- Quiz Container -->
 <div id="quiz-container">
   <div id="sidebar"></div>
   <div id="main">
@@ -95,7 +91,6 @@ input[type=radio] { margin-right:8px; }
   </div>
 </div>
 
-<!-- Review Modal -->
 <div id="review-modal">
   <div id="review-modal-content">
     <h3>Review All Questions</h3>
@@ -108,7 +103,7 @@ input[type=radio] { margin-right:8px; }
 </div>
 
 <script>
-const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwtQGPGIlAJQMIuPDD4BMMjMmodcK13wRIkVAadPWYd97nYDcaoMMkKyjP9XhBrBuC5/exec"; // Must be your existing GAS URL
+const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwtQGPGIlAJQMIuPDD4BMMjMmodcK13wRIkVAadPWYd97nYDcaoMMkKyjP9XhBrBuC5/exec"; // replace with your actual GAS backend URL
 
 let user={}, questions=[], answers={}, reviewMarks={}, currentQ=0, timerInterval;
 
@@ -118,9 +113,10 @@ function verifyUser(){
   const unlockCode=document.getElementById('unlockCode').value.trim();
   if(!name||!whatsapp||!unlockCode){alert("Please fill all fields!"); return;}
   fetch(BACKEND_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"verify",name,whatsapp,unlockCode})})
-    .then(res=>res.json()).then(data=>{
+    .then(res=>res.json())
+    .then(data=>{
       if(data.status==="success"){user={name,whatsapp,unlockCode}; document.getElementById('login').style.display='none'; document.getElementById('dashboard').style.display='block'; document.getElementById('cand-name').textContent=name;}
-      else{alert(data.message||"Verification failed!");}
+      else{alert(data.message||"Invalid unlock code!");}
     }).catch(err=>{alert("Cannot connect to backend. Check GAS URL and deployment."); console.error(err);});
 }
 
@@ -155,10 +151,8 @@ function updateReviewButton(){ document.getElementById('review-btn').textContent
 
 function submitAnswers(){ saveAnswer(); fetch(BACKEND_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"submitAnswers",user,answers,reviewMarks})}).then(res=>res.json()).then(data=>{if(data.status==="success"){alert("Test submitted successfully!"); location.reload();} else{alert(data.message||"Submission failed!");}}).catch(err=>{alert("Cannot submit answers."); console.error(err);});}
 
-/* Timer */
 function startTimer(duration){let timer=duration,min,sec; const display=document.getElementById('timer'); timerInterval=setInterval(()=>{min=Math.floor(timer/60); sec=timer%60; display.textContent=`${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`; if(--timer<0){clearInterval(timerInterval); alert("Time is up! Submitting your answers..."); submitAnswers();}},1000);}
 
-/* Review All Modal */
 function openReviewModal(){
   const modal=document.getElementById('review-modal');
   const list=document.getElementById('review-list'); list.innerHTML="";
