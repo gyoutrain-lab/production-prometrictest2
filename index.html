@@ -3,170 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMLE CBT - Saudi Council</title>
-<style>
-body { margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f2f2f2;}
-button { cursor:pointer; border:none; border-radius:4px; }
-
-/* Header */
-#header { background:#007b83; color:#fff; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100;}
-#header h1 { font-size:18px; margin:0;}
-#candidate-info { font-size:14px;}
-
-/* Login/Dashboard */
-#login, #dashboard { max-width:500px; margin:50px auto; padding:25px; background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-input { padding:10px; margin:8px 0; width:100%; border-radius:4px; border:1px solid #ccc; font-size:14px; }
-#login button, #dashboard button { width:100%; padding:12px; background:#007b83; color:#fff; font-size:15px; margin-top:10px; }
-
-/* Quiz Container */
-#quiz-container { display:none; height:calc(100vh - 60px); display:flex; flex-direction:row; }
-#sidebar { width:180px; background:#e9ecef; padding:10px; overflow-y:auto; border-right:1px solid #ccc; }
-.qnum { width:35px; height:35px; margin:5px; text-align:center; line-height:35px; border-radius:50%; cursor:pointer; display:inline-block; background:#ccc; font-weight:bold; color:#000; font-size:14px; }
-.answered { background:#28a745; color:#fff; }
-.review { background:#ffc107; color:#000; }
-#main { flex:1; padding:20px; background:#fff; overflow-y:auto; position:relative; display:flex; flex-direction:column; }
-
-/* Timer & Info */
-#timer { position:fixed; top:70px; right:20px; background:#007b83; color:#fff; padding:10px 15px; border-radius:4px; font-weight:bold; z-index:100; font-size:14px; }
-#question-header { margin-bottom:15px; display:flex; justify-content:space-between; align-items:center; }
-#question-header h2 { font-size:16px; margin:0; }
-#question-header span { font-size:14px; color:#555; }
-
-/* Question Panel */
-.question { margin-bottom:20px; font-size:15px; }
-.option { display:block; margin:10px 0; cursor:pointer; padding:8px; border-radius:4px; border:1px solid #ccc; transition:0.2s; }
-.option:hover { background:#f1f1f1; }
-input[type=radio] { margin-right:8px; }
-
-/* Navigation */
-#navigation { display:flex; justify-content:space-between; margin-top:20px; }
-#navigation button { padding:10px 15px; background:#007b83; color:#fff; font-size:14px; }
-#review-btn { background:#ffc107; color:#000; border:none; padding:10px 15px; border-radius:4px; font-size:14px; cursor:pointer; }
-#review-all-btn { margin-top:15px; background:#17a2b8; color:#fff; padding:10px 12px; border-radius:4px; font-size:14px; }
-
-/* Submit */
-#submit-btn { margin-top:25px; padding:12px; background:#28a745; color:#fff; font-size:16px; border-radius:5px; }
-
-/* Review Modal */
-#review-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:200; justify-content:center; align-items:center; }
-#review-modal-content { background:#fff; padding:20px; border-radius:8px; max-width:500px; width:90%; max-height:80%; overflow-y:auto; }
-#review-list div { width:40px; height:40px; margin:5px; display:flex; align-items:center; justify-content:center; border-radius:50%; cursor:pointer; font-weight:bold; border:1px solid #ccc; color:#000; }
-</style>
+<title>SMLE CBT - Landing</title>
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
-<div id="header">
-  <h1>SMLE CBT - Saudi Council</h1>
-  <div id="candidate-info">Candidate: <span id="cand-name"></span></div>
+<div class="container">
+    <h2>Enter Your Details</h2>
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="text" id="whatsapp" placeholder="WhatsApp Number">
+    <input type="text" id="unlockCode" placeholder="Unlock Code">
+    <button class="full-width" onclick="
+        verifyUser(
+            document.getElementById('name').value,
+            document.getElementById('whatsapp').value,
+            document.getElementById('unlockCode').value,
+            function(ok){ if(ok) window.location.href='dashboard.html'; }
+        )">Start Test</button>
 </div>
-
-<div id="login">
-  <h2>Enter Your Details</h2>
-  <input type="text" id="name" placeholder="Full Name" />
-  <input type="text" id="whatsapp" placeholder="WhatsApp Number" />
-  <input type="text" id="unlockCode" placeholder="Unlock Code" />
-  <button onclick="verifyUser()">Start Test</button>
-</div>
-
-<div id="dashboard">
-  <h2>Welcome to Your CBT Test</h2>
-  <button onclick="startQuiz()">Begin Quiz</button>
-</div>
-
-<div id="quiz-container">
-  <div id="sidebar"></div>
-  <div id="main">
-    <div id="question-header">
-      <h2 id="q-number">Question 1</h2>
-      <span id="timer">30:00</span>
-    </div>
-    <div id="questions"></div>
-    <div id="navigation">
-      <button onclick="prevQuestion()">Previous</button>
-      <button id="review-btn" onclick="toggleReview()">Mark for Review</button>
-      <button onclick="nextQuestion()">Next</button>
-    </div>
-    <button id="review-all-btn" onclick="openReviewModal()">Review All Questions</button>
-    <button id="submit-btn" onclick="submitAnswers()">Submit Test</button>
-  </div>
-</div>
-
-<div id="review-modal">
-  <div id="review-modal-content">
-    <h3>Review All Questions</h3>
-    <div id="review-list" style="display:flex; flex-wrap:wrap; margin-top:10px;"></div>
-    <div style="margin-top:15px; display:flex; justify-content:space-between;">
-      <button onclick="closeReviewModal()" style="background:#6c757d; color:#fff;">Close</button>
-      <button onclick="submitAnswers()" style="background:#28a745; color:#fff;">Submit All</button>
-    </div>
-  </div>
-</div>
-
-<script>
-const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwtQGPGIlAJQMIuPDD4BMMjMmodcK13wRIkVAadPWYd97nYDcaoMMkKyjP9XhBrBuC5/exec"; // replace with your actual GAS backend URL
-
-let user={}, questions=[], answers={}, reviewMarks={}, currentQ=0, timerInterval;
-
-function verifyUser(){
-  const name=document.getElementById('name').value.trim();
-  const whatsapp=document.getElementById('whatsapp').value.trim();
-  const unlockCode=document.getElementById('unlockCode').value.trim();
-  if(!name||!whatsapp||!unlockCode){alert("Please fill all fields!"); return;}
-  fetch(BACKEND_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"verify",name,whatsapp,unlockCode})})
-    .then(res=>res.json())
-    .then(data=>{
-      if(data.status==="success"){user={name,whatsapp,unlockCode}; document.getElementById('login').style.display='none'; document.getElementById('dashboard').style.display='block'; document.getElementById('cand-name').textContent=name;}
-      else{alert(data.message||"Invalid unlock code!");}
-    }).catch(err=>{alert("Cannot connect to backend. Check GAS URL and deployment."); console.error(err);});
-}
-
-function startQuiz(){
-  document.getElementById('dashboard').style.display='none';
-  document.getElementById('quiz-container').style.display='flex';
-  fetch(BACKEND_URL+"?action=getQuestions").then(res=>res.json()).then(data=>{
-    if(data.status==="success"){questions=data.questions; generateSidebar(); renderQuestion(); startTimer(60*30);}
-    else{alert("Failed to fetch questions!");}
-  }).catch(err=>{alert("Cannot fetch questions from backend."); console.error(err);});
-}
-
-function generateSidebar(){
-  const sidebar=document.getElementById('sidebar'); sidebar.innerHTML="";
-  questions.forEach((q,i)=>{const btn=document.createElement('div'); btn.className="qnum"; btn.textContent=i+1; btn.onclick=()=>{saveAnswer(); currentQ=i; renderQuestion();}; sidebar.appendChild(btn);});
-  updateSidebar();
-}
-
-function updateSidebar(){questions.forEach((_,i)=>{const btn=document.getElementById('sidebar').children[i]; btn.className="qnum"; if(answers[i]!=null)btn.classList.add("answered"); if(reviewMarks[i])btn.classList.add("review");});}
-
-function renderQuestion(){
-  const q=questions[currentQ]; document.getElementById('q-number').textContent=`Question ${currentQ+1}`;
-  const container=document.getElementById('questions'); container.innerHTML=`<div class="question">${q.question}</div>`+q.options.map((opt,idx)=>`<label class="option"><input type="radio" name="q${currentQ}" value="${idx}" ${answers[currentQ]==idx?'checked':''}> ${opt}</label>`).join('');
-  updateSidebar(); updateReviewButton();
-}
-
-function nextQuestion(){ saveAnswer(); if(currentQ<questions.length-1){currentQ++; renderQuestion();} }
-function prevQuestion(){ saveAnswer(); if(currentQ>0){currentQ--; renderQuestion();} }
-function saveAnswer(){ const sel=document.querySelector(`input[name="q${currentQ}"]:checked`); answers[currentQ]=sel?sel.value:null; updateSidebar(); }
-function toggleReview(){ reviewMarks[currentQ]=!reviewMarks[currentQ]; updateReviewButton(); updateSidebar(); }
-function updateReviewButton(){ document.getElementById('review-btn').textContent = reviewMarks[currentQ]?"Marked for Review":"Mark for Review"; }
-
-function submitAnswers(){ saveAnswer(); fetch(BACKEND_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"submitAnswers",user,answers,reviewMarks})}).then(res=>res.json()).then(data=>{if(data.status==="success"){alert("Test submitted successfully!"); location.reload();} else{alert(data.message||"Submission failed!");}}).catch(err=>{alert("Cannot submit answers."); console.error(err);});}
-
-function startTimer(duration){let timer=duration,min,sec; const display=document.getElementById('timer'); timerInterval=setInterval(()=>{min=Math.floor(timer/60); sec=timer%60; display.textContent=`${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`; if(--timer<0){clearInterval(timerInterval); alert("Time is up! Submitting your answers..."); submitAnswers();}},1000);}
-
-function openReviewModal(){
-  const modal=document.getElementById('review-modal');
-  const list=document.getElementById('review-list'); list.innerHTML="";
-  questions.forEach((_,i)=>{
-    const btn=document.createElement('div'); btn.textContent=i+1;
-    if(reviewMarks[i]) btn.style.background="#ffc107";
-    else if(answers[i]!=null) btn.style.background="#28a745";
-    else btn.style.background="#ccc";
-    btn.onclick=()=>{ currentQ=i; renderQuestion(); closeReviewModal(); };
-    list.appendChild(btn);
-  });
-  modal.style.display="flex";
-}
-function closeReviewModal(){ document.getElementById('review-modal').style.display="none"; }
-</script>
+<script src="assets/script.js"></script>
 </body>
 </html>
