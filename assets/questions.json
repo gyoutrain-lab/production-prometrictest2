@@ -1,0 +1,9 @@
+{
+  "Level1": [
+    {"question":"What is 2+2?","options":["3","4","5","6"],"answer":1,"rationale":"2+2=4"},
+    {"question":"Capital of Saudi Arabia?","options":["Riyadh","Jeddah","Mecca","Medina"],"answer":0,"rationale":"Capital is Riyadh"}
+  ],
+  "Level2": [
+    {"question":"Level2 Q1 Example","options":["A","B","C","D"],"answer":0,"rationale":"Example rationale"}
+  ]
+}
