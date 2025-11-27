@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMLE CBT - Quiz</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="header">
+  <h1>SMLE CBT - Quiz</h1>
+  <div id="candidate-info">Candidate: <span id="cand-name"></span></div>
+</div>
+<div id="quiz-container">
+  <div id="sidebar"></div>
+  <div id="main">
+    <div id="question-header">
+      <h2 id="q-number">Question 1</h2>
+      <span id="timer">30:00</span>
+    </div>
+    <div id="questions"></div>
+    <div id="navigation">
+      <button onclick="prevQuestion()">Previous</button>
+      <button id="review-btn" onclick="toggleReview()">Mark for Review</button>
+      <button onclick="nextQuestion()">Next</button>
+    </div>
+    <button id="review-all-btn" onclick="openReviewModal()">Review All Questions</button>
+    <button id="submit-btn" onclick="submitAnswers()">Submit Test</button>
+  </div>
+</div>
+
+<div id="review-modal">
+  <div id="review-modal-content">
+    <h3>Review All Questions</h3>
+    <div id="review-list" style="display:flex; flex-wrap:wrap; margin-top:10px;"></div>
+    <div style="margin-top:15px; display:flex; justify-content:space-between;">
+      <button onclick="closeReviewModal()" style="background:#6c757d; color:#fff;">Close</button>
+      <button onclick="submitAnswers()" style="background:#28a745; color:#fff;">Submit All</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/script.js"></script>
+<script>
+const cand=getCandidate();
+if(!cand.name){ alert("No candidate info, please login"); window.location.href='index.html'; }
+document.getElementById('cand-name').textContent=cand.name;
+
+fetchQuestions(ok=>{
+    if(ok){ generateSidebar(); renderQuestion(); startTimer(60*30); }
+});
+</script>
+</body>
+</html>
